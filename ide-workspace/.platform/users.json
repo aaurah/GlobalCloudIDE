@@ -5,5 +5,12 @@
     "email": "aaurah@protonmail.com",
     "passwordHash": "$2b$10$pyPxzGPucSp23xXTGqJgUun/0T0h2rs2UUaKs04RvFp0JLuSQ4c32",
     "createdAt": "2026-06-14T15:12:53.465Z"
+  },
+  {
+    "id": "7b2f6a19-9a24-45b8-b8b9-acffb44df674",
+    "username": "testuser",
+    "email": "test@example.com",
+    "passwordHash": "$2b$10$cpir0iBhssVg65.DH4Ae6OmKUt1GmCWyKVXZgYQnbPgnmq1WtX5Eq",
+    "createdAt": "2026-06-14T16:41:10.404Z"
   }
 ]
