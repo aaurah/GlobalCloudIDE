@@ -135,8 +135,8 @@ export function TopToolbar({ onToggleAiPanel, compact = false }: TopToolbarProps
             </Select>
           )}
 
-          {/* Run / Stop — always visible */}
-          {isRunning ? (
+          {/* Run / Stop — hidden in compact (mobile) mode; MobileEditorShell owns this */}
+          {!compact && (isRunning ? (
             <Button variant="destructive" size="sm" className="h-8 px-2.5 sm:px-3 text-xs flex items-center space-x-1 touch-manipulation" onClick={() => setIsRunning(false)}>
               <Square className="h-3 w-3 fill-current" />
               <span className="hidden sm:inline">Stop</span>
@@ -146,7 +146,7 @@ export function TopToolbar({ onToggleAiPanel, compact = false }: TopToolbarProps
               <Play className="h-3 w-3 fill-current" />
               <span>Run</span>
             </Button>
-          )}
+          ))}
 
           {user ? (
             <>

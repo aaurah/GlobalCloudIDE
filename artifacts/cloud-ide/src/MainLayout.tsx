@@ -17,7 +17,6 @@ import { MobileAiWorkspace } from "./components/mobile/MobileAiWorkspace";
 import { MobileDeployPanel } from "./components/mobile/MobileDeployPanel";
 import { MobileSettingsPanel } from "./components/mobile/MobileSettingsPanel";
 import { OfflineBanner } from "./components/mobile/OfflineBanner";
-import { FloatingActionButton } from "./components/mobile/FloatingActionButton";
 import { InstallPrompt } from "./components/mobile/InstallPrompt";
 import { useOfflineCache } from "./hooks/use-offline-cache";
 
@@ -168,31 +167,7 @@ function IdeLayout() {
             <MobileSettingsPanel />
           </div>
 
-          {/* Floating Action Button — shown over all views except deploy/settings */}
-          {(mobileView === "code" || mobileView === "ai" || mobileView === "terminal") && (
-            <FloatingActionButton
-              activeView={mobileView}
-              onRun={handleRun}
-              onOpenAi={() => setMobileView("ai")}
-              onNewFile={() => setSidebarOpen(true)}
-              onOpenFiles={() => setSidebarOpen(true)}
-              isRunning={isRunning}
-            />
-          )}
         </div>
-
-        {/* Swipe indicator dots for code/terminal/ai */}
-        {SWIPE_VIEWS.includes(mobileView as any) && (
-          <div className="flex items-center justify-center gap-1.5 h-4 shrink-0 bg-background/60">
-            {SWIPE_VIEWS.map(v => (
-              <button
-                key={v}
-                onClick={() => setMobileView(v)}
-                className={`rounded-full transition-all touch-manipulation ${mobileView === v ? "w-4 h-1.5 bg-primary" : "w-1.5 h-1.5 bg-muted-foreground/30"}`}
-              />
-            ))}
-          </div>
-        )}
 
         {/* Bottom nav */}
         <MobileBottomNav

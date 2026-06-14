@@ -2,7 +2,7 @@ import React, { useEffect, useRef, useState } from "react";
 import { useIde } from "../../hooks/use-ide";
 import { useWriteFile } from "@workspace/api-client-react";
 
-export function MonacoEditor() {
+export function MonacoEditor({ hideEmptyState = false }: { hideEmptyState?: boolean } = {}) {
   const { activeTabPath, tabs, updateTabContent, markTabClean, setCursorPosition } = useIde();
   const editorRef = useRef<any>(null);
   const containerRef = useRef<HTMLDivElement>(null);
@@ -88,14 +88,14 @@ export function MonacoEditor() {
     <div className="flex-1 bg-[#1e1e1e] flex flex-col relative h-full">
       {activeTabPath ? (
         <div ref={containerRef} className="absolute inset-0" />
-      ) : (
+      ) : !hideEmptyState ? (
         <div className="flex-1 flex items-center justify-center text-muted-foreground text-sm">
           <div className="text-center">
             <p className="mb-2 text-primary/80 font-semibold">CloudIDE</p>
             <p>Select a file to start editing</p>
           </div>
         </div>
-      )}
+      ) : null}
     </div>
   );
 }

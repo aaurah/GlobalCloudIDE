@@ -93,7 +93,7 @@ export function MobileEditorShell({ onOpenAi, onRun, isRunning, onStop, selected
 
       {/* Editor — fills remaining space */}
       <div className="flex-1 min-h-0 relative">
-        <MonacoEditor />
+        <MonacoEditor hideEmptyState />
 
         {/* Fullscreen toggle */}
         <button
