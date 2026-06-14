@@ -20,6 +20,7 @@ import type {
 } from '@tanstack/react-query';
 
 import type {
+  AgentRequest,
   AiRequest,
   CodeRun,
   DeleteFileParams,
@@ -30,6 +31,8 @@ import type {
   FileWrite,
   HealthStatus,
   ListFilesParams,
+  ProjectContext,
+  ProjectMemory,
   ReadFileParams,
   SuccessResponse
 } from './api.schemas';
@@ -721,5 +724,301 @@ export const useAiAssist = <TError = ErrorType<unknown>,
         TContext
       > => {
       return useMutation(getAiAssistMutationOptions(options));
+    }
+
+export const getGetProjectContextUrl = () => {
+
+
+
+
+  return `/api/context`
+}
+
+/**
+ * @summary Get full project context map
+ */
+export const getProjectContext = async ( options?: RequestInit): Promise<ProjectContext> => {
+
+  return customFetch<ProjectContext>(getGetProjectContextUrl(),
+  {
+    ...options,
+    method: 'GET'
+
+
+  }
+);}
+
+
+
+
+
+export const getGetProjectContextQueryKey = () => {
+    return [
+    `/api/context`
+    ] as const;
+    }
+
+
+export const getGetProjectContextQueryOptions = <TData = Awaited<ReturnType<typeof getProjectContext>>, TError = ErrorType<unknown>>( options?: { query?:UseQueryOptions<Awaited<ReturnType<typeof getProjectContext>>, TError, TData>, request?: SecondParameter<typeof customFetch>}
+) => {
+
+const {query: queryOptions, request: requestOptions} = options ?? {};
+
+  const queryKey =  queryOptions?.queryKey ?? getGetProjectContextQueryKey();
+
+
+
+    const queryFn: QueryFunction<Awaited<ReturnType<typeof getProjectContext>>> = ({ signal }) => getProjectContext({ signal, ...requestOptions });
+
+
+
+
+
+   return  { queryKey, queryFn, ...queryOptions} as UseQueryOptions<Awaited<ReturnType<typeof getProjectContext>>, TError, TData> & { queryKey: QueryKey }
+}
+
+export type GetProjectContextQueryResult = NonNullable<Awaited<ReturnType<typeof getProjectContext>>>
+export type GetProjectContextQueryError = ErrorType<unknown>
+
+
+/**
+ * @summary Get full project context map
+ */
+
+export function useGetProjectContext<TData = Awaited<ReturnType<typeof getProjectContext>>, TError = ErrorType<unknown>>(
+  options?: { query?:UseQueryOptions<Awaited<ReturnType<typeof getProjectContext>>, TError, TData>, request?: SecondParameter<typeof customFetch>}
+
+ ):  UseQueryResult<TData, TError> & { queryKey: QueryKey } {
+
+  const queryOptions = getGetProjectContextQueryOptions(options)
+
+  const query = useQuery(queryOptions) as  UseQueryResult<TData, TError> & { queryKey: QueryKey };
+
+  return { ...query, queryKey: queryOptions.queryKey };
+}
+
+
+
+
+
+
+
+export const getRunAgentUrl = () => {
+
+
+
+
+  return `/api/agent`
+}
+
+/**
+ * @summary Run autonomous AI agent (streams steps via SSE)
+ */
+export const runAgent = async (agentRequest: AgentRequest, options?: RequestInit): Promise<string> => {
+
+  return customFetch<string>(getRunAgentUrl(),
+  {
+    ...options,
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json', ...options?.headers },
+    body: JSON.stringify(
+      agentRequest,)
+  }
+);}
+
+
+
+
+export const getRunAgentMutationOptions = <TError = ErrorType<unknown>,
+    TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof runAgent>>, TError,{data: BodyType<AgentRequest>}, TContext>, request?: SecondParameter<typeof customFetch>}
+): UseMutationOptions<Awaited<ReturnType<typeof runAgent>>, TError,{data: BodyType<AgentRequest>}, TContext> => {
+
+const mutationKey = ['runAgent'];
+const {mutation: mutationOptions, request: requestOptions} = options ?
+      options.mutation && 'mutationKey' in options.mutation && options.mutation.mutationKey ?
+      options
+      : {...options, mutation: {...options.mutation, mutationKey}}
+      : {mutation: { mutationKey, }, request: undefined};
+
+
+
+
+      const mutationFn: MutationFunction<Awaited<ReturnType<typeof runAgent>>, {data: BodyType<AgentRequest>}> = (props) => {
+          const {data} = props ?? {};
+
+          return  runAgent(data,requestOptions)
+        }
+
+
+
+
+
+
+  return  { mutationFn, ...mutationOptions }}
+
+    export type RunAgentMutationResult = NonNullable<Awaited<ReturnType<typeof runAgent>>>
+    export type RunAgentMutationBody = BodyType<AgentRequest>
+    export type RunAgentMutationError = ErrorType<unknown>
+
+    /**
+ * @summary Run autonomous AI agent (streams steps via SSE)
+ */
+export const useRunAgent = <TError = ErrorType<unknown>,
+    TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof runAgent>>, TError,{data: BodyType<AgentRequest>}, TContext>, request?: SecondParameter<typeof customFetch>}
+ ): UseMutationResult<
+        Awaited<ReturnType<typeof runAgent>>,
+        TError,
+        {data: BodyType<AgentRequest>},
+        TContext
+      > => {
+      return useMutation(getRunAgentMutationOptions(options));
+    }
+
+export const getGetMemoryUrl = () => {
+
+
+
+
+  return `/api/memory`
+}
+
+/**
+ * @summary Get project memory
+ */
+export const getMemory = async ( options?: RequestInit): Promise<ProjectMemory> => {
+
+  return customFetch<ProjectMemory>(getGetMemoryUrl(),
+  {
+    ...options,
+    method: 'GET'
+
+
+  }
+);}
+
+
+
+
+
+export const getGetMemoryQueryKey = () => {
+    return [
+    `/api/memory`
+    ] as const;
+    }
+
+
+export const getGetMemoryQueryOptions = <TData = Awaited<ReturnType<typeof getMemory>>, TError = ErrorType<unknown>>( options?: { query?:UseQueryOptions<Awaited<ReturnType<typeof getMemory>>, TError, TData>, request?: SecondParameter<typeof customFetch>}
+) => {
+
+const {query: queryOptions, request: requestOptions} = options ?? {};
+
+  const queryKey =  queryOptions?.queryKey ?? getGetMemoryQueryKey();
+
+
+
+    const queryFn: QueryFunction<Awaited<ReturnType<typeof getMemory>>> = ({ signal }) => getMemory({ signal, ...requestOptions });
+
+
+
+
+
+   return  { queryKey, queryFn, ...queryOptions} as UseQueryOptions<Awaited<ReturnType<typeof getMemory>>, TError, TData> & { queryKey: QueryKey }
+}
+
+export type GetMemoryQueryResult = NonNullable<Awaited<ReturnType<typeof getMemory>>>
+export type GetMemoryQueryError = ErrorType<unknown>
+
+
+/**
+ * @summary Get project memory
+ */
+
+export function useGetMemory<TData = Awaited<ReturnType<typeof getMemory>>, TError = ErrorType<unknown>>(
+  options?: { query?:UseQueryOptions<Awaited<ReturnType<typeof getMemory>>, TError, TData>, request?: SecondParameter<typeof customFetch>}
+
+ ):  UseQueryResult<TData, TError> & { queryKey: QueryKey } {
+
+  const queryOptions = getGetMemoryQueryOptions(options)
+
+  const query = useQuery(queryOptions) as  UseQueryResult<TData, TError> & { queryKey: QueryKey };
+
+  return { ...query, queryKey: queryOptions.queryKey };
+}
+
+
+
+
+
+
+
+export const getUpdateMemoryUrl = () => {
+
+
+
+
+  return `/api/memory`
+}
+
+/**
+ * @summary Update project memory
+ */
+export const updateMemory = async (projectMemory: ProjectMemory, options?: RequestInit): Promise<ProjectMemory> => {
+
+  return customFetch<ProjectMemory>(getUpdateMemoryUrl(),
+  {
+    ...options,
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json', ...options?.headers },
+    body: JSON.stringify(
+      projectMemory,)
+  }
+);}
+
+
+
+
+export const getUpdateMemoryMutationOptions = <TError = ErrorType<unknown>,
+    TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof updateMemory>>, TError,{data: BodyType<ProjectMemory>}, TContext>, request?: SecondParameter<typeof customFetch>}
+): UseMutationOptions<Awaited<ReturnType<typeof updateMemory>>, TError,{data: BodyType<ProjectMemory>}, TContext> => {
+
+const mutationKey = ['updateMemory'];
+const {mutation: mutationOptions, request: requestOptions} = options ?
+      options.mutation && 'mutationKey' in options.mutation && options.mutation.mutationKey ?
+      options
+      : {...options, mutation: {...options.mutation, mutationKey}}
+      : {mutation: { mutationKey, }, request: undefined};
+
+
+
+
+      const mutationFn: MutationFunction<Awaited<ReturnType<typeof updateMemory>>, {data: BodyType<ProjectMemory>}> = (props) => {
+          const {data} = props ?? {};
+
+          return  updateMemory(data,requestOptions)
+        }
+
+
+
+
+
+
+  return  { mutationFn, ...mutationOptions }}
+
+    export type UpdateMemoryMutationResult = NonNullable<Awaited<ReturnType<typeof updateMemory>>>
+    export type UpdateMemoryMutationBody = BodyType<ProjectMemory>
+    export type UpdateMemoryMutationError = ErrorType<unknown>
+
+    /**
+ * @summary Update project memory
+ */
+export const useUpdateMemory = <TError = ErrorType<unknown>,
+    TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof updateMemory>>, TError,{data: BodyType<ProjectMemory>}, TContext>, request?: SecondParameter<typeof customFetch>}
+ ): UseMutationResult<
+        Awaited<ReturnType<typeof updateMemory>>,
+        TError,
+        {data: BodyType<ProjectMemory>},
+        TContext
+      > => {
+      return useMutation(getUpdateMemoryMutationOptions(options));
     }
 

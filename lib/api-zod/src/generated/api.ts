@@ -124,3 +124,76 @@ export const AiAssistBody = zod.object({
 })
 
 
+/**
+ * @summary Get full project context map
+ */
+export const GetProjectContextResponse = zod.object({
+  "totalFiles": zod.number(),
+  "totalSize": zod.number(),
+  "files": zod.array(zod.object({
+  "path": zod.string(),
+  "content": zod.string(),
+  "language": zod.string(),
+  "size": zod.number(),
+  "imports": zod.array(zod.string()),
+  "functions": zod.array(zod.string()),
+  "classes": zod.array(zod.string())
+})),
+  "structure": zod.string(),
+  "generatedAt": zod.string()
+})
+
+
+/**
+ * @summary Run autonomous AI agent (streams steps via SSE)
+ */
+export const RunAgentBody = zod.object({
+  "mode": zod.enum(['builder', 'debugger', 'reviewer', 'auto']),
+  "task": zod.string(),
+  "targetFile": zod.string().nullish(),
+  "errorOutput": zod.string().nullish(),
+  "autoRun": zod.boolean().optional()
+})
+
+
+/**
+ * @summary Get project memory
+ */
+export const GetMemoryResponse = zod.object({
+  "projectName": zod.string(),
+  "description": zod.string(),
+  "architecture": zod.array(zod.string()),
+  "namingConventions": zod.array(zod.string()),
+  "codingStyle": zod.array(zod.string()),
+  "dependencies": zod.array(zod.string()),
+  "notes": zod.array(zod.string()),
+  "updatedAt": zod.string()
+})
+
+
+/**
+ * @summary Update project memory
+ */
+export const UpdateMemoryBody = zod.object({
+  "projectName": zod.string(),
+  "description": zod.string(),
+  "architecture": zod.array(zod.string()),
+  "namingConventions": zod.array(zod.string()),
+  "codingStyle": zod.array(zod.string()),
+  "dependencies": zod.array(zod.string()),
+  "notes": zod.array(zod.string()),
+  "updatedAt": zod.string()
+})
+
+export const UpdateMemoryResponse = zod.object({
+  "projectName": zod.string(),
+  "description": zod.string(),
+  "architecture": zod.array(zod.string()),
+  "namingConventions": zod.array(zod.string()),
+  "codingStyle": zod.array(zod.string()),
+  "dependencies": zod.array(zod.string()),
+  "notes": zod.array(zod.string()),
+  "updatedAt": zod.string()
+})
+
+

@@ -20,3 +20,15 @@ export interface OutputLine {
   text: string;
   timestamp: number;
 }
+
+export type AgentMode = "builder" | "debugger" | "reviewer";
+
+export interface AgentStep {
+  type: "thinking" | "action" | "output" | "error" | "done";
+  content?: string;
+  action?: string;
+  path?: string;
+  language?: string;
+  filesChanged?: string[];
+  timestamp: number;
+}

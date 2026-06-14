@@ -1,0 +1,137 @@
+You are now upgrading the entire platform (IDE + Cloud OS + dashboards + agents + deployments) to be fully mobile-friendly and mobile-native.
+
+### GOAL
+Transform the UI and UX so the platform works perfectly on:
+- iPhone
+- Android
+- Tablets
+- Small screens
+- Touch interfaces
+- Mobile browsers
+- As a PWA (installable app)
+
+### NEW FEATURES TO ADD
+
+1. **Mobile-First Responsive Layout**
+   - Convert all UI components to responsive:
+       - Editor
+       - File tree
+       - Terminal
+       - Output panel
+       - Deployment dashboard
+       - Logs viewer
+       - Agent marketplace
+       - Plugin marketplace
+       - Cloud functions editor
+   - Use:
+       - CSS grid
+       - Flexbox
+       - Breakpoints for:
+           - 320px
+           - 480px
+           - 768px
+           - 1024px
+
+2. **Touch-Optimized IDE**
+   - Add touch gestures:
+       - Tap to open file
+       - Long-press for context menu
+       - Swipe left/right to switch tabs
+       - Pinch to zoom editor
+   - Increase hit areas for buttons
+   - Add mobile-friendly Monaco Editor configuration
+
+3. **Mobile Terminal**
+   - Add:
+       - Large input bar
+       - Auto-scroll
+       - Touch cursor movement
+       - Virtual keyboard optimization
+   - Support:
+       - Copy/paste
+       - Clear screen
+       - Resize panel
+
+4. **Mobile AI Panel**
+   - Add collapsible AI panel
+   - Full-screen AI chat mode
+   - Floating “AI Assist” button
+   - Touch-friendly buttons:
+       - Generate
+       - Fix
+       - Explain
+       - Refactor
+
+5. **Mobile Deployment Dashboard**
+   - Add:
+       - Collapsible sections
+       - Swipeable logs
+       - Tap-to-expand metrics
+       - Mobile-friendly charts
+
+6. **Mobile Navigation System**
+   - Add bottom navigation bar:
+       - Code
+       - Terminal
+       - Deploy
+       - AI
+       - Settings
+   - Add slide-out sidebar for file tree
+
+7. **PWA Support**
+   - Add:
+       - manifest.json
+       - service worker
+       - offline caching
+       - install prompt
+   - App should work offline for:
+       - Editing files
+       - Viewing logs
+       - Running AI locally (if cached)
+
+8. **Offline Mode**
+   - Cache:
+       - Files
+       - Editor state
+       - AI prompts
+       - Logs
+   - Sync changes when online
+
+9. **Mobile Performance Optimization**
+   - Lazy-load heavy components
+   - Reduce bundle size
+   - Use code splitting
+   - Optimize Monaco for mobile
+   - Reduce re-renders
+
+10. **Deliverables**
+   - Updated folder structure
+   - Updated frontend components
+   - Mobile breakpoints
+   - Touch gesture handlers
+   - PWA files
+   - Offline caching logic
+   - Mobile navigation
+   - Mobile terminal
+   - Mobile AI panel
+   - Integration instructions
+   - Example mobile workflows
+
+### STYLE
+- Clean, modular, production-ready
+- No placeholders
+- Fully working code
+
+### OUTPUT FORMAT
+Respond with:
+1. Updated folder structure
+2. Mobile UI components
+3. Responsive CSS
+4. Touch gesture code
+5. Mobile terminal code
+6. Mobile AI panel code
+7. PWA files
+8. Offline mode logic
+9. Navigation system
+10. Integration instructions
+11. Example mobile workflows

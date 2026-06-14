@@ -1,5 +1,5 @@
 import React, { createContext, useContext, useState, useCallback, useRef } from "react";
-import { OpenTab, OutputLine } from "../lib/ide-types";
+import { OpenTab, OutputLine, AgentMode, AgentStep, AiAction } from "../lib/ide-types";
 import { useWriteFile } from "@workspace/api-client-react";
 
 interface IdeState {
@@ -11,6 +11,14 @@ interface IdeState {
   isAiLoading: boolean;
   aiResponse: string;
   cursorPosition: { line: number; column: number };
+  
+  isPaletteOpen: boolean;
+  agentMode: AgentMode;
+  isAgentRunning: boolean;
+  agentSteps: AgentStep[];
+  aiAction: AiAction;
+  aiPrompt: string;
+  aiPanelTab: "assistant" | "agent" | "memory";
 }
 
 interface IdeActions {
@@ -26,6 +34,16 @@ interface IdeActions {
   setIsRunning: (running: boolean) => void;
   setAiState: (loading: boolean, response?: string) => void;
   setCursorPosition: (line: number, column: number) => void;
+  
+  openPalette: () => void;
+  closePalette: () => void;
+  setAgentMode: (mode: AgentMode) => void;
+  setIsAgentRunning: (running: boolean) => void;
+  addAgentStep: (step: Omit<AgentStep, "timestamp">) => void;
+  clearAgentSteps: () => void;
+  setAiAction: (action: AiAction) => void;
+  setAiPrompt: (prompt: string) => void;
+  setAiPanelTab: (tab: "assistant" | "agent" | "memory") => void;
 }
 
 const IdeContext = createContext<(IdeState & IdeActions) | null>(null);
@@ -39,6 +57,14 @@ export function IdeProvider({ children }: { children: React.ReactNode }) {
   const [isAiLoading, setIsAiLoading] = useState(false);
   const [aiResponse, setAiResponse] = useState("");
   const [cursorPosition, setCursorPositionState] = useState({ line: 1, column: 1 });
+  
+  const [isPaletteOpen, setIsPaletteOpen] = useState(false);
+  const [agentMode, setAgentModeState] = useState<AgentMode>("builder");
+  const [isAgentRunning, setIsAgentRunningState] = useState(false);
+  const [agentSteps, setAgentSteps] = useState<AgentStep[]>([]);
+  const [aiAction, setAiActionState] = useState<AiAction>("generate");
+  const [aiPrompt, setAiPromptState] = useState("");
+  const [aiPanelTab, setAiPanelTabState] = useState<"assistant" | "agent" | "memory">("assistant");
 
   const openFile = useCallback((path: string, content: string, language: string) => {
     setTabs(prev => {
@@ -95,6 +121,20 @@ export function IdeProvider({ children }: { children: React.ReactNode }) {
     setCursorPositionState({ line, column });
   }, []);
 
+  const openPalette = useCallback(() => setIsPaletteOpen(true), []);
+  const closePalette = useCallback(() => setIsPaletteOpen(false), []);
+  
+  const setAgentMode = useCallback((mode: AgentMode) => setAgentModeState(mode), []);
+  const setIsAgentRunning = useCallback((running: boolean) => setIsAgentRunningState(running), []);
+  const addAgentStep = useCallback((step: Omit<AgentStep, "timestamp">) => {
+    setAgentSteps(prev => [...prev, { ...step, timestamp: Date.now() }]);
+  }, []);
+  const clearAgentSteps = useCallback(() => setAgentSteps([]), []);
+  
+  const setAiAction = useCallback((action: AiAction) => setAiActionState(action), []);
+  const setAiPrompt = useCallback((prompt: string) => setAiPromptState(prompt), []);
+  const setAiPanelTab = useCallback((tab: "assistant" | "agent" | "memory") => setAiPanelTabState(tab), []);
+
   return (
     <IdeContext.Provider
       value={{
@@ -106,6 +146,13 @@ export function IdeProvider({ children }: { children: React.ReactNode }) {
         isAiLoading,
         aiResponse,
         cursorPosition,
+        isPaletteOpen,
+        agentMode,
+        isAgentRunning,
+        agentSteps,
+        aiAction,
+        aiPrompt,
+        aiPanelTab,
         openFile,
         closeFile,
         setActiveTab,
@@ -118,6 +165,15 @@ export function IdeProvider({ children }: { children: React.ReactNode }) {
         setIsRunning,
         setAiState,
         setCursorPosition,
+        openPalette,
+        closePalette,
+        setAgentMode,
+        setIsAgentRunning,
+        addAgentStep,
+        clearAgentSteps,
+        setAiAction,
+        setAiPrompt,
+        setAiPanelTab,
       }}
     >
       {children}

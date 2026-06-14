@@ -187,6 +187,68 @@ paths:
               schema:
                 type: string
 
+  /context:
+    get:
+      operationId: getProjectContext
+      tags: [ai]
+      summary: Get full project context map
+      responses:
+        "200":
+          description: Project context
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ProjectContext"
+
+  /agent:
+    post:
+      operationId: runAgent
+      tags: [ai]
+      summary: Run autonomous AI agent (streams steps via SSE)
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/AgentRequest"
+      responses:
+        "200":
+          description: SSE stream of agent steps
+          content:
+            text/event-stream:
+              schema:
+                type: string
+
+  /memory:
+    get:
+      operationId: getMemory
+      tags: [ai]
+      summary: Get project memory
+      responses:
+        "200":
+          description: Project memory
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ProjectMemory"
+    post:
+      operationId: updateMemory
+      tags: [ai]
+      summary: Update project memory
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/ProjectMemory"
+      responses:
+        "200":
+          description: Updated memory
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ProjectMemory"
+
 components:
   schemas:
     HealthStatus:
@@ -299,3 +361,114 @@ components:
           type: ["string", "null"]
       required:
         - success
+
+    FileContextEntry:
+      type: object
+      properties:
+        path:
+          type: string
+        content:
+          type: string
+        language:
+          type: string
+        size:
+          type: integer
+        imports:
+          type: array
+          items:
+            type: string
+        functions:
+          type: array
+          items:
+            type: string
+        classes:
+          type: array
+          items:
+            type: string
+      required:
+        - path
+        - content
+        - language
+        - size
+        - imports
+        - functions
+        - classes
+
+    ProjectContext:
+      type: object
+      properties:
+        totalFiles:
+          type: integer
+        totalSize:
+          type: integer
+        files:
+          type: array
+          items:
+            $ref: "#/components/schemas/FileContextEntry"
+        structure:
+          type: string
+        generatedAt:
+          type: string
+      required:
+        - totalFiles
+        - totalSize
+        - files
+        - structure
+        - generatedAt
+
+    AgentRequest:
+      type: object
+      properties:
+        mode:
+          type: string
+          enum: [builder, debugger, reviewer, auto]
+        task:
+          type: string
+        targetFile:
+          type: ["string", "null"]
+        errorOutput:
+          type: ["string", "null"]
+        autoRun:
+          type: boolean
+      required:
+        - mode
+        - task
+
+    ProjectMemory:
+      type: object
+      properties:
+        projectName:
+          type: string
+        description:
+          type: string
+        architecture:
+          type: array
+          items:
+            type: string
+        namingConventions:
+          type: array
+          items:
+            type: string
+        codingStyle:
+          type: array
+          items:
+            type: string
+        dependencies:
+          type: array
+          items:
+            type: string
+        notes:
+          type: array
+          items:
+            type: string
+        updatedAt:
+          type: string
+      required:
+        - projectName
+        - description
+        - architecture
+        - namingConventions
+        - codingStyle
+        - dependencies
+        - notes
+        - updatedAt

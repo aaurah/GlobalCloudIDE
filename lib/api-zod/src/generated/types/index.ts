@@ -6,6 +6,8 @@
  * OpenAPI spec version: 0.1.0
  */
 
+export * from './agentRequest';
+export * from './agentRequestMode';
 export * from './aiRequest';
 export * from './aiRequestAction';
 export * from './codeRun';
@@ -13,11 +15,14 @@ export * from './codeRunLanguage';
 export * from './deleteFileParams';
 export * from './directoryCreate';
 export * from './fileContent';
+export * from './fileContextEntry';
 export * from './fileEntry';
 export * from './fileEntryType';
 export * from './fileRename';
 export * from './fileWrite';
 export * from './healthStatus';
 export * from './listFilesParams';
+export * from './projectContext';
+export * from './projectMemory';
 export * from './readFileParams';
 export * from './successResponse';

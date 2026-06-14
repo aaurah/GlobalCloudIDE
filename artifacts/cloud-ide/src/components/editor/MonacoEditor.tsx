@@ -14,10 +14,10 @@ export function MonacoEditor() {
     const onMonacoLoaded = () => setIsReady(true);
     if ((window as any).monacoLoaded) {
       setIsReady(true);
-    } else {
-      window.addEventListener("monaco_loaded", onMonacoLoaded);
-      return () => window.removeEventListener("monaco_loaded", onMonacoLoaded);
+      return;
     }
+    window.addEventListener("monaco_loaded", onMonacoLoaded);
+    return () => window.removeEventListener("monaco_loaded", onMonacoLoaded);
   }, []);
 
   useEffect(() => {

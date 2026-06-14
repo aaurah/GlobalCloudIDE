@@ -90,6 +90,55 @@ export interface SuccessResponse {
   message?: string | null;
 }
 
+export interface FileContextEntry {
+  path: string;
+  content: string;
+  language: string;
+  size: number;
+  imports: string[];
+  functions: string[];
+  classes: string[];
+}
+
+export interface ProjectContext {
+  totalFiles: number;
+  totalSize: number;
+  files: FileContextEntry[];
+  structure: string;
+  generatedAt: string;
+}
+
+export type AgentRequestMode = typeof AgentRequestMode[keyof typeof AgentRequestMode];
+
+
+export const AgentRequestMode = {
+  builder: 'builder',
+  debugger: 'debugger',
+  reviewer: 'reviewer',
+  auto: 'auto',
+} as const;
+
+export interface AgentRequest {
+  mode: AgentRequestMode;
+  task: string;
+  /** @nullable */
+  targetFile?: string | null;
+  /** @nullable */
+  errorOutput?: string | null;
+  autoRun?: boolean;
+}
+
+export interface ProjectMemory {
+  projectName: string;
+  description: string;
+  architecture: string[];
+  namingConventions: string[];
+  codingStyle: string[];
+  dependencies: string[];
+  notes: string[];
+  updatedAt: string;
+}
+
 export type ListFilesParams = {
 path?: string;
 };
