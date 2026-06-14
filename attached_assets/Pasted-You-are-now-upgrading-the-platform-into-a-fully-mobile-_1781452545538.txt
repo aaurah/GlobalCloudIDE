@@ -1,0 +1,143 @@
+You are now upgrading the platform into a fully mobile-native app frontend for iOS and Android. The goal is to create a mobile app experience that feels like a native IDE, cloud dashboard, and AI workspace.
+
+### GOAL
+Transform the existing mobile-friendly UI into a full mobile app frontend with:
+- Native-like performance
+- App-style navigation
+- Gesture-driven interactions
+- Offline-first architecture
+- AI-native workflows
+- Smooth animations
+- Mobile code editor
+- Mobile terminal
+- Mobile deployment dashboard
+- Mobile agent console
+
+### NEW FEATURES TO ADD
+
+1. **Mobile App Shell**
+   - Create a full app shell with:
+       - Bottom navigation bar
+       - Slide-out sidebar
+       - Floating action buttons
+       - App header with dynamic actions
+   - Support dark/light mode
+   - Add smooth transitions between screens
+
+2. **Mobile Code Editor (Enhanced)**
+   - Optimize Monaco for mobile:
+       - Larger touch targets
+       - Auto-zoom on input
+       - Smart keyboard handling
+       - Touch cursor controls
+   - Add:
+       - File tabs as swipeable chips
+       - Full-screen editor mode
+       - Quick actions bar (Run, Save, AI)
+
+3. **Mobile Terminal (Enhanced)**
+   - Add:
+       - Touch cursor
+       - Scrollback buffer
+       - Auto-scroll
+       - Large input bar
+       - Command history
+   - Support:
+       - Swipe to clear
+       - Long-press to copy
+
+4. **Mobile Deployment Dashboard**
+   - Add:
+       - Swipeable logs
+       - Tap-to-expand metrics
+       - Real-time charts
+       - Deployment timeline
+       - Build status cards
+
+5. **Mobile AI Workspace**
+   - Add:
+       - Full-screen AI chat
+       - Floating AI assistant button
+       - AI quick actions:
+           - Generate
+           - Fix
+           - Explain
+           - Refactor
+           - Create file
+           - Debug
+   - Add voice input for prompts
+
+6. **Mobile Navigation System**
+   - Bottom navigation tabs:
+       - Code
+       - Terminal
+       - Deploy
+       - AI
+       - Settings
+   - Slide-out sidebar for:
+       - Files
+       - Agents
+       - Plugins
+       - Cloud functions
+
+7. **Mobile Animations**
+   - Add:
+       - Smooth transitions
+       - Slide animations
+       - Fade animations
+       - Pull-to-refresh
+       - Swipe gestures
+
+8. **Offline-First Architecture**
+   - Cache:
+       - Files
+       - Editor state
+       - Logs
+       - AI prompts
+   - Sync changes when online
+   - Show offline banners
+
+9. **PWA → App Upgrade**
+   - Add:
+       - App icons
+       - Splash screens
+       - Fullscreen mode
+       - Install prompts
+   - Ensure the app feels native on:
+       - iOS Safari
+       - Android Chrome
+       - Standalone PWA mode
+
+10. **Deliverables**
+   - Updated folder structure
+   - Mobile app shell
+   - Mobile editor enhancements
+   - Mobile terminal enhancements
+   - Mobile deployment dashboard
+   - Mobile AI workspace
+   - Navigation system
+   - Animations
+   - Offline-first logic
+   - PWA upgrades
+   - Integration instructions
+   - Example mobile workflows
+
+### STYLE
+- Clean, modular, production-ready
+- No placeholders
+- Fully working code
+
+### OUTPUT FORMAT
+Respond with:
+1. Updated folder structure
+2. Mobile app shell code
+3. Mobile editor enhancements
+4. Mobile terminal enhancements
+5. Mobile deployment dashboard
+6. Mobile AI workspace
+7. Navigation system
+8. Animations
+9. Offline-first logic
+10. PWA upgrades
+11. Integration instructions
+12. Example mobile workflows

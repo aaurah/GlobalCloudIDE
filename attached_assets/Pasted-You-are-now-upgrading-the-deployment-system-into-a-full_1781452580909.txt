@@ -1,0 +1,171 @@
+You are now upgrading the deployment system into a full production-grade release engine with advanced strategies, environments, rollbacks, secrets management, and AI-assisted deployment flows.
+
+### GOAL
+Build an advanced deployment layer that supports:
+- Multiple environments (dev, staging, prod)
+- Blue-green deployments
+- Canary releases
+- Rollbacks
+- Secrets & environment variables
+- Build pipelines
+- Health checks
+- AI-assisted release planning and incident response
+
+### NEW FEATURES TO ADD
+
+1. **Environment System**
+   - Add support for:
+       - development
+       - staging
+       - production
+   - Each environment has:
+       - its own config
+       - its own deployments
+       - its own URLs
+   - Endpoints:
+       - /envs/list
+       - /envs/config
+       - /deploy/{env}/start
+       - /deploy/{env}/status
+
+2. **Blue-Green Deployments**
+   - Implement blue-green strategy:
+       - Blue = current live version
+       - Green = new version
+   - Steps:
+       1. Deploy Green alongside Blue
+       2. Run health checks on Green
+       3. Switch traffic from Blue → Green
+       4. Keep Blue as rollback target
+   - Add:
+       - /deploy/blue-green/start
+       - /deploy/blue-green/switch
+       - /deploy/blue-green/rollback
+
+3. **Canary Releases**
+   - Implement canary rollout:
+       - Gradual traffic shifting:
+           - 1% → 10% → 25% → 50% → 100%
+   - Monitor:
+       - error rate
+       - latency
+       - resource usage
+   - Auto-abort if metrics degrade.
+   - Endpoints:
+       - /deploy/canary/start
+       - /deploy/canary/progress
+       - /deploy/canary/abort
+
+4. **Rollbacks**
+   - Track deployment history:
+       - version
+       - commit hash
+       - timestamp
+       - environment
+   - Allow:
+       - one-click rollback
+       - rollback with reason
+   - Endpoints:
+       - /deploy/history
+       - /deploy/rollback
+
+5. **Secrets & Environment Variables**
+   - Add secure storage for:
+       - API keys
+       - DB credentials
+       - tokens
+   - Support:
+       - per-environment secrets
+       - per-project secrets
+   - Endpoints:
+       - /secrets/set
+       - /secrets/get
+       - /secrets/list
+   - Inject secrets into runtime at deploy time.
+
+6. **Build & Release Pipelines**
+   - Define pipelines:
+       - build
+       - test
+       - package
+       - deploy
+   - Allow users to define:
+       - pipeline.json
+   - Show pipeline status in UI:
+       - pending
+       - running
+       - passed
+       - failed
+
+7. **Health Checks & Monitoring**
+   - Add:
+       - HTTP health checks
+       - custom health scripts
+   - Monitor:
+       - uptime
+       - response time
+       - error rate
+   - Endpoints:
+       - /health/{deploymentId}
+       - /metrics/{deploymentId}
+
+8. **AI-Assisted Deployment**
+   - Add AI helpers that:
+       - Analyze deployment risk
+       - Suggest rollout strategy (blue-green vs canary)
+       - Summarize changes in a release
+       - Predict potential issues
+       - Generate incident response steps
+   - Endpoints:
+       - /deploy/ai/plan
+       - /deploy/ai/summary
+       - /deploy/ai/incident-help
+
+9. **Frontend Deployment Console**
+   - Add UI for:
+       - environment selection
+       - blue-green controls
+       - canary progress
+       - rollback button
+       - secrets management
+       - pipeline view
+       - health & metrics charts
+       - AI deployment assistant panel
+
+10. **Deliverables**
+   - Backend code for:
+       - environments
+       - blue-green
+       - canary
+       - rollbacks
+       - secrets
+       - pipelines
+       - health checks
+       - AI deployment helper
+   - Frontend deployment console
+   - Integration with existing projects
+   - Example deployment flows:
+       - dev → staging → prod
+       - blue-green release
+       - canary rollout
+       - rollback after failure
+
+### STYLE
+- Clean, modular, production-ready
+- No placeholders
+- Fully working code
+
+### OUTPUT FORMAT
+Respond with:
+1. Updated folder structure
+2. Environment system code
+3. Blue-green deployment code
+4. Canary release code
+5. Rollback system code
+6. Secrets management code
+7. Pipeline engine code
+8. Health check & metrics code
+9. AI deployment helper code
+10. Frontend deployment console
+11. Integration instructions
+12. Example deployment workflows

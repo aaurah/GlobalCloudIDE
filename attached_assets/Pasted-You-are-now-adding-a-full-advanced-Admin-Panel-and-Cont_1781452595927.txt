@@ -1,0 +1,180 @@
+You are now adding a full advanced Admin Panel and Control Plane for the entire platform.
+
+### GOAL
+Create a secure, powerful admin interface to manage:
+- Users
+- Teams
+- Projects
+- Deployments
+- Nodes/regions
+- Agents
+- Plugins
+- Billing/credits
+- Logs & audits
+- Security & guardrails
+
+### NEW FEATURES TO ADD
+
+1. **Admin Roles & Permissions**
+   - Add roles:
+       - super_admin
+       - admin
+       - support
+       - auditor
+   - Restrict access to admin endpoints and UI.
+   - Endpoints:
+       - /admin/roles
+       - /admin/users/assign-role
+
+2. **User & Team Management**
+   - View:
+       - users
+       - teams
+       - roles
+       - usage
+   - Actions:
+       - suspend user
+       - reset password (or send reset link)
+       - change role
+       - view team members
+   - Endpoints:
+       - /admin/users/list
+       - /admin/users/{id}
+       - /admin/users/suspend
+       - /admin/teams/list
+
+3. **Project & Deployment Oversight**
+   - View:
+       - all projects
+       - all deployments
+       - status
+       - regions
+       - resource usage
+   - Actions:
+       - force stop deployment
+       - restart deployment
+       - lock project
+   - Endpoints:
+       - /admin/projects/list
+       - /admin/deployments/list
+       - /admin/deployments/stop
+       - /admin/projects/lock
+
+4. **Node & Region Control**
+   - View:
+       - nodes
+       - regions
+       - capacity
+       - health
+   - Actions:
+       - drain node
+       - disable region
+       - rebalance workloads
+   - Endpoints:
+       - /admin/nodes/list
+       - /admin/nodes/drain
+       - /admin/regions/disable
+
+5. **Billing & Credits Admin**
+   - View:
+       - user credits
+       - usage history
+       - invoices (if any)
+   - Actions:
+       - adjust credits
+       - grant promo credits
+   - Endpoints:
+       - /admin/billing/users
+       - /admin/billing/adjust
+
+6. **Agents & Plugins Governance**
+   - View:
+       - installed agents
+       - installed plugins
+       - usage
+   - Actions:
+       - approve/reject plugins
+       - disable agent for a user or team
+   - Endpoints:
+       - /admin/agents/list
+       - /admin/agents/disable
+       - /admin/plugins/list
+       - /admin/plugins/approve
+
+7. **Security & Guardrails**
+   - Configure:
+       - rate limits
+       - max resources per user
+       - allowed regions
+       - AI safety/guardrail settings
+   - Endpoints:
+       - /admin/security/config
+       - /admin/security/limits
+
+8. **Logs, Audits & Observability**
+   - View:
+       - system logs
+       - audit logs (who did what, when)
+       - error logs
+   - Filters:
+       - by user
+       - by project
+       - by time
+       - by action
+   - Endpoints:
+       - /admin/logs
+       - /admin/audit
+
+9. **Admin Dashboard UI**
+   - Sections:
+       - Overview (KPIs: users, projects, active deployments, errors)
+       - Users & Teams
+       - Projects & Deployments
+       - Nodes & Regions
+       - Billing
+       - Agents & Plugins
+       - Security
+       - Logs & Audits
+   - Include:
+       - tables
+       - filters
+       - charts
+       - action buttons
+       - confirmation dialogs
+
+10. **AI Admin Assistant**
+   - Add AI helper that can:
+       - summarize system health
+       - highlight anomalies
+       - suggest actions (e.g., scale region, suspend abusive user)
+       - explain logs
+   - Endpoint:
+       - /admin/ai/summary
+       - /admin/ai/suggestions
+
+11. **Deliverables**
+   - Backend admin endpoints
+   - Role/permission system
+   - Admin dashboard frontend
+   - Logs & audit integration
+   - Security config UI
+   - AI admin assistant panel
+   - Integration instructions
+   - Example admin workflows
+
+### STYLE
+- Clean, modular, production-ready
+- No placeholders
+- Fully working code
+
+### OUTPUT FORMAT
+Respond with:
+1. Updated folder structure
+2. Role & permission code
+3. Admin backend endpoints
+4. Admin dashboard UI components
+5. Logs & audit integration
+6. Security config code
+7. AI admin assistant code
+8. Integration instructions
+9. Example admin workflows

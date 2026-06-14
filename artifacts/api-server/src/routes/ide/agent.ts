@@ -8,7 +8,16 @@ import { readMemory } from "./memory";
 
 const router = Router();
 
-const openai = new OpenAI({ apiKey: process.env.OPENAI_API_KEY });
+let _openai: OpenAI | null = null;
+function getOpenAI(): OpenAI {
+  if (!_openai) {
+    if (!process.env.OPENAI_API_KEY) {
+      throw new Error("OPENAI_API_KEY is not configured. Please add it as a secret.");
+    }
+    _openai = new OpenAI({ apiKey: process.env.OPENAI_API_KEY });
+  }
+  return _openai;
+}
 
 function getWorkspaceRoot(): string {
   const cwd = process.cwd();
@@ -273,7 +282,7 @@ router.post("/agent", async (req, res) => {
     while (iterations < MAX_ITERATIONS) {
       iterations++;
 
-      const response = await openai.chat.completions.create({
+      const response = await getOpenAI().chat.completions.create({
         model: "gpt-4o-mini",
         max_completion_tokens: 8192,
         messages,

@@ -1,0 +1,153 @@
+You are now adding full Git integration to the platform, including GitHub, GitLab, Bitbucket, and local Git repos. The goal is to support pull, push, fetch, clone, branch management, commits, diffs, and sync across web, mobile, and cloud IDE.
+
+### GOAL
+Add a complete Git layer with:
+- Git operations (clone, pull, push, fetch, commit, branch, merge, rebase)
+- GitHub/GitLab/Bitbucket integration (OAuth + API)
+- Cross-device sync (web, mobile, cloud)
+- Visual Git UI (history, diffs, branches)
+- AI-assisted Git workflows (commit messages, PR summaries, conflict resolution)
+
+### NEW FEATURES TO ADD
+
+1. **Core Git Engine**
+   - Integrate with system `git` or a pure JS/Python Git library.
+   - Support:
+       - git init
+       - git clone
+       - git status
+       - git add
+       - git commit
+       - git pull
+       - git push
+       - git fetch
+       - git branch
+       - git checkout
+       - git merge
+       - git rebase
+   - Expose REST endpoints:
+       - /git/init
+       - /git/clone
+       - /git/status
+       - /git/add
+       - /git/commit
+       - /git/pull
+       - /git/push
+       - /git/branch
+       - /git/checkout
+       - /git/merge
+       - /git/rebase
+
+2. **GitHub / GitLab / Bitbucket Integration**
+   - Add OAuth for:
+       - GitHub
+       - GitLab
+       - Bitbucket
+   - Store:
+       - access tokens
+       - user repos
+       - SSH/HTTPS preferences
+   - Endpoints:
+       - /vcs/github/repos
+       - /vcs/github/clone
+       - /vcs/gitlab/repos
+       - /vcs/bitbucket/repos
+
+3. **Repo Linking to Projects**
+   - Allow each project to be linked to a remote repo.
+   - Store:
+       - remote URL
+       - default branch
+       - auth method
+   - Add:
+       - /projects/{id}/link-repo
+       - /projects/{id}/unlink-repo
+
+4. **Visual Git UI**
+   - Add UI for:
+       - Commit history (graph/timeline)
+       - Branch list
+       - Current branch indicator
+       - Staged vs unstaged changes
+       - File diffs (side-by-side or inline)
+   - Add actions:
+       - Stage/unstage file
+       - Commit with message
+       - Switch branch
+       - Create branch
+       - Pull
+       - Push
+
+5. **Cross-Platform Sync (Web + Mobile)**
+   - Git UI must work on:
+       - Desktop browser
+       - Mobile browser
+       - PWA app
+   - Add:
+       - Mobile-friendly commit view
+       - Swipeable diff viewer
+       - Simple “Sync” button for pull+push
+
+6. **AI-Assisted Git Workflows**
+   - Add AI helpers:
+       - Generate commit messages from diffs
+       - Summarize changes
+       - Explain diffs
+       - Suggest branch names
+       - Generate PR descriptions
+       - Help resolve merge conflicts
+   - Endpoints:
+       - /git/ai/commit-message
+       - /git/ai/diff-summary
+       - /git/ai/conflict-help
+
+7. **Merge Conflict Handling**
+   - Detect conflicts on pull/merge.
+   - Show:
+       - conflict files
+       - conflict markers
+   - Provide:
+       - manual resolution editor
+       - AI-assisted resolution suggestions
+
+8. **Multi-Platform Git Sync**
+   - Ensure Git operations work consistently when:
+       - Editing in web IDE
+       - Editing in mobile IDE
+       - Running deployments
+   - Add safeguards:
+       - Prevent push with uncommitted changes
+       - Warn on diverged branches
+       - Show sync status (ahead/behind)
+
+9. **Deliverables**
+   - Backend Git engine
+   - VCS integration (GitHub/GitLab/Bitbucket)
+   - Project ↔ repo linking
+   - Visual Git UI (web + mobile)
+   - AI Git helpers
+   - Conflict resolution flow
+   - Cross-platform sync logic
+   - Integration instructions
+   - Example workflows:
+       - Clone → edit → commit → push
+       - Fork → branch → PR
+       - Mobile edit → sync → push
+
+### STYLE
+- Clean, modular, production-ready
+- No placeholders
+- Fully working code
+
+### OUTPUT FORMAT
+Respond with:
+1. Updated folder structure
+2. Git engine code
+3. VCS integration code
+4. Project linking code
+5. Visual Git UI components
+6. AI Git helper code
+7. Conflict resolution flow
+8. Cross-platform sync logic
+9. Integration instructions
+10. Example Git workflows

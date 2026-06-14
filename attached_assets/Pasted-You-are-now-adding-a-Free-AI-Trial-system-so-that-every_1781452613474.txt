@@ -1,0 +1,133 @@
+You are now adding a Free AI Trial system so that every new user gets limited, controlled access to AI features before upgrading to a paid plan.
+
+### GOAL
+Implement a robust, abuse-resistant free trial system for AI usage with:
+- Per-user free AI quota
+- Clear limits (requests, tokens, or credits)
+- Automatic tracking and enforcement
+- Upgrade prompts when trial is exhausted
+- Admin visibility and controls
+
+### NEW FEATURES TO ADD
+
+1. **Trial Model & Limits**
+   - Define a trial model:
+       - trial_credits (e.g., 10,000 AI credits)
+       - or trial_requests (e.g., 100 AI calls)
+       - or trial_tokens (e.g., 200k tokens)
+   - Store per user:
+       - is_trial_user (bool)
+       - trial_started_at
+       - trial_expires_at (optional, e.g., 7 or 14 days)
+       - trial_credits_remaining (or requests/tokens remaining)
+
+2. **Automatic Trial Activation**
+   - On user signup:
+       - Initialize trial fields
+       - Grant default trial credits/requests
+   - Endpoints:
+       - /trial/status
+       - /trial/activate (for edge cases)
+
+3. **AI Usage Metering**
+   - Every AI call (code gen, refactor, explain, DevOps, admin AI, etc.) must:
+       - Check user’s trial status
+       - Compute cost (credits/requests/tokens)
+       - Deduct from remaining trial balance
+   - If no trial and no paid plan:
+       - Block AI call
+       - Return “upgrade required” response
+
+4. **Trial Exhaustion Handling**
+   - When trial is exhausted:
+       - Stop further AI usage
+       - Return structured error:
+           - code: TRIAL_EXHAUSTED
+           - message: “Your free AI trial has ended.”
+       - Suggest upgrade options
+   - Add:
+       - /trial/upgrade-info
+
+5. **Frontend UX for Trial**
+   - Show:
+       - Trial banner (e.g., “Free AI trial: 73% remaining”)
+       - Progress bar for remaining credits/requests
+       - Tooltip on AI buttons showing remaining usage
+   - On exhaustion:
+       - Show upgrade modal
+       - Explain benefits of paid AI usage
+       - Provide CTA: “Upgrade plan”
+
+6. **Plan & Upgrade Integration**
+   - Add simple plan model:
+       - free (no AI after trial)
+       - pro (monthly AI quota)
+       - team (shared AI quota)
+   - After trial:
+       - User can upgrade to pro/team
+       - AI usage then draws from paid quota instead of trial
+   - Endpoints:
+       - /plans/list
+       - /plans/subscribe
+       - /plans/status
+
+7. **Abuse Prevention**
+   - Prevent:
+       - multiple trials per user
+       - easy re-signup abuse (basic level)
+   - Strategies:
+       - tie trial to email + device fingerprint (basic)
+       - optional: IP-based heuristics
+   - Admin flags:
+       - suspicious_trial_usage (bool)
+
+8. **Admin Controls & Visibility**
+   - Admin can:
+       - view trial stats per user
+       - reset trial (edge cases)
+       - adjust trial credits
+   - Endpoints:
+       - /admin/trial/users
+       - /admin/trial/reset
+       - /admin/trial/adjust
+
+9. **Analytics & Insights**
+   - Track:
+       - how many users start trial
+       - how many exhaust trial
+       - how many upgrade after trial
+       - which AI features are used most during trial
+   - Provide:
+       - /admin/trial/analytics
+
+10. **Deliverables**
+   - Backend:
+       - trial model
+       - metering logic
+       - enforcement logic
+       - admin endpoints
+   - Frontend:
+       - trial banner
+       - progress indicator
+       - upgrade modal
+       - trial status UI in settings
+   - Integration with existing AI endpoints
+   - Example flows:
+       - new user → trial usage → exhaustion → upgrade
+       - power user → trial → immediate upgrade
+
+### STYLE
+- Clean, modular, production-ready
+- No placeholders
+- Fully working code
+
+### OUTPUT FORMAT
+Respond with:
+1. Updated data models (user + trial + plans)
+2. Trial activation logic
+3. AI metering & enforcement code
+4. Frontend trial UI components
+5. Admin trial endpoints
+6. Analytics endpoints
+7. Integration instructions
+8. Example user flows
