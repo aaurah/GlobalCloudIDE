@@ -67,13 +67,28 @@
       });
     </script>
 
-    <!-- Service Worker registration -->
+    <!-- Service Worker: clear stale caches then register fresh SW -->
     <script>
       if ('serviceWorker' in navigator) {
         window.addEventListener('load', function () {
-          navigator.serviceWorker.register('/sw.js', { scope: '/' })
-            .then(function (reg) { console.log('[SW] registered', reg.scope); })
-            .catch(function (err) { console.warn('[SW] registration failed', err); });
+          // Unregister ALL existing service workers first so stale caches
+          // (which break the app when Vite rebuilds with new chunk hashes) are wiped.
+          navigator.serviceWorker.getRegistrations().then(function (regs) {
+            var unregisterAll = regs.map(function (r) { return r.unregister(); });
+            return Promise.all(unregisterAll);
+          }).then(function () {
+            // Also wipe all Cache API entries so old Vite chunks are gone.
+            return caches.keys().then(function (keys) {
+              return Promise.all(keys.map(function (k) { return caches.delete(k); }));
+            });
+          }).then(function () {
+            // Now register the clean, updated SW.
+            return navigator.serviceWorker.register('/sw.js', { scope: '/', updateViaCache: 'none' });
+          }).then(function (reg) {
+            console.log('[SW] registered', reg.scope);
+          }).catch(function (err) {
+            console.warn('[SW] registration failed', err);
+          });
         });
       }
     </script>

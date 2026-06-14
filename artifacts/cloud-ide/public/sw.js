@@ -1,10 +1,11 @@
-const CACHE_NAME = "cloudide-v2";
+const CACHE_NAME = "cloudide-v4";
 const OFFLINE_FILES_CACHE = "cloudide-offline-files";
-const STATIC_ASSETS = ["/", "/favicon.svg", "/manifest.json"];
 
 self.addEventListener("install", (event) => {
   event.waitUntil(
-    caches.open(CACHE_NAME).then((cache) => cache.addAll(STATIC_ASSETS).catch(() => {}))
+    caches.open(CACHE_NAME).then((cache) =>
+      cache.addAll(["/favicon.svg", "/manifest.json"]).catch(() => {})
+    )
   );
   self.skipWaiting();
 });
@@ -13,7 +14,9 @@ self.addEventListener("activate", (event) => {
   event.waitUntil(
     caches.keys().then((keys) =>
       Promise.all(
-        keys.filter((k) => k !== CACHE_NAME && k !== OFFLINE_FILES_CACHE).map((k) => caches.delete(k))
+        keys
+          .filter((k) => k !== CACHE_NAME && k !== OFFLINE_FILES_CACHE)
+          .map((k) => caches.delete(k))
       )
     )
   );
@@ -22,11 +25,26 @@ self.addEventListener("activate", (event) => {
 
 self.addEventListener("fetch", (event) => {
   const url = new URL(event.request.url);
-  if (event.request.method !== "GET" || url.origin !== self.location.origin) return;
 
-  // API: never cache SSE streams; cache safe GET endpoints
+  if (event.request.method !== "GET") return;
+  if (url.origin !== self.location.origin) return;
+
+  // NEVER cache HTML navigation requests — always fetch fresh from network
+  // so Vite chunk hash changes don't break the app
+  if (
+    event.request.mode === "navigate" ||
+    url.pathname === "/" ||
+    url.pathname.endsWith(".html")
+  ) {
+    event.respondWith(
+      fetch(event.request).catch(() => caches.match("/"))
+    );
+    return;
+  }
+
+  // API routes — never cache (except specific safe read-only endpoints)
   if (url.pathname.startsWith("/api/")) {
-    const safe = ["/api/healthz", "/api/fs/list", "/api/memory"];
+    const safe = ["/api/fs/list", "/api/memory"];
     if (!safe.some((ep) => url.pathname.startsWith(ep))) return;
     event.respondWith(
       fetch(event.request)
@@ -41,22 +59,41 @@ self.addEventListener("fetch", (event) => {
     return;
   }
 
-  // Static assets: stale-while-revalidate
+  // Vite HMR / dev websocket — skip
+  if (url.pathname.startsWith("/@") || url.pathname.startsWith("/node_modules")) {
+    return;
+  }
+
+  // Static assets (JS/CSS/images with content hash in filename) — cache-first
+  const isHashedAsset =
+    /\.[0-9a-f]{8,}\.(js|css|woff2?|png|jpg|svg|ico)(\?.*)?$/i.test(url.pathname);
+
+  if (isHashedAsset) {
+    event.respondWith(
+      caches.open(CACHE_NAME).then(async (cache) => {
+        const cached = await cache.match(event.request);
+        if (cached) return cached;
+        const res = await fetch(event.request);
+        if (res.ok) cache.put(event.request, res.clone());
+        return res;
+      })
+    );
+    return;
+  }
+
+  // Everything else — network with cache fallback, stale-while-revalidate
   event.respondWith(
     caches.open(CACHE_NAME).then(async (cache) => {
       const cached = await cache.match(event.request);
-      const networkFetch = fetch(event.request).then((res) => {
-        if (res && res.status === 200 && res.type !== "opaque") {
-          cache.put(event.request, res.clone());
-        }
-        return res;
-      }).catch(() => null);
-
-      return cached || networkFetch || (
-        event.request.mode === "navigate"
-          ? caches.match("/")
-          : Response.error()
-      );
+      const networkFetch = fetch(event.request)
+        .then((res) => {
+          if (res && res.status === 200 && res.type !== "opaque") {
+            cache.put(event.request, res.clone());
+          }
+          return res;
+        })
+        .catch(() => null);
+      return cached || networkFetch || Response.error();
     })
   );
 });
@@ -85,7 +122,6 @@ async function syncPendingWrites() {
         await cache.delete(req);
       } catch {}
     }
-    // Notify all clients that sync is complete
     const clients = await self.clients.matchAll();
     clients.forEach((c) => c.postMessage({ type: "SYNC_COMPLETE" }));
   } catch {}
@@ -96,9 +132,12 @@ self.addEventListener("message", (event) => {
   if (event.data?.type === "QUEUE_WRITE") {
     const { url, body } = event.data;
     caches.open(OFFLINE_FILES_CACHE).then((cache) => {
-      cache.put(url, new Response(JSON.stringify(body), {
-        headers: { "Content-Type": "application/json" }
-      }));
+      cache.put(
+        url,
+        new Response(JSON.stringify(body), {
+          headers: { "Content-Type": "application/json" },
+        })
+      );
     });
   }
 });
