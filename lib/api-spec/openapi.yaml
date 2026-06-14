@@ -219,6 +219,255 @@ paths:
               schema:
                 type: string
 
+  /auth/register:
+    post:
+      operationId: registerUser
+      tags: [auth]
+      summary: Register a new user
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/RegisterBody"
+      responses:
+        "201":
+          description: User created
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/AuthResponse"
+
+  /auth/login:
+    post:
+      operationId: loginUser
+      tags: [auth]
+      summary: Login
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/LoginBody"
+      responses:
+        "200":
+          description: Authenticated
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/AuthResponse"
+
+  /auth/me:
+    get:
+      operationId: getMe
+      tags: [auth]
+      summary: Get current user
+      responses:
+        "200":
+          description: Current user
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/AuthUser"
+
+  /projects:
+    get:
+      operationId: listProjects
+      tags: [projects]
+      summary: List all projects
+      responses:
+        "200":
+          description: Projects list
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/Project"
+    post:
+      operationId: createProject
+      tags: [projects]
+      summary: Create a new project
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/CreateProjectBody"
+      responses:
+        "201":
+          description: Project created
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Project"
+
+  /projects/{id}:
+    get:
+      operationId: getProject
+      tags: [projects]
+      summary: Get project by ID
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        "200":
+          description: Project
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Project"
+    put:
+      operationId: updateProject
+      tags: [projects]
+      summary: Update project
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/UpdateProjectBody"
+      responses:
+        "200":
+          description: Updated project
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Project"
+    delete:
+      operationId: deleteProject
+      tags: [projects]
+      summary: Delete project
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        "200":
+          description: Deleted
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/SuccessResponse"
+
+  /deploy/{projectId}/start:
+    post:
+      operationId: startDeployment
+      tags: [deploy]
+      summary: Start deployment (SSE)
+      parameters:
+        - name: projectId
+          in: path
+          required: true
+          schema:
+            type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/DeployStartBody"
+      responses:
+        "200":
+          description: SSE stream of deploy steps
+          content:
+            text/event-stream:
+              schema:
+                type: string
+
+  /deploy/{projectId}/stop:
+    post:
+      operationId: stopDeployment
+      tags: [deploy]
+      summary: Stop a running deployment
+      parameters:
+        - name: projectId
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        "200":
+          description: Stopped
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/SuccessResponse"
+
+  /deploy/{projectId}/status:
+    get:
+      operationId: getDeploymentStatus
+      tags: [deploy]
+      summary: Get deployment status
+      parameters:
+        - name: projectId
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        "200":
+          description: Deployment status
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/DeploymentStatus"
+
+  /deploy/{projectId}/logs:
+    get:
+      operationId: getDeploymentLogs
+      tags: [deploy]
+      summary: Get deployment logs
+      parameters:
+        - name: projectId
+          in: path
+          required: true
+          schema:
+            type: string
+        - name: type
+          in: query
+          required: false
+          schema:
+            type: string
+            enum: [build, runtime, all]
+      responses:
+        "200":
+          description: Deployment logs
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/DeploymentLogs"
+
+  /devops/analyze:
+    post:
+      operationId: devopsAnalyze
+      tags: [devops]
+      summary: AI DevOps agent — analyze and fix deployment (SSE)
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/DevOpsAnalyzeBody"
+      responses:
+        "200":
+          description: SSE stream of DevOps agent steps
+          content:
+            text/event-stream:
+              schema:
+                type: string
+
   /memory:
     get:
       operationId: getMemory
@@ -361,6 +610,191 @@ components:
           type: ["string", "null"]
       required:
         - success
+
+    RegisterBody:
+      type: object
+      properties:
+        username:
+          type: string
+        password:
+          type: string
+        email:
+          type: ["string", "null"]
+      required:
+        - username
+        - password
+
+    LoginBody:
+      type: object
+      properties:
+        username:
+          type: string
+        password:
+          type: string
+      required:
+        - username
+        - password
+
+    AuthUser:
+      type: object
+      properties:
+        id:
+          type: string
+        username:
+          type: string
+        email:
+          type: string
+        createdAt:
+          type: string
+      required:
+        - id
+        - username
+        - email
+        - createdAt
+
+    AuthResponse:
+      type: object
+      properties:
+        token:
+          type: string
+        user:
+          $ref: "#/components/schemas/AuthUser"
+      required:
+        - token
+        - user
+
+    DeployConfig:
+      type: object
+      properties:
+        type:
+          type: string
+          enum: [static, node, python]
+        buildCommand:
+          type: string
+        startCommand:
+          type: string
+        port:
+          type: integer
+        entryPoint:
+          type: string
+      required:
+        - type
+        - buildCommand
+        - startCommand
+        - port
+        - entryPoint
+
+    Project:
+      type: object
+      properties:
+        id:
+          type: string
+        name:
+          type: string
+        description:
+          type: string
+        ownerId:
+          type: string
+        createdAt:
+          type: string
+        updatedAt:
+          type: string
+        deployConfig:
+          $ref: "#/components/schemas/DeployConfig"
+      required:
+        - id
+        - name
+        - description
+        - ownerId
+        - createdAt
+        - updatedAt
+        - deployConfig
+
+    CreateProjectBody:
+      type: object
+      properties:
+        name:
+          type: string
+        description:
+          type: ["string", "null"]
+        type:
+          type: ["string", "null"]
+        ownerId:
+          type: ["string", "null"]
+      required:
+        - name
+
+    UpdateProjectBody:
+      type: object
+      properties:
+        name:
+          type: ["string", "null"]
+        description:
+          type: ["string", "null"]
+        deployConfig:
+          type: ["object", "null"]
+
+    DeployStartBody:
+      type: object
+      properties:
+        type:
+          type: ["string", "null"]
+          enum: [static, node, python, null]
+        buildCommand:
+          type: ["string", "null"]
+        startCommand:
+          type: ["string", "null"]
+        entryPoint:
+          type: ["string", "null"]
+
+    DeploymentStatus:
+      type: object
+      properties:
+        projectId:
+          type: string
+        status:
+          type: string
+          enum: [idle, building, running, stopped, failed]
+        url:
+          type: ["string", "null"]
+        pid:
+          type: ["integer", "null"]
+        port:
+          type: ["integer", "null"]
+        startedAt:
+          type: ["string", "null"]
+        stoppedAt:
+          type: ["string", "null"]
+      required:
+        - projectId
+        - status
+
+    DeploymentLogs:
+      type: object
+      properties:
+        projectId:
+          type: string
+        type:
+          type: string
+        logs:
+          type: array
+          items: {}
+      required:
+        - projectId
+        - type
+        - logs
+
+    DevOpsAnalyzeBody:
+      type: object
+      properties:
+        projectId:
+          type: string
+        issue:
+          type: ["string", "null"]
+        autoFix:
+          type: ["boolean", "null"]
+      required:
+        - projectId
 
     FileContextEntry:
       type: object

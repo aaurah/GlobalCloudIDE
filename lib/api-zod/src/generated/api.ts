@@ -157,6 +157,221 @@ export const RunAgentBody = zod.object({
 
 
 /**
+ * @summary Register a new user
+ */
+export const RegisterUserBody = zod.object({
+  "username": zod.string(),
+  "password": zod.string(),
+  "email": zod.string().nullish()
+})
+
+
+/**
+ * @summary Login
+ */
+export const LoginUserBody = zod.object({
+  "username": zod.string(),
+  "password": zod.string()
+})
+
+export const LoginUserResponse = zod.object({
+  "token": zod.string(),
+  "user": zod.object({
+  "id": zod.string(),
+  "username": zod.string(),
+  "email": zod.string(),
+  "createdAt": zod.string()
+})
+})
+
+
+/**
+ * @summary Get current user
+ */
+export const GetMeResponse = zod.object({
+  "id": zod.string(),
+  "username": zod.string(),
+  "email": zod.string(),
+  "createdAt": zod.string()
+})
+
+
+/**
+ * @summary List all projects
+ */
+export const ListProjectsResponseItem = zod.object({
+  "id": zod.string(),
+  "name": zod.string(),
+  "description": zod.string(),
+  "ownerId": zod.string(),
+  "createdAt": zod.string(),
+  "updatedAt": zod.string(),
+  "deployConfig": zod.object({
+  "type": zod.enum(['static', 'node', 'python']),
+  "buildCommand": zod.string(),
+  "startCommand": zod.string(),
+  "port": zod.number(),
+  "entryPoint": zod.string()
+})
+})
+export const ListProjectsResponse = zod.array(ListProjectsResponseItem)
+
+
+/**
+ * @summary Create a new project
+ */
+export const CreateProjectBody = zod.object({
+  "name": zod.string(),
+  "description": zod.string().nullish(),
+  "type": zod.string().nullish(),
+  "ownerId": zod.string().nullish()
+})
+
+
+/**
+ * @summary Get project by ID
+ */
+export const GetProjectParams = zod.object({
+  "id": zod.coerce.string()
+})
+
+export const GetProjectResponse = zod.object({
+  "id": zod.string(),
+  "name": zod.string(),
+  "description": zod.string(),
+  "ownerId": zod.string(),
+  "createdAt": zod.string(),
+  "updatedAt": zod.string(),
+  "deployConfig": zod.object({
+  "type": zod.enum(['static', 'node', 'python']),
+  "buildCommand": zod.string(),
+  "startCommand": zod.string(),
+  "port": zod.number(),
+  "entryPoint": zod.string()
+})
+})
+
+
+/**
+ * @summary Update project
+ */
+export const UpdateProjectParams = zod.object({
+  "id": zod.coerce.string()
+})
+
+export const UpdateProjectBody = zod.object({
+  "name": zod.string().nullish(),
+  "description": zod.string().nullish(),
+  "deployConfig": zod.object({
+
+}).passthrough().nullish()
+})
+
+export const UpdateProjectResponse = zod.object({
+  "id": zod.string(),
+  "name": zod.string(),
+  "description": zod.string(),
+  "ownerId": zod.string(),
+  "createdAt": zod.string(),
+  "updatedAt": zod.string(),
+  "deployConfig": zod.object({
+  "type": zod.enum(['static', 'node', 'python']),
+  "buildCommand": zod.string(),
+  "startCommand": zod.string(),
+  "port": zod.number(),
+  "entryPoint": zod.string()
+})
+})
+
+
+/**
+ * @summary Delete project
+ */
+export const DeleteProjectParams = zod.object({
+  "id": zod.coerce.string()
+})
+
+export const DeleteProjectResponse = zod.object({
+  "success": zod.boolean(),
+  "message": zod.string().nullish()
+})
+
+
+/**
+ * @summary Start deployment (SSE)
+ */
+export const StartDeploymentParams = zod.object({
+  "projectId": zod.coerce.string()
+})
+
+export const StartDeploymentBody = zod.object({
+  "type": zod.union([zod.literal('static'),zod.literal('node'),zod.literal('python'),zod.literal(null)]).nullish(),
+  "buildCommand": zod.string().nullish(),
+  "startCommand": zod.string().nullish(),
+  "entryPoint": zod.string().nullish()
+})
+
+
+/**
+ * @summary Stop a running deployment
+ */
+export const StopDeploymentParams = zod.object({
+  "projectId": zod.coerce.string()
+})
+
+export const StopDeploymentResponse = zod.object({
+  "success": zod.boolean(),
+  "message": zod.string().nullish()
+})
+
+
+/**
+ * @summary Get deployment status
+ */
+export const GetDeploymentStatusParams = zod.object({
+  "projectId": zod.coerce.string()
+})
+
+export const GetDeploymentStatusResponse = zod.object({
+  "projectId": zod.string(),
+  "status": zod.enum(['idle', 'building', 'running', 'stopped', 'failed']),
+  "url": zod.string().nullish(),
+  "pid": zod.number().nullish(),
+  "port": zod.number().nullish(),
+  "startedAt": zod.string().nullish(),
+  "stoppedAt": zod.string().nullish()
+})
+
+
+/**
+ * @summary Get deployment logs
+ */
+export const GetDeploymentLogsParams = zod.object({
+  "projectId": zod.coerce.string()
+})
+
+export const GetDeploymentLogsQueryParams = zod.object({
+  "type": zod.enum(['build', 'runtime', 'all']).optional()
+})
+
+export const GetDeploymentLogsResponse = zod.object({
+  "projectId": zod.string(),
+  "type": zod.string(),
+  "logs": zod.array(zod.unknown())
+})
+
+
+/**
+ * @summary AI DevOps agent — analyze and fix deployment (SSE)
+ */
+export const DevopsAnalyzeBody = zod.object({
+  "projectId": zod.string(),
+  "issue": zod.string().nullish(),
+  "autoFix": zod.boolean().nullish()
+})
+
+
+/**
  * @summary Get project memory
  */
 export const GetMemoryResponse = zod.object({

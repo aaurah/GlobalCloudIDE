@@ -1,15 +1,27 @@
 import React, { useState } from "react";
 import { useIde } from "../../hooks/use-ide";
+import { usePlatform } from "../../hooks/use-platform";
 import { Button } from "../ui/button";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "../ui/select";
-import { Terminal, Play, Square, Loader2, PanelRight } from "lucide-react";
+import { 
+  Terminal, Play, Square, Loader2, PanelRight, 
+  LogIn, LogOut, FolderOpen, Cloud, ChevronDown, User
+} from "lucide-react";
+import { AuthModal } from "../platform/AuthModal";
+import { ProjectManager } from "../platform/ProjectManager";
+import {
+  DropdownMenu, DropdownMenuContent, DropdownMenuItem,
+  DropdownMenuSeparator, DropdownMenuTrigger
+} from "../ui/dropdown-menu";
 
 export function TopToolbar({ onToggleAiPanel }: { onToggleAiPanel: () => void }) {
   const { isRunning, setIsRunning, activeTabPath, tabs, addOutputLine, clearOutput } = useIde();
+  const { user, logout, currentProject, openProjectManager } = usePlatform();
   const activeTab = tabs.find(t => t.path === activeTabPath);
   const [selectedLanguage, setSelectedLanguage] = useState(activeTab?.language || "node");
+  const [authModalOpen, setAuthModalOpen] = useState(false);
+  const [projectManagerOpen, setProjectManagerOpen] = useState(false);
 
-  // Update selected language when tab changes
   React.useEffect(() => {
     if (activeTab) setSelectedLanguage(activeTab.language);
   }, [activeTab]);
@@ -70,42 +82,111 @@ export function TopToolbar({ onToggleAiPanel }: { onToggleAiPanel: () => void })
   };
 
   return (
-    <div className="flex h-10 items-center justify-between px-4 bg-background border-b border-border shrink-0">
-      <div className="flex items-center space-x-3 text-sm font-semibold text-primary">
-        <Terminal className="h-4 w-4" />
-        <span>CloudIDE</span>
-      </div>
+    <>
+      <div className="flex h-10 items-center justify-between px-4 bg-background border-b border-border shrink-0 gap-2">
+        <div className="flex items-center space-x-3 text-sm font-semibold text-primary shrink-0">
+          <Terminal className="h-4 w-4" />
+          <span>CloudIDE</span>
+        </div>
 
-      <div className="flex items-center space-x-2">
-        <Select value={selectedLanguage} onValueChange={setSelectedLanguage}>
-          <SelectTrigger className="h-7 w-[120px] bg-card text-xs border-muted-border">
-            <SelectValue placeholder="Language" />
-          </SelectTrigger>
-          <SelectContent>
-            <SelectItem value="node">Node.js</SelectItem>
-            <SelectItem value="python">Python</SelectItem>
-            <SelectItem value="bash">Bash</SelectItem>
-          </SelectContent>
-        </Select>
+        <div className="flex items-center space-x-1.5 flex-1 min-w-0 justify-center">
+          {currentProject ? (
+            <Button
+              variant="ghost"
+              size="sm"
+              className="h-7 px-2 text-xs text-muted-foreground hover:text-foreground max-w-[160px]"
+              onClick={() => setProjectManagerOpen(true)}
+            >
+              <FolderOpen className="h-3.5 w-3.5 mr-1.5 shrink-0" />
+              <span className="truncate">{currentProject.name}</span>
+              <ChevronDown className="h-3 w-3 ml-1 shrink-0 opacity-50" />
+            </Button>
+          ) : user ? (
+            <Button
+              variant="ghost"
+              size="sm"
+              className="h-7 px-2 text-xs text-muted-foreground hover:text-foreground"
+              onClick={() => setProjectManagerOpen(true)}
+            >
+              <FolderOpen className="h-3.5 w-3.5 mr-1.5" />
+              Open Project
+            </Button>
+          ) : null}
+        </div>
 
-        {isRunning ? (
-          <Button variant="destructive" size="sm" className="h-7 px-3 text-xs flex items-center space-x-1" onClick={() => setIsRunning(false)}>
-            <Square className="h-3 w-3 fill-current" />
-            <span>Stop</span>
+        <div className="flex items-center space-x-2 shrink-0">
+          <Select value={selectedLanguage} onValueChange={setSelectedLanguage}>
+            <SelectTrigger className="h-7 w-[110px] bg-card text-xs border-muted-border">
+              <SelectValue placeholder="Language" />
+            </SelectTrigger>
+            <SelectContent>
+              <SelectItem value="node">Node.js</SelectItem>
+              <SelectItem value="python">Python</SelectItem>
+              <SelectItem value="bash">Bash</SelectItem>
+            </SelectContent>
+          </Select>
+
+          {isRunning ? (
+            <Button variant="destructive" size="sm" className="h-7 px-3 text-xs flex items-center space-x-1" onClick={() => setIsRunning(false)}>
+              <Square className="h-3 w-3 fill-current" />
+              <span>Stop</span>
+            </Button>
+          ) : (
+            <Button variant="default" size="sm" className="h-7 px-3 text-xs flex items-center space-x-1" onClick={handleRun} disabled={!activeTabPath}>
+              <Play className="h-3 w-3 fill-current" />
+              <span>Run</span>
+            </Button>
+          )}
+
+          {user ? (
+            <DropdownMenu>
+              <DropdownMenuTrigger asChild>
+                <Button variant="ghost" size="sm" className="h-7 px-2 text-xs gap-1.5">
+                  <div className="w-5 h-5 rounded-full bg-primary/20 flex items-center justify-center">
+                    <User className="h-3 w-3 text-primary" />
+                  </div>
+                  <span className="hidden sm:inline text-muted-foreground max-w-[80px] truncate">
+                    {user.username}
+                  </span>
+                </Button>
+              </DropdownMenuTrigger>
+              <DropdownMenuContent align="end" className="w-44">
+                <div className="px-2 py-1.5">
+                  <p className="text-xs font-semibold">{user.username}</p>
+                  <p className="text-[10px] text-muted-foreground truncate">{user.email}</p>
+                </div>
+                <DropdownMenuSeparator />
+                <DropdownMenuItem onClick={() => setProjectManagerOpen(true)}>
+                  <FolderOpen className="mr-2 h-3.5 w-3.5" />
+                  Projects
+                </DropdownMenuItem>
+                <DropdownMenuSeparator />
+                <DropdownMenuItem onClick={logout} className="text-red-400 focus:text-red-400">
+                  <LogOut className="mr-2 h-3.5 w-3.5" />
+                  Sign Out
+                </DropdownMenuItem>
+              </DropdownMenuContent>
+            </DropdownMenu>
+          ) : (
+            <Button
+              variant="outline"
+              size="sm"
+              className="h-7 px-2.5 text-xs border-border"
+              onClick={() => setAuthModalOpen(true)}
+            >
+              <LogIn className="h-3.5 w-3.5 mr-1.5" />
+              Sign In
+            </Button>
+          )}
+
+          <Button variant="ghost" size="icon" className="h-7 w-7 hover:bg-muted" onClick={onToggleAiPanel}>
+            <PanelRight className="h-4 w-4" />
           </Button>
-        ) : (
-          <Button variant="default" size="sm" className="h-7 px-3 text-xs flex items-center space-x-1" onClick={handleRun} disabled={!activeTabPath}>
-            <Play className="h-3 w-3 fill-current" />
-            <span>Run</span>
-          </Button>
-        )}
+        </div>
       </div>
 
-      <div>
-        <Button variant="ghost" size="icon" className="h-7 w-7 hover:bg-muted" onClick={onToggleAiPanel}>
-          <PanelRight className="h-4 w-4" />
-        </Button>
-      </div>
-    </div>
+      <AuthModal open={authModalOpen} onOpenChange={setAuthModalOpen} />
+      <ProjectManager open={projectManagerOpen} onOpenChange={setProjectManagerOpen} />
+    </>
   );
 }

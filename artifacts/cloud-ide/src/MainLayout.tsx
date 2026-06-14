@@ -9,6 +9,7 @@ import { AiPanel } from "./components/panel/AiPanel";
 import { CommandPalette } from "./components/palette/CommandPalette";
 import { ResizableHandle, ResizablePanel, ResizablePanelGroup } from "./components/ui/resizable";
 import { IdeProvider, useIde } from "./hooks/use-ide";
+import { PlatformProvider } from "./hooks/use-platform";
 
 function IdeLayout() {
   const [aiPanelVisible, setAiPanelVisible] = useState(false);
@@ -62,8 +63,10 @@ function IdeLayout() {
 
 export default function AppLayout() {
   return (
-    <IdeProvider>
-      <IdeLayout />
-    </IdeProvider>
+    <PlatformProvider>
+      <IdeProvider>
+        <IdeLayout />
+      </IdeProvider>
+    </PlatformProvider>
   );
 }

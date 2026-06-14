@@ -90,6 +90,144 @@ export interface SuccessResponse {
   message?: string | null;
 }
 
+export interface RegisterBody {
+  username: string;
+  password: string;
+  /** @nullable */
+  email?: string | null;
+}
+
+export interface LoginBody {
+  username: string;
+  password: string;
+}
+
+export interface AuthUser {
+  id: string;
+  username: string;
+  email: string;
+  createdAt: string;
+}
+
+export interface AuthResponse {
+  token: string;
+  user: AuthUser;
+}
+
+export type DeployConfigType = typeof DeployConfigType[keyof typeof DeployConfigType];
+
+
+export const DeployConfigType = {
+  static: 'static',
+  node: 'node',
+  python: 'python',
+} as const;
+
+export interface DeployConfig {
+  type: DeployConfigType;
+  buildCommand: string;
+  startCommand: string;
+  port: number;
+  entryPoint: string;
+}
+
+export interface Project {
+  id: string;
+  name: string;
+  description: string;
+  ownerId: string;
+  createdAt: string;
+  updatedAt: string;
+  deployConfig: DeployConfig;
+}
+
+export interface CreateProjectBody {
+  name: string;
+  /** @nullable */
+  description?: string | null;
+  /** @nullable */
+  type?: string | null;
+  /** @nullable */
+  ownerId?: string | null;
+}
+
+/**
+ * @nullable
+ */
+export type UpdateProjectBodyDeployConfig = { [key: string]: unknown } | null;
+
+export interface UpdateProjectBody {
+  /** @nullable */
+  name?: string | null;
+  /** @nullable */
+  description?: string | null;
+  /** @nullable */
+  deployConfig?: UpdateProjectBodyDeployConfig;
+}
+
+/**
+ * @nullable
+ */
+export type DeployStartBodyType = typeof DeployStartBodyType[keyof typeof DeployStartBodyType] | null;
+
+
+export const DeployStartBodyType = {
+  static: 'static',
+  node: 'node',
+  python: 'python',
+} as const;
+
+export interface DeployStartBody {
+  /** @nullable */
+  type?: DeployStartBodyType;
+  /** @nullable */
+  buildCommand?: string | null;
+  /** @nullable */
+  startCommand?: string | null;
+  /** @nullable */
+  entryPoint?: string | null;
+}
+
+export type DeploymentStatusStatus = typeof DeploymentStatusStatus[keyof typeof DeploymentStatusStatus];
+
+
+export const DeploymentStatusStatus = {
+  idle: 'idle',
+  building: 'building',
+  running: 'running',
+  stopped: 'stopped',
+  failed: 'failed',
+} as const;
+
+export interface DeploymentStatus {
+  projectId: string;
+  status: DeploymentStatusStatus;
+  /** @nullable */
+  url?: string | null;
+  /** @nullable */
+  pid?: number | null;
+  /** @nullable */
+  port?: number | null;
+  /** @nullable */
+  startedAt?: string | null;
+  /** @nullable */
+  stoppedAt?: string | null;
+}
+
+export interface DeploymentLogs {
+  projectId: string;
+  type: string;
+  logs: unknown[];
+}
+
+export interface DevOpsAnalyzeBody {
+  projectId: string;
+  /** @nullable */
+  issue?: string | null;
+  /** @nullable */
+  autoFix?: boolean | null;
+}
+
 export interface FileContextEntry {
   path: string;
   content: string;
@@ -150,4 +288,17 @@ path: string;
 export type DeleteFileParams = {
 path: string;
 };
+
+export type GetDeploymentLogsParams = {
+type?: GetDeploymentLogsType;
+};
+
+export type GetDeploymentLogsType = typeof GetDeploymentLogsType[keyof typeof GetDeploymentLogsType];
+
+
+export const GetDeploymentLogsType = {
+  build: 'build',
+  runtime: 'runtime',
+  all: 'all',
+} as const;
 

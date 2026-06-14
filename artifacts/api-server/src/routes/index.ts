@@ -6,6 +6,10 @@ import aiRouter from "./ide/ai";
 import contextRouter from "./ide/context";
 import agentRouter from "./ide/agent";
 import memoryRouter from "./ide/memory";
+import authRouter from "./platform/auth";
+import projectsRouter from "./platform/projects";
+import deployRouter from "./platform/deploy";
+import devopsRouter from "./platform/devops";
 
 const router: IRouter = Router();
 
@@ -16,5 +20,9 @@ router.use(aiRouter);
 router.use(contextRouter);
 router.use(agentRouter);
 router.use(memoryRouter);
+router.use(authRouter);
+router.use(projectsRouter);
+router.use(deployRouter);
+router.use(devopsRouter);
 
 export default router;

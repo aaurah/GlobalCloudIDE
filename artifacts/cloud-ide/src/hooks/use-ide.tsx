@@ -18,7 +18,7 @@ interface IdeState {
   agentSteps: AgentStep[];
   aiAction: AiAction;
   aiPrompt: string;
-  aiPanelTab: "assistant" | "agent" | "memory";
+  aiPanelTab: "assistant" | "agent" | "memory" | "deploy";
 }
 
 interface IdeActions {
@@ -43,7 +43,7 @@ interface IdeActions {
   clearAgentSteps: () => void;
   setAiAction: (action: AiAction) => void;
   setAiPrompt: (prompt: string) => void;
-  setAiPanelTab: (tab: "assistant" | "agent" | "memory") => void;
+  setAiPanelTab: (tab: "assistant" | "agent" | "memory" | "deploy") => void;
 }
 
 const IdeContext = createContext<(IdeState & IdeActions) | null>(null);
@@ -64,7 +64,7 @@ export function IdeProvider({ children }: { children: React.ReactNode }) {
   const [agentSteps, setAgentSteps] = useState<AgentStep[]>([]);
   const [aiAction, setAiActionState] = useState<AiAction>("generate");
   const [aiPrompt, setAiPromptState] = useState("");
-  const [aiPanelTab, setAiPanelTabState] = useState<"assistant" | "agent" | "memory">("assistant");
+  const [aiPanelTab, setAiPanelTabState] = useState<"assistant" | "agent" | "memory" | "deploy">("assistant");
 
   const openFile = useCallback((path: string, content: string, language: string) => {
     setTabs(prev => {
@@ -133,7 +133,7 @@ export function IdeProvider({ children }: { children: React.ReactNode }) {
   
   const setAiAction = useCallback((action: AiAction) => setAiActionState(action), []);
   const setAiPrompt = useCallback((prompt: string) => setAiPromptState(prompt), []);
-  const setAiPanelTab = useCallback((tab: "assistant" | "agent" | "memory") => setAiPanelTabState(tab), []);
+  const setAiPanelTab = useCallback((tab: "assistant" | "agent" | "memory" | "deploy") => setAiPanelTabState(tab), []);
 
   return (
     <IdeContext.Provider

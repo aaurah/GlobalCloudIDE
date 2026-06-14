@@ -8,11 +8,14 @@ import {
   Wand2, PenTool, Lightbulb, SplitSquareVertical, 
   Check, Loader2, Hammer, Bug, Eye, BrainCircuit,
   FileCode, Play, List, Trash, AlertTriangle, Info,
-  FileText
+  FileText, Rocket
 } from "lucide-react";
 import { MemoryPanel } from "./MemoryPanel";
+import { DeployPanel } from "../platform/DeployPanel";
 import { getListFilesQueryKey } from "@workspace/api-client-react";
 import { useQueryClient } from "@tanstack/react-query";
+
+type AiPanelTab = "assistant" | "agent" | "memory" | "deploy";
 
 export function AiPanel({ isVisible }: { isVisible: boolean }) {
   const { 
@@ -108,7 +111,6 @@ export function AiPanel({ isVisible }: { isVisible: boolean }) {
   // AGENT LOGIC
   const [agentTask, setAgentTask] = useState("");
   
-  // Use aiPrompt as agentTask if we just switched to agent
   useEffect(() => {
     if (aiPanelTab === "agent" && aiPrompt && !agentTask) {
       setAgentTask(aiPrompt);
@@ -184,6 +186,13 @@ export function AiPanel({ isVisible }: { isVisible: boolean }) {
     { id: "fix", label: "Fix", icon: <PenTool size={14} />, placeholder: "What's wrong with this code?" },
     { id: "explain", label: "Explain", icon: <Lightbulb size={14} />, placeholder: "Ask questions about the code..." },
     { id: "refactor", label: "Refactor", icon: <SplitSquareVertical size={14} />, placeholder: "How should this be refactored?" },
+  ];
+
+  const panelTabs: { id: AiPanelTab; label: string }[] = [
+    { id: "assistant", label: "Assistant" },
+    { id: "agent", label: "Agent" },
+    { id: "deploy", label: "Deploy" },
+    { id: "memory", label: "Memory" },
   ];
 
   const renderAgentStep = (step: any, i: number) => {
@@ -267,35 +276,23 @@ export function AiPanel({ isVisible }: { isVisible: boolean }) {
   return (
     <div className="w-[320px] h-full flex flex-col bg-card border-l border-border shrink-0">
       <div className="h-9 flex items-center border-b border-border shrink-0 px-2 bg-muted/30">
-        <div className="flex space-x-1 w-full bg-background rounded-md p-1 border border-border">
-          <button
-            onClick={() => setAiPanelTab("assistant")}
-            className={`flex-1 text-xs font-semibold py-1 rounded-sm transition-colors ${
-              aiPanelTab === "assistant" ? "bg-card shadow-sm text-foreground" : "text-muted-foreground hover:text-foreground hover:bg-white/5"
-            }`}
-          >
-            Assistant
-          </button>
-          <button
-            onClick={() => setAiPanelTab("agent")}
-            className={`flex-1 text-xs font-semibold py-1 rounded-sm transition-colors ${
-              aiPanelTab === "agent" ? "bg-card shadow-sm text-foreground" : "text-muted-foreground hover:text-foreground hover:bg-white/5"
-            }`}
-          >
-            Agent
-          </button>
-          <button
-            onClick={() => setAiPanelTab("memory")}
-            className={`flex-1 text-xs font-semibold py-1 rounded-sm transition-colors ${
-              aiPanelTab === "memory" ? "bg-card shadow-sm text-foreground" : "text-muted-foreground hover:text-foreground hover:bg-white/5"
-            }`}
-          >
-            Memory
-          </button>
+        <div className="flex space-x-0.5 w-full bg-background rounded-md p-1 border border-border overflow-hidden">
+          {panelTabs.map(t => (
+            <button
+              key={t.id}
+              onClick={() => setAiPanelTab(t.id)}
+              className={`flex-1 text-[11px] font-semibold py-1 rounded-sm transition-colors ${
+                aiPanelTab === t.id ? "bg-card shadow-sm text-foreground" : "text-muted-foreground hover:text-foreground hover:bg-white/5"
+              }`}
+            >
+              {t.label}
+            </button>
+          ))}
         </div>
       </div>
 
       {aiPanelTab === "memory" && <MemoryPanel />}
+      {aiPanelTab === "deploy" && <DeployPanel />}
 
       {aiPanelTab === "assistant" && (
         <>
