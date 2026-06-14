@@ -1,0 +1,153 @@
+You are now adding a full analytics, insights, and predictive intelligence layer to the platform. This includes real-time dashboards, usage analytics, AI insights, anomaly detection, forecasting, and system-wide intelligence.
+
+### GOAL
+Transform the platform into an AI-driven analytics engine with:
+- Real-time metrics
+- Predictive analytics
+- User behavior insights
+- Deployment analytics
+- AI usage analytics
+- Growth analytics
+- System health dashboards
+- Anomaly detection
+- Forecasting models
+- AI-generated insights
+
+### NEW FEATURES TO ADD
+
+1. **Analytics Data Pipeline**
+   - Collect events from:
+       - users
+       - projects
+       - deployments
+       - agents
+       - plugins
+       - marketplace
+       - automation jobs
+   - Store:
+       - metrics
+       - logs
+       - traces
+       - usage events
+   - Endpoints:
+       - /analytics/events
+       - /analytics/metrics
+
+2. **Real-Time Dashboards**
+   - Dashboards for:
+       - system health
+       - deployments
+       - AI usage
+       - user growth
+       - marketplace sales
+       - automation jobs
+   - Widgets:
+       - charts
+       - counters
+       - heatmaps
+       - timelines
+       - anomaly alerts
+
+3. **Predictive Intelligence Engine**
+   - Forecast:
+       - traffic
+       - compute usage
+       - AI usage
+       - user growth
+       - revenue
+       - deployment load
+   - Models:
+       - time-series forecasting
+       - anomaly detection
+       - trend analysis
+   - Endpoints:
+       - /analytics/predict
+       - /analytics/anomaly
+
+4. **User Behavior Insights**
+   - Track:
+       - retention
+       - activation
+       - feature usage
+       - funnels
+       - churn risk
+   - Add:
+       - /analytics/users/insights
+       - /analytics/users/churn
+
+5. **AI Usage Analytics**
+   - Track:
+       - tokens used
+       - requests per user
+       - requests per agent
+       - cost per user
+   - Add:
+       - /analytics/ai/usage
+       - /analytics/ai/cost
+
+6. **Deployment Analytics**
+   - Track:
+       - build times
+       - error rates
+       - latency
+       - uptime
+       - region performance
+   - Add:
+       - /analytics/deployments
+
+7. **Marketplace Analytics**
+   - Track:
+       - plugin sales
+       - agent sales
+       - template sales
+       - creator earnings
+   - Add:
+       - /analytics/marketplace
+
+8. **Growth Analytics**
+   - Track:
+       - referrals
+       - streaks
+       - achievements
+       - conversion rates
+   - Add:
+       - /analytics/growth
+
+9. **AI-Generated Insights**
+   - AI can:
+       - summarize system health
+       - highlight anomalies
+       - recommend scaling
+       - identify churn risks
+       - suggest product improvements
+       - detect fraud patterns
+   - Endpoints:
+       - /analytics/ai/summary
+       - /analytics/ai/recommend
+
+10. **Admin Intelligence Console**
+   - Add:
+       - system overview
+       - predictive charts
+       - anomaly alerts
+       - AI insights panel
+       - user behavior heatmaps
+       - revenue forecasts
+
+11. **Deliverables**
+   - Backend:
+       - analytics pipeline
+       - metrics engine
+       - predictive models
+       - insights engine
+       - dashboards API
+   - Frontend:
+       - analytics dashboards
+       - insights UI
+       - predictive charts
+       - anomaly alerts
+   - Example workflows:
+       - AI detects spike → recommends scaling
+       - AI predicts churn → suggests actions
+       - Admin views system health → sees anomalies
+       - Creator views sales → sees forecast

@@ -93,8 +93,7 @@ function Avatar({ name, url, size = 28 }: { name: string; url?: string; size?: n
   const color = colors[name.charCodeAt(0) % colors.length];
   if (url) return <img src={url} alt={name} style={{ width: size, height: size }} className="rounded-full object-cover shrink-0" />;
   return (
-    <div style={{ width: size, height: size }} className={`${color} rounded-full flex items-center justify-center text-white font-bold shrink-0`}
-      style2={{ fontSize: size * 0.35 }}>
+    <div style={{ width: size, height: size, fontSize: size * 0.35 }} className={`${color} rounded-full flex items-center justify-center text-white font-bold shrink-0`}>
       {initials}
     </div>
   );
