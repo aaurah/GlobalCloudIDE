@@ -1,0 +1,17 @@
+[
+  {
+    "userId": "57509edf-29aa-4494-8a1f-817aba0be759",
+    "credits": 100,
+    "plan": "free",
+    "usageHistory": [
+      {
+        "id": "e89b3df1-30d3-4d2a-a602-1226ff3d06d6",
+        "type": "credit-add",
+        "cost": 0,
+        "description": "Welcome bonus: 100 free credits",
+        "timestamp": "2026-06-14T15:32:51.024Z"
+      }
+    ],
+    "totalSpent": 0
+  }
+]

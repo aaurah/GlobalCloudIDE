@@ -17,6 +17,13 @@ import teamsRouter from "./platform/teams";
 import pluginsRouter from "./platform/plugins";
 import marketplaceRouter from "./platform/marketplace";
 import searchRouter from "./platform/search";
+import orchestratorRouter from "./platform/orchestrator";
+import globalSchedulerRouter from "./platform/globalscheduler";
+import functionsRouter from "./platform/functions";
+import healingRouter from "./platform/healing";
+import routingRouter from "./platform/routing";
+import observabilityRouter from "./platform/observability";
+import infragenRouter from "./platform/infragen";
 
 const router: IRouter = Router();
 
@@ -38,5 +45,12 @@ router.use(teamsRouter);
 router.use(pluginsRouter);
 router.use(marketplaceRouter);
 router.use(searchRouter);
+router.use(orchestratorRouter);
+router.use(globalSchedulerRouter);
+router.use(functionsRouter);
+router.use(healingRouter);
+router.use(routingRouter);
+router.use(observabilityRouter);
+router.use(infragenRouter);
 
 export default router;
