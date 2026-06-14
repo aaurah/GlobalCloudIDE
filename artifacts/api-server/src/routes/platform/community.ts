@@ -145,9 +145,13 @@ router.post("/community/hubs/join/:id", async (req, res) => {
 router.get("/community/hubs/:id/posts", async (req, res) => {
   const page = Number(req.query.page ?? 1);
   const perPage = 20;
-  const posts = await readJSON<Post[]>("community-posts.json");
+  const [posts, hubs] = await Promise.all([
+    readJSON<Post[]>("community-posts.json"),
+    getHubs(),
+  ]);
+  const resolvedHubId = hubs.find(h => h.slug === req.params.id)?.id ?? req.params.id;
   const hubPosts = posts
-    .filter(p => p.hubId === req.params.id || (await getHubs()).find(h => h.slug === req.params.id)?.id === p.hubId)
+    .filter(p => p.hubId === resolvedHubId)
     .sort((a, b) => {
       if (a.isPinned !== b.isPinned) return a.isPinned ? -1 : 1;
       return new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime();

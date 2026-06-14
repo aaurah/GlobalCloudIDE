@@ -20,17 +20,18 @@ import { CreatorDashboard } from "./CreatorDashboard";
 import { PlansPanel } from "./PlansPanel";
 import { Button } from "../ui/button";
 import { GitHubPanel } from "./GitHubPanel";
+import { SocialPanel } from "./SocialPanel";
 import {
   X, CreditCard, Users, Puzzle, BrainCircuit, Server, Container,
   Activity, Zap, Sparkles, Globe, ShieldCheck, Network, ShieldAlert, Gift,
-  Store, PaintbrushIcon, Layers, Github,
+  Store, PaintbrushIcon, Layers, Github, Heart,
 } from "lucide-react";
 
 type Tab =
   | "billing" | "teams" | "plugins" | "agents" | "nodes" | "containers"
   | "orchestrator" | "functions" | "observability" | "infragen"
   | "scheduler" | "healing" | "routing" | "admin" | "growth"
-  | "marketplace" | "creator" | "plans" | "github";
+  | "marketplace" | "creator" | "plans" | "github" | "social";
 
 interface TabDef { id: Tab; label: string; icon: React.ReactNode; group: "platform" | "cloud-os" }
 
@@ -45,6 +46,7 @@ const TABS: TabDef[] = [
   { id: "agents",        label: "Agents",      icon: <BrainCircuit size={12} />,    group: "platform" },
   { id: "nodes",         label: "Nodes",       icon: <Server size={12} />,          group: "platform" },
   { id: "containers",    label: "Container",   icon: <Container size={12} />,       group: "platform" },
+  { id: "social",        label: "Social",      icon: <Heart size={12} />,           group: "platform" },
   { id: "github",        label: "GitHub",      icon: <Github size={12} />,          group: "platform" },
   { id: "growth",        label: "Growth",      icon: <Gift size={12} />,            group: "platform" },
   { id: "admin",         label: "Admin",       icon: <ShieldAlert size={12} />,     group: "platform" },
@@ -150,6 +152,7 @@ export function PlatformDashboard({ open, onClose, initialTab = "billing" }: Pla
           {activeTab === "functions"     && <CloudFunctionsEditor />}
           {activeTab === "observability" && <ObservabilityPanel />}
           {activeTab === "infragen"      && <InfraGenerator />}
+          {activeTab === "social"        && <SocialPanel />}
           {activeTab === "github"        && <GitHubPanel />}
           {activeTab === "growth"        && <GrowthPanel />}
           {activeTab === "marketplace"   && <MarketplaceHub />}
