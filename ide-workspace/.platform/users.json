@@ -19,5 +19,19 @@
     "email": "trial_1781455590@test.com",
     "passwordHash": "$2b$10$ullao/Hp12384U0Nbdj7lusJn.N.NEZtQEJNlThRjytn/zQ/ZYFKC",
     "createdAt": "2026-06-14T16:46:30.666Z"
+  },
+  {
+    "id": "06cab9a6-10d0-4a47-827e-515f9f2efccc",
+    "username": "growthtest_1781455977",
+    "email": "growth_1781455977@test.com",
+    "passwordHash": "$2b$10$7rNWxPvSlzesBQFUEGklW.kZ7LtIzbdk2cOHnFfz6elRJPqPwvO0i",
+    "createdAt": "2026-06-14T16:52:57.369Z"
+  },
+  {
+    "id": "4c4b0998-5cdf-41e3-b81f-1845ee5682c9",
+    "username": "invited_1781455979",
+    "email": "invited_1781455979@test.com",
+    "passwordHash": "$2b$10$hs7YWJJjrdS9I6D.6Ia6Du2YqHNYL2t9jCk3fiCO1iR9TU6UyRz6q",
+    "createdAt": "2026-06-14T16:52:59.690Z"
   }
 ]

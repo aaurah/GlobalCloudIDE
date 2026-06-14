@@ -1,8 +1,8 @@
 [
   {
     "userId": "57509edf-29aa-4494-8a1f-817aba0be759",
-    "credits": 500,
-    "plan": "free",
+    "credits": 3000,
+    "plan": "team",
     "usageHistory": [
       {
         "id": "e89b3df1-30d3-4d2a-a602-1226ff3d06d6",
@@ -38,6 +38,20 @@
         "cost": 0,
         "description": "Added 100 credits",
         "timestamp": "2026-06-14T15:38:50.633Z"
+      },
+      {
+        "id": "ae8b3d46-c6ce-493f-8db0-93f4bfac078b",
+        "type": "credit-add",
+        "cost": 0,
+        "description": "Plan upgrade to pro: 500 bonus credits",
+        "timestamp": "2026-06-14T16:49:23.286Z"
+      },
+      {
+        "id": "110a3aa1-ed21-4d3a-99f3-9397dde208ca",
+        "type": "credit-add",
+        "cost": 0,
+        "description": "Plan upgrade to team: 2000 bonus credits",
+        "timestamp": "2026-06-14T16:49:26.094Z"
       }
     ],
     "totalSpent": 0
@@ -71,5 +85,75 @@
     "suspiciousUsage": false,
     "upgradedAt": "2026-06-14T16:46:31.309Z",
     "upgradedTo": "pro"
+  },
+  {
+    "userId": "06cab9a6-10d0-4a47-827e-515f9f2efccc",
+    "credits": 100,
+    "plan": "free",
+    "usageHistory": [
+      {
+        "id": "b102595c-de4c-44c8-912d-ca61991d9231",
+        "type": "credit-add",
+        "cost": 0,
+        "description": "Welcome! 10,000 free AI trial credits for 14 days",
+        "timestamp": "2026-06-14T16:52:57.374Z"
+      },
+      {
+        "id": "f26501cb-3269-4e1c-be92-03451ba109b3",
+        "type": "credit-add",
+        "cost": 0,
+        "description": "Streak milestone: Showing Up (1-day streak)",
+        "timestamp": "2026-06-14T16:52:58.366Z"
+      },
+      {
+        "id": "4e54b536-719e-4864-87ed-a02b77785775",
+        "type": "credit-add",
+        "cost": 0,
+        "description": "Achievement: First Commit",
+        "timestamp": "2026-06-14T16:52:58.728Z"
+      },
+      {
+        "id": "cf51caee-1268-40f4-b396-82474101b65d",
+        "type": "credit-add",
+        "cost": 0,
+        "description": "Referral reward: First Invite (1 invites)",
+        "timestamp": "2026-06-14T16:52:59.700Z"
+      }
+    ],
+    "totalSpent": 0,
+    "isTrial": true,
+    "trialStartedAt": "2026-06-14T16:52:57.374Z",
+    "trialExpiresAt": "2026-06-28T16:52:57.374Z",
+    "trialCreditLimit": 12700,
+    "trialCreditsUsed": 0,
+    "suspiciousUsage": false
+  },
+  {
+    "userId": "4c4b0998-5cdf-41e3-b81f-1845ee5682c9",
+    "credits": 100,
+    "plan": "free",
+    "usageHistory": [
+      {
+        "id": "08184755-fcc5-4a5a-b749-e28c1f276340",
+        "type": "credit-add",
+        "cost": 0,
+        "description": "Welcome! 10,000 free AI trial credits for 14 days",
+        "timestamp": "2026-06-14T16:52:59.693Z"
+      },
+      {
+        "id": "acc88166-103b-4f7e-95ac-612f45e82f7f",
+        "type": "credit-add",
+        "cost": 0,
+        "description": "Referral bonus: joined via invite code ZR63LSYG",
+        "timestamp": "2026-06-14T16:52:59.698Z"
+      }
+    ],
+    "totalSpent": 0,
+    "isTrial": true,
+    "trialStartedAt": "2026-06-14T16:52:59.693Z",
+    "trialExpiresAt": "2026-06-28T16:52:59.693Z",
+    "trialCreditLimit": 11500,
+    "trialCreditsUsed": 0,
+    "suspiciousUsage": false
   }
 ]

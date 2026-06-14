@@ -3,6 +3,8 @@ import OpenAI from "openai";
 import { AiAssistBody } from "@workspace/api-zod";
 import { getAuthUser } from "../platform/auth";
 import { checkAndDeductAiCredits } from "../platform/trial";
+import { recordActivity } from "../platform/streak";
+import { recordAiGeneration } from "../platform/achievements";
 
 const router = Router();
 
@@ -104,6 +106,12 @@ router.post("/ai", async (req, res) => {
 
     send({ done: true });
     res.end();
+
+    // Fire-and-forget: streak + achievement tracking (never block the response)
+    if (userId) {
+      recordActivity(userId).catch(() => {});
+      recordAiGeneration(userId).catch(() => {});
+    }
   } catch (err: unknown) {
     const message = err instanceof Error ? err.message : "AI request failed";
     req.log.error({ err }, "AI request failed");

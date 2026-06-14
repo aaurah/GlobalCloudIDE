@@ -1,0 +1,28 @@
+[
+  {
+    "userId": "06cab9a6-10d0-4a47-827e-515f9f2efccc",
+    "code": "ZR63LSYG",
+    "referredBy": null,
+    "referralCount": 1,
+    "referredUsers": [
+      "4c4b0998-5cdf-41e3-b81f-1845ee5682c9"
+    ],
+    "rewardsClaimed": [
+      1
+    ],
+    "suspiciousScore": 2,
+    "registrationIp": "127.0.0.1",
+    "createdAt": "2026-06-14T16:52:57.392Z"
+  },
+  {
+    "userId": "4c4b0998-5cdf-41e3-b81f-1845ee5682c9",
+    "code": "EVQ60CVX",
+    "referredBy": "06cab9a6-10d0-4a47-827e-515f9f2efccc",
+    "referralCount": 0,
+    "referredUsers": [],
+    "rewardsClaimed": [],
+    "suspiciousScore": 5,
+    "registrationIp": "127.0.0.1",
+    "createdAt": "2026-06-14T16:52:59.696Z"
+  }
+]

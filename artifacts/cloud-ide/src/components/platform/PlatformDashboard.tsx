@@ -14,16 +14,17 @@ import { GlobalSchedulerPanel } from "./GlobalSchedulerPanel";
 import { HealingDashboard } from "./HealingDashboard";
 import { RoutingPanel } from "./RoutingPanel";
 import { AdminPanel } from "./AdminPanel";
+import { GrowthPanel } from "./GrowthPanel";
 import { Button } from "../ui/button";
 import {
   X, CreditCard, Users, Puzzle, BrainCircuit, Server, Container,
-  Activity, Zap, Sparkles, Globe, ShieldCheck, Network, ShieldAlert,
+  Activity, Zap, Sparkles, Globe, ShieldCheck, Network, ShieldAlert, Gift,
 } from "lucide-react";
 
 type Tab =
   | "billing" | "teams" | "plugins" | "agents" | "nodes" | "containers"
   | "orchestrator" | "functions" | "observability" | "infragen"
-  | "scheduler" | "healing" | "routing" | "admin";
+  | "scheduler" | "healing" | "routing" | "admin" | "growth";
 
 interface TabDef { id: Tab; label: string; icon: React.ReactNode; group: "platform" | "cloud-os" }
 
@@ -35,6 +36,7 @@ const TABS: TabDef[] = [
   { id: "agents",        label: "Agents",      icon: <BrainCircuit size={12} />, group: "platform" },
   { id: "nodes",         label: "Nodes",       icon: <Server size={12} />,       group: "platform" },
   { id: "containers",    label: "Container",   icon: <Container size={12} />,    group: "platform" },
+  { id: "growth",        label: "Growth",      icon: <Gift size={12} />,         group: "platform" },
   { id: "admin",         label: "Admin",       icon: <ShieldAlert size={12} />,  group: "platform" },
   // Cloud OS group
   { id: "orchestrator",  label: "Orchestrator",icon: <BrainCircuit size={12} />, group: "cloud-os" },
@@ -138,6 +140,7 @@ export function PlatformDashboard({ open, onClose, initialTab = "billing" }: Pla
           {activeTab === "functions"     && <CloudFunctionsEditor />}
           {activeTab === "observability" && <ObservabilityPanel />}
           {activeTab === "infragen"      && <InfraGenerator />}
+          {activeTab === "growth"        && <GrowthPanel />}
           {activeTab === "admin"         && <AdminPanel />}
         </div>
       </div>

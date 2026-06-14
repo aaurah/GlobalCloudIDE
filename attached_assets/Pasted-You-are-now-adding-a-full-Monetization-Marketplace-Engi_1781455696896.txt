@@ -1,0 +1,201 @@
+You are now adding a full Monetization & Marketplace Engine to the platform. This includes paid plugins, paid AI agents, paid templates, deployment credits, revenue sharing, payouts, and subscription plans.
+
+### GOAL
+Transform the platform into a revenue-generating ecosystem with:
+- Paid plugins
+- Paid AI agents
+- Paid templates
+- Paid cloud resources
+- Subscription plans
+- Usage-based billing
+- Creator payouts
+- Marketplace discovery
+- Fraud prevention
+
+### NEW FEATURES TO ADD
+
+1. **Marketplace System**
+   - Add a marketplace for:
+       - Plugins
+       - AI agents
+       - Templates
+       - Components
+       - Deployment presets
+   - Each item has:
+       - price
+       - creator
+       - rating
+       - version
+       - description
+   - Endpoints:
+       - /marketplace/list
+       - /marketplace/item/{id}
+       - /marketplace/purchase
+       - /marketplace/review
+
+2. **Paid Plugins**
+   - Creators can:
+       - upload plugins
+       - set price
+       - set free/paid tiers
+   - Users can:
+       - buy plugins
+       - install plugins
+       - update plugins
+   - Add:
+       - plugin.json with pricing metadata
+
+3. **Paid AI Agents**
+   - Agents can be:
+       - free
+       - paid one-time
+       - subscription-based
+       - usage-based (per request)
+   - Add:
+       - /agents/purchase
+       - /agents/subscribe
+       - /agents/usage
+
+4. **Paid Templates & Components**
+   - Allow creators to sell:
+       - starter templates
+       - UI kits
+       - backend boilerplates
+       - deployment presets
+   - Add:
+       - /templates/list
+       - /templates/purchase
+
+5. **Subscription Plans**
+   - Add plans:
+       - Free
+       - Pro
+       - Team
+       - Enterprise
+   - Each plan includes:
+       - AI credits
+       - compute credits
+       - storage
+       - collaboration features
+   - Endpoints:
+       - /plans/list
+       - /plans/subscribe
+       - /plans/cancel
+
+6. **Usage-Based Billing**
+   - Track:
+       - AI usage
+       - compute usage
+       - storage usage
+       - bandwidth
+   - Charge per:
+       - 1,000 AI tokens
+       - CPU-minute
+       - GB storage
+       - GB bandwidth
+
+7. **Creator Revenue Sharing**
+   - Creators earn:
+       - 70% of plugin sales
+       - 70% of agent sales
+       - 70% of template sales
+   - Add:
+       - /creator/dashboard
+       - /creator/payouts
+       - /creator/earnings
+
+8. **Payout System**
+   - Support:
+       - PayPal
+       - Stripe Connect
+       - Bank transfer (optional)
+   - Add:
+       - /payouts/request
+       - /payouts/history
+
+9. **Fraud & Abuse Prevention**
+   - Detect:
+       - fake purchases
+       - refund abuse
+       - stolen cards
+       - bot accounts
+   - Add:
+       - fraud_score
+       - /admin/fraud/flag
+       - /admin/fraud/review
+
+10. **Marketplace Discovery**
+   - Add:
+       - search
+       - categories
+       - trending
+       - top paid
+       - top free
+       - recommended for you
+   - Endpoints:
+       - /marketplace/search
+       - /marketplace/trending
+
+11. **Frontend Marketplace UI**
+   - Pages:
+       - Marketplace home
+       - Plugin details
+       - Agent details
+       - Template details
+       - Creator profile
+       - Purchase flow
+       - Ratings & reviews
+   - Add:
+       - “Buy” button
+       - “Install” button
+       - “Subscribe” button
+       - “Try free demo” button
+
+12. **AI-Assisted Commerce**
+   - AI can:
+       - recommend plugins
+       - recommend agents
+       - summarize reviews
+       - suggest pricing for creators
+       - detect low-quality items
+   - Endpoints:
+       - /marketplace/ai/recommend
+       - /marketplace/ai/summary
+
+13. **Deliverables**
+   - Backend:
+       - marketplace engine
+       - billing engine
+       - subscription system
+       - usage metering
+       - payouts
+       - fraud detection
+   - Frontend:
+       - marketplace UI
+       - purchase flow
+       - creator dashboard
+       - plan upgrade UI
+   - Integration with existing systems
+   - Example workflows:
+       - user buys plugin
+       - creator uploads agent
+       - user subscribes to Pro
+       - creator receives payout
+
+### STYLE
+- Clean, modular, production-ready
+- No placeholders
+- Fully working code
+
+### OUTPUT FORMAT
+Respond with:
+1. Updated data models
+2. Marketplace engine code
+3. Billing system code
+4. Subscription system code
+5. Usage metering code
+6. Creator payout code
+7. Fraud detection logic
+8. Marketplace UI components
+9. Integration instructions
+10. Example monetization workflows

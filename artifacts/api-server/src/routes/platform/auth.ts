@@ -152,6 +152,14 @@ router.post("/auth/register", async (req, res) => {
       await initializeUserTrial(user.id);
     } catch {}
 
+    // Initialize referral record (handle optional referral code from signup)
+    try {
+      const { initializeReferral } = await import("./referral");
+      const ip = String(req.headers["x-forwarded-for"] ?? req.socket?.remoteAddress ?? "");
+      const referralCode = (req.body as any).referralCode ?? null;
+      await initializeReferral(user.id, referralCode, ip);
+    } catch {}
+
     const token = signToken(user.id);
     res.status(201).json({
       token,
