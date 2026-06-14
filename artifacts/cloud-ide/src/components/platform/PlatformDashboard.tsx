@@ -13,16 +13,17 @@ import { InfraGenerator } from "./InfraGenerator";
 import { GlobalSchedulerPanel } from "./GlobalSchedulerPanel";
 import { HealingDashboard } from "./HealingDashboard";
 import { RoutingPanel } from "./RoutingPanel";
+import { AdminPanel } from "./AdminPanel";
 import { Button } from "../ui/button";
 import {
   X, CreditCard, Users, Puzzle, BrainCircuit, Server, Container,
-  Activity, Zap, Sparkles, Globe, ShieldCheck, Network,
+  Activity, Zap, Sparkles, Globe, ShieldCheck, Network, ShieldAlert,
 } from "lucide-react";
 
 type Tab =
   | "billing" | "teams" | "plugins" | "agents" | "nodes" | "containers"
   | "orchestrator" | "functions" | "observability" | "infragen"
-  | "scheduler" | "healing" | "routing";
+  | "scheduler" | "healing" | "routing" | "admin";
 
 interface TabDef { id: Tab; label: string; icon: React.ReactNode; group: "platform" | "cloud-os" }
 
@@ -34,6 +35,7 @@ const TABS: TabDef[] = [
   { id: "agents",        label: "Agents",      icon: <BrainCircuit size={12} />, group: "platform" },
   { id: "nodes",         label: "Nodes",       icon: <Server size={12} />,       group: "platform" },
   { id: "containers",    label: "Container",   icon: <Container size={12} />,    group: "platform" },
+  { id: "admin",         label: "Admin",       icon: <ShieldAlert size={12} />,  group: "platform" },
   // Cloud OS group
   { id: "orchestrator",  label: "Orchestrator",icon: <BrainCircuit size={12} />, group: "cloud-os" },
   { id: "scheduler",     label: "Scheduler",   icon: <Globe size={12} />,        group: "cloud-os" },
@@ -136,6 +138,7 @@ export function PlatformDashboard({ open, onClose, initialTab = "billing" }: Pla
           {activeTab === "functions"     && <CloudFunctionsEditor />}
           {activeTab === "observability" && <ObservabilityPanel />}
           {activeTab === "infragen"      && <InfraGenerator />}
+          {activeTab === "admin"         && <AdminPanel />}
         </div>
       </div>
     </>
