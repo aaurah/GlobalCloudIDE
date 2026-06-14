@@ -17,7 +17,9 @@ import { MobileAiWorkspace } from "./components/mobile/MobileAiWorkspace";
 import { MobileDeployPanel } from "./components/mobile/MobileDeployPanel";
 import { MobileSettingsPanel } from "./components/mobile/MobileSettingsPanel";
 import { OfflineBanner } from "./components/mobile/OfflineBanner";
+import { FloatingActionButton } from "./components/mobile/FloatingActionButton";
 import { InstallPrompt } from "./components/mobile/InstallPrompt";
+import { useOfflineCache } from "./hooks/use-offline-cache";
 
 import { ResizableHandle, ResizablePanel, ResizablePanelGroup } from "./components/ui/resizable";
 import { IdeProvider, useIde } from "./hooks/use-ide";
@@ -35,6 +37,7 @@ function IdeLayout() {
 
   const { isPaletteOpen, openPalette, isRunning, setIsRunning, activeTabPath, tabs, addOutputLine, clearOutput } = useIde();
   const { isPlatformDashboardOpen, closePlatformDashboard, openPlatformDashboard } = usePlatform();
+  const { pendingCount, isSyncing } = useOfflineCache();
   const isMobile = useIsMobile();
   const mainRef = useRef<HTMLDivElement>(null);
 
@@ -114,7 +117,7 @@ function IdeLayout() {
     return (
       <div className="flex flex-col h-[100dvh] w-full overflow-hidden bg-background text-foreground">
         {/* Offline banner — above everything */}
-        <OfflineBanner />
+        <OfflineBanner pendingCount={pendingCount} isSyncing={isSyncing} />
 
         {/* Compact toolbar */}
         <TopToolbar
@@ -122,31 +125,33 @@ function IdeLayout() {
           compact
         />
 
-        {/* View transitions — all panels mounted, CSS opacity/pointer-events switches active one */}
+        {/* View transitions — all panels mounted, slide+fade switches active one */}
         <div ref={mainRef} className="flex-1 min-h-0 overflow-hidden relative">
 
           {/* Code view: enhanced editor shell */}
-          <div className={`absolute inset-0 flex flex-col transition-opacity duration-200 ${mobileView === "code" ? "opacity-100 pointer-events-auto z-10" : "opacity-0 pointer-events-none z-0"}`}>
+          <div className={`mobile-view-panel flex flex-col ${mobileView === "code" ? "mobile-view-active" : "mobile-view-inactive"}`}>
             <MobileEditorShell
               onOpenAi={() => setMobileView("ai")}
               onRun={handleRun}
               isRunning={isRunning}
               onStop={() => setIsRunning(false)}
+              selectedLang={selectedLang}
+              onLangChange={setSelectedLang}
             />
           </div>
 
           {/* Terminal view — full height */}
-          <div className={`absolute inset-0 transition-opacity duration-200 ${mobileView === "terminal" ? "opacity-100 pointer-events-auto z-10" : "opacity-0 pointer-events-none z-0"}`}>
+          <div className={`mobile-view-panel ${mobileView === "terminal" ? "mobile-view-active" : "mobile-view-inactive"}`}>
             <BottomPanel fullHeight />
           </div>
 
           {/* AI workspace — quick actions + full panel */}
-          <div className={`absolute inset-0 transition-opacity duration-200 ${mobileView === "ai" ? "opacity-100 pointer-events-auto z-10" : "opacity-0 pointer-events-none z-0"}`}>
+          <div className={`mobile-view-panel ${mobileView === "ai" ? "mobile-view-active" : "mobile-view-inactive"}`}>
             <MobileAiWorkspace />
           </div>
 
           {/* Deploy panel */}
-          <div className={`absolute inset-0 flex flex-col transition-opacity duration-200 ${mobileView === "deploy" ? "opacity-100 pointer-events-auto z-10" : "opacity-0 pointer-events-none z-0"}`}>
+          <div className={`mobile-view-panel flex flex-col ${mobileView === "deploy" ? "mobile-view-active" : "mobile-view-inactive"}`}>
             <div className="px-4 pt-3 pb-2 border-b border-border shrink-0">
               <div className="text-sm font-bold">Deploy</div>
               <div className="text-xs text-muted-foreground">Build status &amp; region health</div>
@@ -155,13 +160,25 @@ function IdeLayout() {
           </div>
 
           {/* Settings panel */}
-          <div className={`absolute inset-0 flex flex-col transition-opacity duration-200 ${mobileView === "settings" ? "opacity-100 pointer-events-auto z-10" : "opacity-0 pointer-events-none z-0"}`}>
+          <div className={`mobile-view-panel flex flex-col ${mobileView === "settings" ? "mobile-view-active" : "mobile-view-inactive"}`}>
             <div className="px-4 pt-3 pb-2 border-b border-border shrink-0">
               <div className="text-sm font-bold">Settings</div>
               <div className="text-xs text-muted-foreground">Editor &amp; app preferences</div>
             </div>
             <MobileSettingsPanel />
           </div>
+
+          {/* Floating Action Button — shown over all views except deploy/settings */}
+          {(mobileView === "code" || mobileView === "ai" || mobileView === "terminal") && (
+            <FloatingActionButton
+              activeView={mobileView}
+              onRun={handleRun}
+              onOpenAi={() => setMobileView("ai")}
+              onNewFile={() => setSidebarOpen(true)}
+              onOpenFiles={() => setSidebarOpen(true)}
+              isRunning={isRunning}
+            />
+          )}
         </div>
 
         {/* Swipe indicator dots for code/terminal/ai */}

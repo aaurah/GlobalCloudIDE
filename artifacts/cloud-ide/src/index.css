@@ -257,3 +257,86 @@
   .border.active-elevate-2:not(.no-active-interaction-elevate)::after,
   .border.hover-elevate:not(.no-hover-interaction-elevate)::after { inset: -1px; }
 }
+
+/* ── Mobile view panel transitions ─────────────────────────────── */
+.mobile-view-panel {
+  position: absolute;
+  inset: 0;
+  transition: opacity 180ms ease, transform 180ms cubic-bezier(0.4, 0, 0.2, 1);
+  will-change: opacity, transform;
+  contain: layout style;
+}
+
+.mobile-view-active {
+  opacity: 1;
+  transform: translateX(0) scale(1);
+  pointer-events: auto;
+  z-index: 10;
+}
+
+.mobile-view-inactive {
+  opacity: 0;
+  transform: translateX(6px) scale(0.99);
+  pointer-events: none;
+  z-index: 0;
+}
+
+/* ── Smooth momentum scroll for mobile panels ───────────────────── */
+@media (max-width: 767px) {
+  .overflow-y-auto,
+  .overflow-auto {
+    -webkit-overflow-scrolling: touch;
+  }
+
+  /* Make tap targets comfortably large */
+  button, [role="button"] {
+    min-height: 36px;
+  }
+
+  /* Prevent text selection while swiping */
+  .mobile-view-panel {
+    user-select: none;
+    -webkit-user-select: none;
+  }
+  .mobile-view-panel input,
+  .mobile-view-panel textarea,
+  .mobile-view-panel [contenteditable] {
+    user-select: text;
+    -webkit-user-select: text;
+  }
+}
+
+/* ── FAB spring entrance ────────────────────────────────────────── */
+@keyframes fab-in {
+  0% { opacity: 0; transform: scale(0.7) translateY(8px); }
+  60% { opacity: 1; transform: scale(1.06) translateY(-2px); }
+  100% { opacity: 1; transform: scale(1) translateY(0); }
+}
+@keyframes fab-out {
+  0% { opacity: 1; transform: scale(1); }
+  100% { opacity: 0; transform: scale(0.7) translateY(8px); }
+}
+.fab-enter { animation: fab-in 260ms cubic-bezier(0.34, 1.56, 0.64, 1) both; }
+.fab-exit  { animation: fab-out 180ms ease-in both; }
+
+/* ── Sparkline / chart pulse ────────────────────────────────────── */
+@keyframes pulse-glow {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.55; }
+}
+.pulse-glow { animation: pulse-glow 2s ease-in-out infinite; }
+
+/* ── Offline banner slide-down ──────────────────────────────────── */
+@keyframes banner-down {
+  from { transform: translateY(-100%); opacity: 0; }
+  to   { transform: translateY(0);     opacity: 1; }
+}
+.animate-banner { animation: banner-down 220ms ease both; }
+
+/* ── Scroll snap for swipeable carousels ───────────────────────── */
+.snap-x-mandatory {
+  scroll-snap-type: x mandatory;
+  -webkit-overflow-scrolling: touch;
+}
+.snap-start { scroll-snap-align: start; }
+.snap-center { scroll-snap-align: center; }

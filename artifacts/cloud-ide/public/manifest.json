@@ -1,28 +1,52 @@
 {
   "name": "CloudIDE — Cloud OS",
   "short_name": "CloudIDE",
-  "description": "Browser-based Cloud IDE with AI, distributed compute, and Cloud OS capabilities",
+  "description": "Browser-based Cloud IDE with Monaco Editor, AI assistant, terminal, and cloud deployment.",
   "start_url": "/",
+  "id": "/",
   "display": "standalone",
+  "display_override": ["standalone", "minimal-ui", "browser"],
   "orientation": "any",
   "background_color": "#0a0a0a",
   "theme_color": "#0a0a0a",
   "categories": ["developer", "productivity", "utilities"],
+  "lang": "en",
+  "dir": "ltr",
+  "scope": "/",
   "icons": [
     {
       "src": "/favicon.svg",
       "sizes": "any",
       "type": "image/svg+xml",
-      "purpose": "any maskable"
+      "purpose": "any"
+    },
+    {
+      "src": "/favicon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "maskable"
+    }
+  ],
+  "shortcuts": [
+    {
+      "name": "Code Editor",
+      "short_name": "Code",
+      "description": "Open the code editor",
+      "url": "/?view=code"
+    },
+    {
+      "name": "AI Assistant",
+      "short_name": "AI",
+      "description": "Open the AI assistant",
+      "url": "/?view=ai"
+    },
+    {
+      "name": "Terminal",
+      "short_name": "Terminal",
+      "description": "Open the terminal",
+      "url": "/?view=terminal"
     }
   ],
   "screenshots": [],
-  "shortcuts": [
-    {
-      "name": "New File",
-      "short_name": "New File",
-      "description": "Open a new file in the editor",
-      "url": "/"
-    }
-  ]
+  "prefer_related_applications": false
 }

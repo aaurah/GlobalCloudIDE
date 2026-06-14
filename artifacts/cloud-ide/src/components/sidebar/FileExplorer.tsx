@@ -180,6 +180,7 @@ export function FileExplorer({ onFileOpen }: FileExplorerProps = {}) {
   };
 
   const renderTree = (entries: FileEntry[], depth: number = 0) => {
+    if (!Array.isArray(entries)) return null;
     return entries.map(entry => (
       <div key={entry.path}>
         <FileTreeNode
@@ -193,7 +194,7 @@ export function FileExplorer({ onFileOpen }: FileExplorerProps = {}) {
           expandedFolders={expandedFolders}
           toggleFolder={toggleFolder}
         />
-        {entry.type === "directory" && expandedFolders.has(entry.path) && entry.children && (
+        {entry.type === "directory" && expandedFolders.has(entry.path) && Array.isArray(entry.children) && (
           renderTree(entry.children, depth + 1)
         )}
       </div>
