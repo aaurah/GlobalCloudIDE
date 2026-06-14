@@ -1,22 +1,27 @@
 openapi: 3.1.0
 info:
-  # Do not change the title, if the title changes, the import paths will be broken
   title: Api
   version: 0.1.0
-  description: API specification
+  description: Cloud IDE API specification
 servers:
   - url: /api
     description: Base API path
 tags:
   - name: health
     description: Health operations
+  - name: filesystem
+    description: Virtual filesystem operations
+  - name: execution
+    description: Code execution
+  - name: ai
+    description: AI code assistant
+
 paths:
   /healthz:
     get:
       operationId: healthCheck
       tags: [health]
       summary: Health check
-      description: Returns server health status
       responses:
         "200":
           description: Healthy
@@ -24,6 +29,164 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/HealthStatus"
+
+  /fs/list:
+    get:
+      operationId: listFiles
+      tags: [filesystem]
+      summary: List files and directories at a path
+      parameters:
+        - name: path
+          in: query
+          required: false
+          schema:
+            type: string
+            default: "/"
+      responses:
+        "200":
+          description: File listing
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/FileEntry"
+
+  /fs/read:
+    get:
+      operationId: readFile
+      tags: [filesystem]
+      summary: Read file content
+      parameters:
+        - name: path
+          in: query
+          required: true
+          schema:
+            type: string
+      responses:
+        "200":
+          description: File content
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/FileContent"
+        "404":
+          description: File not found
+
+  /fs/write:
+    post:
+      operationId: writeFile
+      tags: [filesystem]
+      summary: Write or update file content
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/FileWrite"
+      responses:
+        "200":
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/SuccessResponse"
+
+  /fs/delete:
+    delete:
+      operationId: deleteFile
+      tags: [filesystem]
+      summary: Delete a file or directory
+      parameters:
+        - name: path
+          in: query
+          required: true
+          schema:
+            type: string
+      responses:
+        "200":
+          description: Deleted
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/SuccessResponse"
+
+  /fs/rename:
+    post:
+      operationId: renameFile
+      tags: [filesystem]
+      summary: Rename or move a file
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/FileRename"
+      responses:
+        "200":
+          description: Renamed
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/SuccessResponse"
+
+  /fs/mkdir:
+    post:
+      operationId: makeDirectory
+      tags: [filesystem]
+      summary: Create a directory
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/DirectoryCreate"
+      responses:
+        "200":
+          description: Directory created
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/SuccessResponse"
+
+  /run:
+    post:
+      operationId: runCode
+      tags: [execution]
+      summary: Execute code (streams output via SSE)
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/CodeRun"
+      responses:
+        "200":
+          description: SSE stream of execution output
+          content:
+            text/event-stream:
+              schema:
+                type: string
+
+  /ai:
+    post:
+      operationId: aiAssist
+      tags: [ai]
+      summary: AI code assistant (streams response via SSE)
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/AiRequest"
+      responses:
+        "200":
+          description: SSE stream of AI response
+          content:
+            text/event-stream:
+              schema:
+                type: string
+
 components:
   schemas:
     HealthStatus:
@@ -34,3 +197,105 @@ components:
       required:
         - status
 
+    FileEntry:
+      type: object
+      properties:
+        name:
+          type: string
+        path:
+          type: string
+        type:
+          type: string
+          enum: [file, directory]
+        size:
+          type: ["integer", "null"]
+        children:
+          type: ["array", "null"]
+          items:
+            $ref: "#/components/schemas/FileEntry"
+      required:
+        - name
+        - path
+        - type
+
+    FileContent:
+      type: object
+      properties:
+        path:
+          type: string
+        content:
+          type: string
+      required:
+        - path
+        - content
+
+    FileWrite:
+      type: object
+      properties:
+        path:
+          type: string
+        content:
+          type: string
+      required:
+        - path
+        - content
+
+    FileRename:
+      type: object
+      properties:
+        oldPath:
+          type: string
+        newPath:
+          type: string
+      required:
+        - oldPath
+        - newPath
+
+    DirectoryCreate:
+      type: object
+      properties:
+        path:
+          type: string
+      required:
+        - path
+
+    CodeRun:
+      type: object
+      properties:
+        language:
+          type: string
+          enum: [python, node, bash]
+        code:
+          type: string
+        filename:
+          type: ["string", "null"]
+      required:
+        - language
+        - code
+
+    AiRequest:
+      type: object
+      properties:
+        action:
+          type: string
+          enum: [generate, fix, explain, refactor]
+        code:
+          type: ["string", "null"]
+        prompt:
+          type: ["string", "null"]
+        language:
+          type: ["string", "null"]
+        filename:
+          type: ["string", "null"]
+      required:
+        - action
+
+    SuccessResponse:
+      type: object
+      properties:
+        success:
+          type: boolean
+        message:
+          type: ["string", "null"]
+      required:
+        - success

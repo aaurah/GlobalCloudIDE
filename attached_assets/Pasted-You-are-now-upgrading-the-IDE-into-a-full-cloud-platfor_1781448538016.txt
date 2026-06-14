@@ -1,0 +1,119 @@
+You are now upgrading the IDE into a full cloud platform similar to Replit Deployments, Vercel, and Codespaces.
+
+### GOAL
+Add cloud deployment, hosting, user accounts, project containers, and AI‑powered DevOps automation.
+
+### NEW FEATURES TO ADD
+
+1. **User Accounts + Auth**
+   - Implement JWT-based authentication
+   - Users can:
+       - Sign up
+       - Log in
+       - Create projects
+       - Save projects
+       - Load projects
+   - Store user data in a simple JSON DB or SQLite
+
+2. **Project Hosting + Deployment**
+   Add a deployment system with:
+   - Build step
+   - Start command
+   - Logs
+   - Public URL
+   - Auto-redeploy on changes
+   - Deployment history
+
+   Deployment types:
+   - Static site
+   - Node.js server
+   - Python server
+
+3. **Container Simulation**
+   - Each project runs in an isolated “execution sandbox”
+   - Use:
+       - child_process.spawn (Node)
+       - subprocess.Popen (Python)
+   - Apply:
+       - CPU limits
+       - Memory limits
+       - Timeout limits
+   - Provide a `/deploy/run` endpoint
+
+4. **Cloud Workspace System**
+   - Users can open multiple projects
+   - Each project has:
+       - Files
+       - Settings
+       - Dependencies
+       - Deployment config
+   - Add `/projects/list`, `/projects/open`, `/projects/save`
+
+5. **AI DevOps Agent**
+   Add an autonomous DevOps agent that can:
+   - Analyze logs
+   - Detect deployment failures
+   - Suggest fixes
+   - Auto‑patch code
+   - Optimize performance
+   - Generate Dockerfile‑like configs
+   - Recommend scaling strategies
+
+   Agent workflow:
+   1. Read project context
+   2. Read deployment logs
+   3. Diagnose issues
+   4. Apply fixes
+   5. Redeploy
+
+6. **Monitoring + Logs**
+   - Add a logs viewer in the frontend
+   - Backend stores:
+       - Build logs
+       - Runtime logs
+       - Error logs
+   - Provide `/logs/{projectId}` endpoint
+
+7. **Public Project URLs**
+   - Generate a unique URL for each deployment
+   - Serve static or dynamic content
+   - Reverse proxy requests to the running process
+
+8. **Frontend Additions**
+   Add:
+   - Deployment dashboard
+   - Logs viewer
+   - Build status indicator
+   - “Deploy” button
+   - “Redeploy” button
+   - “View Live App” button
+   - DevOps AI panel
+
+9. **Deliverables**
+   - Updated backend code
+   - Updated frontend UI
+   - Deployment engine
+   - DevOps agent
+   - Auth system
+   - Project management system
+   - Logs system
+   - Public hosting system
+   - Integration instructions
+
+### STYLE
+- Clean, modular, production-ready
+- No placeholders
+- Fully working code
+
+### OUTPUT FORMAT
+Respond with:
+1. Updated folder structure
+2. Backend changes
+3. Frontend changes
+4. Deployment engine code
+5. DevOps agent code
+6. Auth system code
+7. Project management code
+8. Logs system code
+9. Integration instructions
+10. Example deployment flows

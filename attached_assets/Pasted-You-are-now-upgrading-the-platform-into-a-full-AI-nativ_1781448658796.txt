@@ -1,0 +1,142 @@
+You are now upgrading the platform into a full AI-native Cloud Operating System (Cloud OS) with global distributed compute, autonomous orchestration, predictive scaling, self-healing, and user-programmable cloud logic.
+
+### GOAL
+Transform the IDE + cloud platform into a sovereign Cloud OS capable of:
+- Running distributed workloads
+- Hosting AI agents at scale
+- Auto-generating infrastructure
+- Self-healing deployments
+- Predictive autoscaling
+- Global routing
+- Multi-region failover
+- AI-driven orchestration
+
+### NEW FEATURES TO ADD
+
+1. **Global Compute Mesh**
+   - Add support for multiple regions:
+       - ap-southeast
+       - us-west
+       - eu-central
+   - Nodes register with:
+       - region
+       - capacity
+       - load
+       - health
+   - Add global scheduler:
+       - Assign workloads to optimal region
+       - Failover to backup region
+       - Predictive scaling based on usage patterns
+
+2. **AI Orchestration Layer**
+   Add an AI-driven orchestrator that:
+   - Reads node metrics
+   - Predicts load spikes
+   - Moves workloads between nodes
+   - Restarts unhealthy deployments
+   - Suggests infrastructure changes
+   - Generates container specs automatically
+
+   Orchestrator workflow:
+   1. Observe system state
+   2. Predict future load
+   3. Plan actions
+   4. Execute scaling/migration
+   5. Validate results
+
+3. **Self-Healing Infrastructure**
+   - Detect crashed deployments
+   - Auto-restart containers
+   - Auto-rebuild broken images
+   - Auto-rollback failed deployments
+   - Auto-patch dependency vulnerabilities
+
+4. **Global Routing Layer**
+   - Add global load balancer
+   - Route traffic to nearest region
+   - Failover routing on region outage
+   - Add `/global/routes` endpoint
+
+5. **User-Programmable Cloud Logic**
+   - Allow users to write “cloud functions”:
+       - event-driven
+       - scheduled
+       - triggered by logs
+       - triggered by deployments
+   - Functions run in isolated sandboxes
+   - Add `/functions/deploy`, `/functions/run`
+
+6. **Universal Agent Runtime**
+   - Agents can run:
+       - continuously
+       - on triggers
+       - on schedules
+   - Agents can:
+       - read logs
+       - modify deployments
+       - scale services
+       - migrate workloads
+       - rewrite infrastructure configs
+
+7. **AI Infrastructure Generator**
+   - Users describe infrastructure in natural language
+   - AI generates:
+       - container.json
+       - deployment.json
+       - autoscale.json
+       - routing.json
+       - functions.json
+   - AI validates configs before applying
+
+8. **Observability Layer**
+   Add:
+   - Metrics dashboard
+   - Traces
+   - Logs
+   - Alerts
+   - Region health map
+   - Node heatmap
+
+9. **Frontend Upgrades**
+   Add:
+   - Global region map
+   - Node health dashboard
+   - Autoscaling panel
+   - AI orchestrator console
+   - Cloud functions editor
+   - Agent runtime manager
+   - Infrastructure generator UI
+
+10. **Deliverables**
+   - Updated folder structure
+   - Global scheduler code
+   - AI orchestrator code
+   - Self-healing engine
+   - Routing layer
+   - Cloud functions system
+   - Agent runtime
+   - Infrastructure generator
+   - Observability layer
+   - Frontend dashboards
+   - Integration instructions
+   - Example global deployment flows
+
+### STYLE
+- Clean, modular, production-ready
+- No placeholders
+- Fully working code
+
+### OUTPUT FORMAT
+Respond with:
+1. Updated folder structure
+2. Global scheduler code
+3. AI orchestrator code
+4. Self-healing engine
+5. Routing layer
+6. Cloud functions system
+7. Agent runtime
+8. Infrastructure generator
+9. Observability layer
+10. Frontend changes
+11. Integration instructions
+12. Example global deployment flows

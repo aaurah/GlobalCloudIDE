@@ -1,0 +1,150 @@
+You are now upgrading the platform into a full distributed cloud environment with real containers, multi-tenant isolation, billing, teams, plugins, and an AI agent marketplace.
+
+### GOAL
+Transform the IDE + cloud deployment system into a full sovereign cloud platform similar to Replit, Vercel, Codespaces, and Fly.io — but AI-native and fully autonomous.
+
+### NEW FEATURES TO ADD
+
+1. **Real Container Runtime**
+   - Add support for Docker-like container definitions
+   - Use a container spec file (container.json)
+   - Support:
+       - Base image
+       - Build commands
+       - Run commands
+       - Environment variables
+       - Ports
+   - Simulate container isolation using:
+       - chroot-like FS isolation
+       - separate process groups
+       - resource limits
+
+2. **Distributed Compute Layer**
+   - Add a scheduler that can:
+       - Assign deployments to different nodes
+       - Balance load
+       - Restart crashed deployments
+       - Track CPU/RAM usage
+   - Nodes can be:
+       - Local processes
+       - Remote worker URLs
+   - Add `/nodes/register`, `/nodes/status`, `/nodes/assign`
+
+3. **Multi-Tenant Isolation**
+   - Each user’s deployments run in isolated sandboxes
+   - Enforce:
+       - CPU quotas
+       - Memory quotas
+       - Timeouts
+       - Network restrictions
+   - Add a security layer to prevent cross-project access
+
+4. **Billing + Credits System**
+   - Add a simple billing engine:
+       - Users have credits
+       - Deployments consume credits per minute
+       - Builds consume credits
+       - AI usage consumes credits
+   - Add endpoints:
+       - /billing/usage
+       - /billing/credits
+       - /billing/add
+
+5. **Teams & Collaboration**
+   - Add team accounts
+   - Team features:
+       - Shared projects
+       - Shared deployments
+       - Role-based permissions
+       - Activity logs
+   - Add endpoints:
+       - /teams/create
+       - /teams/invite
+       - /teams/permissions
+
+6. **Plugin System**
+   - Allow developers to create plugins that extend the IDE
+   - Plugin capabilities:
+       - Add UI panels
+       - Add commands
+       - Add AI tools
+       - Add file templates
+       - Add deployment presets
+   - Plugins defined in plugin.json
+   - Add plugin loader in frontend + backend
+
+7. **AI Agent Marketplace**
+   - Allow users to install AI agents:
+       - Builder agent
+       - Debugger agent
+       - Reviewer agent
+       - DevOps agent
+       - Documentation agent
+   - Agents can:
+       - Read project context
+       - Modify files
+       - Run code
+       - Deploy
+       - Analyze logs
+   - Add:
+       - /agents/list
+       - /agents/install
+       - /agents/run
+
+8. **Global Project Index**
+   - Add a search index for:
+       - User projects
+       - Public templates
+       - Plugins
+       - Agents
+   - Add:
+       - /search/projects
+       - /search/plugins
+       - /search/agents
+
+9. **Frontend Upgrades**
+   Add:
+   - Node dashboard
+   - Billing dashboard
+   - Team management UI
+   - Plugin marketplace UI
+   - Agent marketplace UI
+   - Container builder UI
+   - Deployment metrics UI
+
+10. **Deliverables**
+   - Updated folder structure
+   - Backend code for:
+       - Containers
+       - Scheduler
+       - Billing
+       - Teams
+       - Plugins
+       - Agents
+       - Search index
+   - Frontend code for:
+       - Dashboards
+       - Marketplace
+       - Team UI
+       - Billing UI
+   - Integration instructions
+   - Example workflows
+
+### STYLE
+- Clean, modular, production-ready
+- No placeholders
+- Fully working code
+
+### OUTPUT FORMAT
+Respond with:
+1. Updated folder structure
+2. Container runtime code
+3. Scheduler code
+4. Billing system code
+5. Teams system code
+6. Plugin system code
+7. Agent marketplace code
+8. Search index code
+9. Frontend changes
+10. Integration instructions
+11. Example distributed deployment flows

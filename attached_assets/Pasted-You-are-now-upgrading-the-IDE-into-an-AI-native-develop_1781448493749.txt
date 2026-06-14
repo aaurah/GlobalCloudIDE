@@ -1,0 +1,98 @@
+You are now upgrading the IDE into an AI‑native development environment.
+
+### GOAL
+Add autonomous AI capabilities so the IDE can:
+- Understand the entire project context
+- Edit multiple files intelligently
+- Create new files and folders
+- Fix errors automatically
+- Run code, read output, and self‑correct
+- Maintain a memory of the project structure
+- Provide suggestions proactively
+- Support multi‑agent workflows (Builder, Debugger, Reviewer)
+
+### NEW FEATURES TO ADD
+
+1. **Project Context Engine**
+   - Scan all files in the project
+   - Build a JSON map of:
+       - file paths
+       - file contents
+       - dependencies
+       - imports
+       - function/class definitions
+   - Expose this via `/context` endpoint
+
+2. **AI Autonomous Agent**
+   - Add an agent that can:
+       - Read project context
+       - Modify multiple files
+       - Create new files
+       - Delete files
+       - Refactor entire modules
+       - Run code and analyze output
+       - Self‑correct errors
+   - Agent should use a chain:
+       1. Understand request
+       2. Read context
+       3. Plan changes
+       4. Apply changes
+       5. Run code
+       6. Fix errors if needed
+
+3. **Multi‑Agent System**
+   Implement 3 agents:
+   - **Builder Agent** → Creates new code
+   - **Debugger Agent** → Fixes errors after running code
+   - **Reviewer Agent** → Suggests improvements
+
+   Each agent should have:
+   - A role
+   - A goal
+   - A prompt template
+   - Access to the file system API
+
+4. **AI Command Palette**
+   Add a command palette in the frontend with:
+   - “Generate File”
+   - “Fix Error”
+   - “Explain Code”
+   - “Refactor Module”
+   - “Create Component”
+   - “Optimize Performance”
+   - “Add Comments”
+   - “Document Project”
+
+5. **AI Memory System**
+   - Store project metadata in a JSON file
+   - Track:
+       - Architecture decisions
+       - Naming conventions
+       - Coding style
+       - Dependencies
+   - AI should read this memory before generating code
+
+6. **Deliverables**
+   - Updated backend code
+   - Updated frontend UI
+   - Agent system implementation
+   - Context engine
+   - Memory system
+   - Command palette
+   - Full integration instructions
+
+### STYLE
+- Clean, modular, production‑ready
+- No placeholders
+- Fully working code
+
+### OUTPUT FORMAT
+Respond with:
+1. Updated folder structure
+2. Full backend changes
+3. Full frontend changes
+4. Agent system code
+5. Context engine code
+6. Memory system code
+7. Integration instructions
+8. Example usage flows
