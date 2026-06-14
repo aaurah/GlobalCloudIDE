@@ -2,24 +2,60 @@
 <html lang="en" class="dark">
   <head>
     <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1" />
-    <title>Cloud IDE</title>
-    <meta name="description" content="Cloud IDE — built on Replit. Update this description to reflect the app." />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5, viewport-fit=cover" />
+    <title>CloudIDE — Cloud OS</title>
+    <meta name="description" content="Browser-based Cloud IDE with AI, distributed compute, self-healing infrastructure, and Cloud OS." />
     <meta name="robots" content="index, follow" />
-    <meta property="og:title" content="Cloud IDE" />
-    <meta property="og:description" content="Cloud IDE — built on Replit. Update this description to reflect the app." />
+
+    <!-- PWA / Theme -->
+    <meta name="theme-color" content="#0a0a0a" />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+    <meta name="apple-mobile-web-app-title" content="CloudIDE" />
+    <meta name="mobile-web-app-capable" content="yes" />
+    <link rel="manifest" href="/manifest.json" />
+    <link rel="apple-touch-icon" href="/favicon.svg" />
+
+    <!-- Open Graph -->
+    <meta property="og:title" content="CloudIDE — Cloud OS" />
+    <meta property="og:description" content="Browser-based Cloud IDE with AI, distributed compute, and Cloud OS." />
     <meta property="og:type" content="website" />
     <meta name="twitter:card" content="summary_large_image" />
-    <meta name="twitter:title" content="Cloud IDE" />
-    <meta name="twitter:description" content="Cloud IDE — built on Replit. Update this description to reflect the app." />
+    <meta name="twitter:title" content="CloudIDE" />
+
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
+
+    <style>
+      /* Safe area insets for iOS notch/home indicator */
+      .safe-area-bottom { padding-bottom: env(safe-area-inset-bottom, 0px); }
+      .safe-area-top    { padding-top: env(safe-area-inset-top, 0px); }
+
+      /* Hide scrollbars on webkit (mobile panels) */
+      .scrollbar-hide::-webkit-scrollbar { display: none; }
+      .scrollbar-hide { -ms-overflow-style: none; scrollbar-width: none; }
+
+      /* Prevent text selection flicker on touch */
+      * { -webkit-tap-highlight-color: transparent; }
+
+      /* Full-height body on mobile */
+      html, body { height: 100%; overflow: hidden; overscroll-behavior: none; }
+      #root { height: 100%; }
+
+      /* Better touch targets */
+      button, [role="button"] { min-height: 36px; }
+      @media (min-width: 768px) { button, [role="button"] { min-height: auto; } }
+    </style>
   </head>
   <body>
     <div id="root"></div>
     <script type="module" src="/src/main.tsx"></script>
+
+    <!-- Monaco Editor via CDN AMD loader -->
     <script>
       var require = { paths: { 'vs': 'https://cdnjs.cloudflare.com/ajax/libs/monaco-editor/0.52.2/min/vs' } };
     </script>
@@ -29,6 +65,17 @@
         window.monacoLoaded = true;
         window.dispatchEvent(new Event('monaco_loaded'));
       });
+    </script>
+
+    <!-- Service Worker registration -->
+    <script>
+      if ('serviceWorker' in navigator) {
+        window.addEventListener('load', function () {
+          navigator.serviceWorker.register('/sw.js', { scope: '/' })
+            .then(function (reg) { console.log('[SW] registered', reg.scope); })
+            .catch(function (err) { console.warn('[SW] registration failed', err); });
+        });
+      }
     </script>
   </body>
 </html>

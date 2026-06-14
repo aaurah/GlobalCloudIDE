@@ -1,7 +1,7 @@
 [
   {
     "userId": "57509edf-29aa-4494-8a1f-817aba0be759",
-    "credits": 100,
+    "credits": 500,
     "plan": "free",
     "usageHistory": [
       {
@@ -10,6 +10,34 @@
         "cost": 0,
         "description": "Welcome bonus: 100 free credits",
         "timestamp": "2026-06-14T15:32:51.024Z"
+      },
+      {
+        "id": "4127e902-b02d-40a4-8325-4c23a04ba897",
+        "type": "credit-add",
+        "cost": 0,
+        "description": "Added 100 credits",
+        "timestamp": "2026-06-14T15:38:25.164Z"
+      },
+      {
+        "id": "9afb2348-c1a0-43a0-96ed-64b4e8ba59c9",
+        "type": "credit-add",
+        "cost": 0,
+        "description": "Added 100 credits",
+        "timestamp": "2026-06-14T15:38:27.384Z"
+      },
+      {
+        "id": "34805b89-3d8c-4358-a2ac-396bb8d36483",
+        "type": "credit-add",
+        "cost": 0,
+        "description": "Added 100 credits",
+        "timestamp": "2026-06-14T15:38:31.657Z"
+      },
+      {
+        "id": "728d1a87-b1ce-4ac1-aa52-e349df414097",
+        "type": "credit-add",
+        "cost": 0,
+        "description": "Added 100 credits",
+        "timestamp": "2026-06-14T15:38:50.633Z"
       }
     ],
     "totalSpent": 0

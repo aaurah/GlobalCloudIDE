@@ -1,0 +1,28 @@
+{
+  "name": "CloudIDE — Cloud OS",
+  "short_name": "CloudIDE",
+  "description": "Browser-based Cloud IDE with AI, distributed compute, and Cloud OS capabilities",
+  "start_url": "/",
+  "display": "standalone",
+  "orientation": "any",
+  "background_color": "#0a0a0a",
+  "theme_color": "#0a0a0a",
+  "categories": ["developer", "productivity", "utilities"],
+  "icons": [
+    {
+      "src": "/favicon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any maskable"
+    }
+  ],
+  "screenshots": [],
+  "shortcuts": [
+    {
+      "name": "New File",
+      "short_name": "New File",
+      "description": "Open a new file in the editor",
+      "url": "/"
+    }
+  ]
+}

@@ -60,13 +60,13 @@ function FileTreeNode({
       <ContextMenuTrigger>
         <div 
           className={cn(
-            "flex items-center py-1 px-2 cursor-pointer select-none text-[13px] group hover:bg-muted/50",
+            "flex items-center py-2 sm:py-1 px-2 cursor-pointer select-none text-[13px] group hover:bg-muted/50 active:bg-muted transition-colors touch-manipulation",
             isActive && !isDirectory ? "bg-muted text-foreground" : "text-muted-foreground",
           )}
           style={{ paddingLeft: `${(depth * 12) + 8}px` }}
           onClick={handleClick}
         >
-          <span className="mr-1.5 opacity-80 group-hover:opacity-100">
+          <span className="mr-1.5 opacity-80 group-hover:opacity-100 shrink-0">
             {isDirectory ? (
               isExpanded ? <VscFolderOpened className="text-amber-500" /> : <VscFolder className="text-amber-500" />
             ) : (
@@ -99,7 +99,12 @@ function FileTreeNode({
   );
 }
 
-export function FileExplorer() {
+interface FileExplorerProps {
+  /** Called after a file is opened — use to close mobile drawer */
+  onFileOpen?: () => void;
+}
+
+export function FileExplorer({ onFileOpen }: FileExplorerProps = {}) {
   const { openFile, closeFile } = useIde();
   const queryClient = useQueryClient();
   const { data: files = [], isLoading } = useListFiles({ path: "/" });
@@ -126,6 +131,7 @@ export function FileExplorer() {
       if (res.ok) {
         const data = await res.json();
         openFile(path, data.content, getLanguageFromFilename(path));
+        onFileOpen?.();
       }
     } catch (e) {
       console.error("Failed to read file", e);
@@ -195,17 +201,17 @@ export function FileExplorer() {
   };
 
   return (
-    <div className="w-[220px] h-full flex flex-col bg-sidebar border-r border-sidebar-border shrink-0 select-none">
+    <div className="w-full h-full flex flex-col bg-sidebar border-r border-sidebar-border shrink-0 select-none">
       <div className="h-9 px-3 flex items-center justify-between text-xs font-semibold text-sidebar-foreground border-b border-sidebar-border uppercase tracking-wider">
         <span>Explorer</span>
         <div className="flex items-center space-x-1">
-          <button onClick={() => handleNewFile("/")} className="p-1 hover:bg-muted rounded text-muted-foreground hover:text-foreground">
+          <button onClick={() => handleNewFile("/")} className="p-1.5 hover:bg-muted rounded text-muted-foreground hover:text-foreground touch-manipulation">
             <VscNewFile size={14} />
           </button>
-          <button onClick={() => handleNewFolder("/")} className="p-1 hover:bg-muted rounded text-muted-foreground hover:text-foreground">
+          <button onClick={() => handleNewFolder("/")} className="p-1.5 hover:bg-muted rounded text-muted-foreground hover:text-foreground touch-manipulation">
             <VscNewFolder size={14} />
           </button>
-          <button onClick={() => setExpandedFolders(new Set(["/"]))} className="p-1 hover:bg-muted rounded text-muted-foreground hover:text-foreground">
+          <button onClick={() => setExpandedFolders(new Set(["/"]))} className="p-1.5 hover:bg-muted rounded text-muted-foreground hover:text-foreground touch-manipulation">
             <VscCollapseAll size={14} />
           </button>
         </div>
