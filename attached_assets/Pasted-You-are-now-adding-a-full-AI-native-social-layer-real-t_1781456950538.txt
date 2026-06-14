@@ -1,0 +1,178 @@
+You are now adding a full AI‑native social layer, real‑time collaboration engine, and multiplayer coding system to the platform.
+
+### GOAL
+Transform the platform into a social, collaborative, multiplayer coding environment with:
+- Real‑time shared editing
+- Presence indicators
+- Chat + voice rooms
+- AI‑assisted collaboration
+- Social profiles
+- Following system
+- Activity feeds
+- Team workspaces
+- Community hubs
+- Public projects
+- Comments, reactions, discussions
+
+### NEW FEATURES TO ADD
+
+1. **Real‑Time Multiplayer Engine**
+   - Add CRDT or OT-based real‑time sync for:
+       - code editor
+       - file tree
+       - terminals (shared or private)
+   - Features:
+       - live cursors
+       - colored selections
+       - presence indicators
+       - typing indicators
+   - Endpoints:
+       - /collab/session/create
+       - /collab/session/join
+       - /collab/presence
+
+2. **Shared Terminals**
+   - Support:
+       - shared terminal sessions
+       - private terminals
+       - read-only terminals
+   - Add:
+       - /terminal/shared/start
+       - /terminal/shared/attach
+
+3. **Team Workspaces**
+   - Teams can:
+       - share projects
+       - assign roles
+       - collaborate in real time
+       - share deployments
+   - Add:
+       - /teams/workspaces
+       - /teams/invite
+       - /teams/roles
+
+4. **Social Profiles**
+   - Each user has:
+       - avatar
+       - bio
+       - skills
+       - languages
+       - activity
+       - badges
+       - followers/following
+   - Endpoints:
+       - /social/profile/{id}
+       - /social/follow
+       - /social/unfollow
+
+5. **Activity Feeds**
+   - Track:
+       - commits
+       - deployments
+       - plugin installs
+       - achievements
+       - streaks
+       - comments
+   - Add:
+       - /feed/global
+       - /feed/user/{id}
+       - /feed/team/{id}
+
+6. **Project Social Layer**
+   - Add:
+       - comments
+       - reactions
+       - discussions
+       - code review threads
+   - Endpoints:
+       - /projects/{id}/comments
+       - /projects/{id}/reviews
+
+7. **Community Hubs**
+   - Add hubs for:
+       - languages
+       - frameworks
+       - templates
+       - plugins
+       - agents
+   - Users can:
+       - join hubs
+       - post questions
+       - share snippets
+       - collaborate
+   - Endpoints:
+       - /community/hubs
+       - /community/post
+
+8. **AI‑Assisted Collaboration**
+   - AI can:
+       - summarize team activity
+       - resolve merge conflicts in real time
+       - suggest code during pair programming
+       - mediate discussions
+       - generate meeting notes
+       - recommend collaborators
+   - Endpoints:
+       - /collab/ai/summary
+       - /collab/ai/suggestions
+
+9. **Voice & Chat Rooms**
+   - Add:
+       - project chat
+       - team chat
+       - voice rooms (WebRTC)
+   - Add:
+       - /chat/send
+       - /chat/history
+       - /voice/start
+
+10. **Public Projects & Forking**
+   - Users can:
+       - publish projects
+       - fork projects
+       - star projects
+       - remix templates
+   - Endpoints:
+       - /projects/public
+       - /projects/fork
+
+11. **Deliverables**
+   - Backend:
+       - real‑time sync engine
+       - social graph
+       - activity feed
+       - comments & discussions
+       - community hubs
+       - AI collaboration endpoints
+   - Frontend:
+       - multiplayer editor
+       - presence indicators
+       - social profiles
+       - feeds
+       - chat & voice UI
+       - community pages
+   - Example workflows:
+       - pair programming
+       - team collaboration
+       - community Q&A
+       - public project forking
+       - AI‑assisted code review
+
+### STYLE
+- Clean, modular, production-ready
+- No placeholders
+- Fully working code
+
+### OUTPUT FORMAT
+Respond with:
+1. Updated data models
+2. Real‑time sync engine code
+3. Social graph code
+4. Activity feed code
+5. Comments & discussions code
+6. Community hubs code
+7. AI collaboration code
+8. Multiplayer editor UI
+9. Chat & voice UI
+10. Integration instructions
+11. Example collaboration workflows

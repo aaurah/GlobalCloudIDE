@@ -15,29 +15,37 @@ import { HealingDashboard } from "./HealingDashboard";
 import { RoutingPanel } from "./RoutingPanel";
 import { AdminPanel } from "./AdminPanel";
 import { GrowthPanel } from "./GrowthPanel";
+import { MarketplaceHub } from "./MarketplaceHub";
+import { CreatorDashboard } from "./CreatorDashboard";
+import { PlansPanel } from "./PlansPanel";
 import { Button } from "../ui/button";
 import {
   X, CreditCard, Users, Puzzle, BrainCircuit, Server, Container,
   Activity, Zap, Sparkles, Globe, ShieldCheck, Network, ShieldAlert, Gift,
+  Store, PaintbrushIcon, Layers,
 } from "lucide-react";
 
 type Tab =
   | "billing" | "teams" | "plugins" | "agents" | "nodes" | "containers"
   | "orchestrator" | "functions" | "observability" | "infragen"
-  | "scheduler" | "healing" | "routing" | "admin" | "growth";
+  | "scheduler" | "healing" | "routing" | "admin" | "growth"
+  | "marketplace" | "creator" | "plans";
 
 interface TabDef { id: Tab; label: string; icon: React.ReactNode; group: "platform" | "cloud-os" }
 
 const TABS: TabDef[] = [
   // Platform group
-  { id: "billing",       label: "Billing",     icon: <CreditCard size={12} />,   group: "platform" },
-  { id: "teams",         label: "Teams",       icon: <Users size={12} />,        group: "platform" },
-  { id: "plugins",       label: "Plugins",     icon: <Puzzle size={12} />,       group: "platform" },
-  { id: "agents",        label: "Agents",      icon: <BrainCircuit size={12} />, group: "platform" },
-  { id: "nodes",         label: "Nodes",       icon: <Server size={12} />,       group: "platform" },
-  { id: "containers",    label: "Container",   icon: <Container size={12} />,    group: "platform" },
-  { id: "growth",        label: "Growth",      icon: <Gift size={12} />,         group: "platform" },
-  { id: "admin",         label: "Admin",       icon: <ShieldAlert size={12} />,  group: "platform" },
+  { id: "billing",       label: "Billing",     icon: <CreditCard size={12} />,      group: "platform" },
+  { id: "plans",         label: "Plans",       icon: <Layers size={12} />,          group: "platform" },
+  { id: "marketplace",   label: "Market",      icon: <Store size={12} />,           group: "platform" },
+  { id: "creator",       label: "Creator",     icon: <PaintbrushIcon size={12} />,  group: "platform" },
+  { id: "teams",         label: "Teams",       icon: <Users size={12} />,           group: "platform" },
+  { id: "plugins",       label: "Plugins",     icon: <Puzzle size={12} />,          group: "platform" },
+  { id: "agents",        label: "Agents",      icon: <BrainCircuit size={12} />,    group: "platform" },
+  { id: "nodes",         label: "Nodes",       icon: <Server size={12} />,          group: "platform" },
+  { id: "containers",    label: "Container",   icon: <Container size={12} />,       group: "platform" },
+  { id: "growth",        label: "Growth",      icon: <Gift size={12} />,            group: "platform" },
+  { id: "admin",         label: "Admin",       icon: <ShieldAlert size={12} />,     group: "platform" },
   // Cloud OS group
   { id: "orchestrator",  label: "Orchestrator",icon: <BrainCircuit size={12} />, group: "cloud-os" },
   { id: "scheduler",     label: "Scheduler",   icon: <Globe size={12} />,        group: "cloud-os" },
@@ -141,6 +149,9 @@ export function PlatformDashboard({ open, onClose, initialTab = "billing" }: Pla
           {activeTab === "observability" && <ObservabilityPanel />}
           {activeTab === "infragen"      && <InfraGenerator />}
           {activeTab === "growth"        && <GrowthPanel />}
+          {activeTab === "marketplace"   && <MarketplaceHub />}
+          {activeTab === "creator"       && <CreatorDashboard />}
+          {activeTab === "plans"         && <PlansPanel />}
           {activeTab === "admin"         && <AdminPanel />}
         </div>
       </div>

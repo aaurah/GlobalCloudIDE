@@ -9,14 +9,16 @@ import {
   Puzzle, Boxes, Globe, RefreshCw, AlertTriangle, CheckCircle2,
   XCircle, Loader2, Search, Activity, Lock, Unlock, UserX,
   UserCheck, StopCircle, TrendingUp, BarChart3, Settings,
+  Gift, ShieldAlert as FraudIcon,
 } from "lucide-react";
 import { cn } from "../../lib/utils";
+import { AdminGrowthPanel } from "./AdminGrowthPanel";
 
 // ── Types ─────────────────────────────────────────────────────────────────────
 
 type AdminTab =
   | "overview" | "users" | "projects" | "nodes" | "billing"
-  | "plugins" | "security" | "logs" | "ai";
+  | "plugins" | "security" | "logs" | "ai" | "growth" | "fraud";
 
 interface AdminUser {
   id: string; username: string; email: string | null;
@@ -283,6 +285,27 @@ export function AdminPanel() {
     } catch {}
   }, [api, logLevel, logSearch]);
 
+  // ── Fraud ─────────────────────────────────────────────────────────────────
+  const [fraudFlags, setFraudFlags] = useState<any[]>([]);
+  const [fraudStats, setFraudStats] = useState<any>(null);
+  const [fraudFilter, setFraudFilter] = useState<"" | "pending" | "cleared" | "blocked">("");
+
+  const loadFraud = useCallback(async () => {
+    try {
+      const params = fraudFilter ? `?status=${fraudFilter}` : "";
+      const [flags, stats] = await Promise.all([
+        api(`/api/admin/fraud/list${params}`),
+        api("/api/admin/fraud/stats"),
+      ]);
+      setFraudFlags(flags.flags ?? []);
+      setFraudStats(stats);
+    } catch {}
+  }, [api, fraudFilter]);
+
+  const reviewFraud = async (id: string, status: "cleared" | "blocked") => {
+    try { await api(`/api/admin/fraud/review/${id}`, { method: "PATCH", body: JSON.stringify({ status }) }); loadFraud(); } catch {}
+  };
+
   // ── AI Assistant ─────────────────────────────────────────────────────────
   const [aiMode, setAiMode] = useState<"summary" | "suggestions" | "logs">("summary");
   const [aiInput, setAiInput] = useState("");
@@ -335,11 +358,13 @@ export function AdminPanel() {
     if (tab === "plugins")  loadPlugins();
     if (tab === "security") loadSecurity();
     if (tab === "logs")     loadLogs();
+    if (tab === "fraud")    loadFraud();
   }, [tab, accessGranted]);
 
   useEffect(() => { if (tab === "users")    loadUsers();    }, [userSearch]);
   useEffect(() => { if (tab === "projects") loadProjects(); }, [projSearch]);
   useEffect(() => { if (tab === "logs")     loadLogs();     }, [logLevel, logSearch]);
+  useEffect(() => { if (tab === "fraud")    loadFraud();    }, [fraudFilter]);
 
   // ── Access gates ──────────────────────────────────────────────────────────
   if (!token) {
@@ -378,6 +403,8 @@ export function AdminPanel() {
     { id: "nodes",     label: "Nodes",     icon: <Server size={11} /> },
     { id: "billing",   label: "Billing",   icon: <CreditCard size={11} /> },
     { id: "plugins",   label: "Plugins",   icon: <Puzzle size={11} /> },
+    { id: "growth",    label: "Growth",    icon: <Gift size={11} /> },
+    { id: "fraud",     label: "Fraud",     icon: <FraudIcon size={11} /> },
     { id: "security",  label: "Security",  icon: <Shield size={11} /> },
     { id: "logs",      label: "Logs",      icon: <FileText size={11} /> },
     { id: "ai",        label: "AI",        icon: <BrainCircuit size={11} /> },
@@ -388,6 +415,7 @@ export function AdminPanel() {
       overview: loadOverview, users: loadUsers, projects: loadProjects,
       nodes: loadNodes, billing: loadBilling, plugins: loadPlugins,
       security: loadSecurity, logs: loadLogs, ai: () => {},
+      growth: () => {}, fraud: loadFraud,
     };
     loaders[tab]?.();
   };
@@ -821,6 +849,86 @@ export function AdminPanel() {
                 }
               </div>
             )}
+          </div>
+        )}
+
+        {/* ── Growth ───────────────────────────────────────────────────── */}
+        {tab === "growth" && <AdminGrowthPanel />}
+
+        {/* ── Fraud ────────────────────────────────────────────────────── */}
+        {tab === "fraud" && (
+          <div className="p-3 space-y-3">
+            {/* Stats */}
+            {fraudStats && (
+              <div className="grid grid-cols-2 gap-2">
+                {[
+                  { label: "Total Flags", value: fraudStats.total, color: "text-foreground" },
+                  { label: "Pending Review", value: fraudStats.pending, color: "text-amber-400" },
+                  { label: "Blocked", value: fraudStats.blocked, color: "text-red-400" },
+                  { label: "High Risk", value: fraudStats.highRisk, color: "text-red-400" },
+                ].map(s => (
+                  <div key={s.label} className="rounded-xl border border-border p-2.5 space-y-0.5">
+                    <div className="text-[9px] text-muted-foreground uppercase tracking-wide">{s.label}</div>
+                    <div className={`text-lg font-bold tabular-nums ${s.color}`}>{s.value}</div>
+                  </div>
+                ))}
+              </div>
+            )}
+
+            {/* Filter */}
+            <div className="flex gap-1">
+              {(["", "pending", "cleared", "blocked"] as const).map(f => (
+                <button key={f} onClick={() => setFraudFilter(f)}
+                  className={cn(
+                    "px-2 py-1 rounded-lg text-[10px] font-medium border transition-colors",
+                    fraudFilter === f ? "border-primary bg-primary/10 text-primary" : "border-border text-muted-foreground hover:text-foreground"
+                  )}>
+                  {f === "" ? "All" : f.charAt(0).toUpperCase() + f.slice(1)}
+                </button>
+              ))}
+            </div>
+
+            {/* Flags list */}
+            <div className="space-y-2">
+              {fraudFlags.length === 0 && <p className="text-xs text-muted-foreground italic text-center py-6">No fraud flags</p>}
+              {fraudFlags.map((flag: any) => (
+                <div key={flag.id} className="rounded-xl border border-border p-2.5 space-y-2">
+                  <div className="flex items-start justify-between">
+                    <div>
+                      <div className="text-[10px] font-mono text-foreground">{flag.userId?.slice(0, 14)}…</div>
+                      <div className="text-[10px] text-muted-foreground mt-0.5">{flag.reason}</div>
+                    </div>
+                    <div className="text-right shrink-0">
+                      <div className={cn("text-sm font-bold tabular-nums", flag.score >= 70 ? "text-red-400" : flag.score >= 40 ? "text-amber-400" : "text-muted-foreground")}>
+                        {flag.score}
+                      </div>
+                      <div className="text-[9px] text-muted-foreground">risk</div>
+                    </div>
+                  </div>
+                  {flag.status === "pending" && (
+                    <div className="flex gap-1.5">
+                      <Button size="sm" variant="outline"
+                        className="flex-1 h-6 text-[10px] text-green-400 border-green-800/40 hover:bg-green-900/20"
+                        onClick={() => reviewFraud(flag.id, "cleared")}>
+                        Clear
+                      </Button>
+                      <Button size="sm" variant="outline"
+                        className="flex-1 h-6 text-[10px] text-red-400 border-red-800/40 hover:bg-red-900/20"
+                        onClick={() => reviewFraud(flag.id, "blocked")}>
+                        Block
+                      </Button>
+                    </div>
+                  )}
+                  {flag.status !== "pending" && (
+                    <Badge className={cn("text-[9px] h-4 px-1.5",
+                      flag.status === "cleared" ? "bg-green-900/30 text-green-400 border-green-800/30" :
+                      "bg-red-900/30 text-red-400 border-red-800/30")}>
+                      {flag.status}
+                    </Badge>
+                  )}
+                </div>
+              ))}
+            </div>
           </div>
         )}
 

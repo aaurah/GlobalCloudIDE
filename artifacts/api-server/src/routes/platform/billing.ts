@@ -165,8 +165,8 @@ router.patch("/billing/plan", async (req, res) => {
   const userId = getAuthUser(req.headers.authorization);
   if (!userId) return void res.status(401).json({ error: "Unauthorized" });
 
-  const { plan } = req.body as { plan: "free" | "pro" | "team" };
-  if (!["free", "pro", "team"].includes(plan)) return void res.status(400).json({ error: "Invalid plan" });
+  const { plan } = req.body as { plan: "free" | "pro" | "team" | "enterprise" };
+  if (!["free", "pro", "team", "enterprise"].includes(plan)) return void res.status(400).json({ error: "Invalid plan" });
 
   const all = await readAllBilling();
   let record = all.find(b => b.userId === userId);
@@ -174,7 +174,7 @@ router.patch("/billing/plan", async (req, res) => {
     record = { userId, credits: 100, plan: "free", usageHistory: [], totalSpent: 0 };
     all.push(record);
   }
-  const bonuses: Record<string, number> = { free: 0, pro: 500, team: 2000 };
+  const bonuses: Record<string, number> = { free: 0, pro: 500, team: 2000, enterprise: 9000 };
   const bonus = bonuses[plan] ?? 0;
   record.plan = plan;
   record.credits += bonus;
