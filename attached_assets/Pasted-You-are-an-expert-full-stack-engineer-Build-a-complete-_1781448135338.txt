@@ -1,0 +1,88 @@
+You are an expert full‑stack engineer. Build a complete Replit‑like cloud IDE that runs fully inside a single Replit project.
+
+### GOAL
+Create a browser-based IDE with:
+- Monaco Editor (VS Code editor)
+- Multi-file explorer
+- Terminal emulator
+- Backend execution engine (run Python, Node, Bash)
+- Virtual filesystem (JSON or real FS)
+- AI prompt box for code generation, refactoring, debugging
+- Live output panel
+- Ability to run code in subprocesses
+- WebSocket or HTTP streaming for output
+
+### REQUIREMENTS
+1. **Frontend**
+   - Use HTML + CSS + JS
+   - Integrate Monaco Editor
+   - File tree sidebar
+   - Tabs for open files
+   - Terminal panel
+   - Output panel
+   - AI prompt panel with:
+     - “Generate”
+     - “Fix”
+     - “Explain”
+     - “Refactor”
+
+2. **Backend (Node.js or Python)**
+   - REST endpoints:
+     - /fs/list
+     - /fs/read
+     - /fs/write
+     - /run (executes code)
+     - /ai (sends prompt to model)
+   - Use subprocess to run:
+     - python3
+     - node
+     - bash
+   - Stream output back to frontend
+
+3. **Execution Engine**
+   - Use subprocess or child_process.exec
+   - Capture stdout + stderr
+   - Return output in real time
+   - Sandbox execution (no dangerous commands)
+
+4. **AI Integration**
+   - Provide a function:
+       generateCode(prompt, fileContext)
+   - AI should be able to:
+       - Create files
+       - Edit files
+       - Fix errors
+       - Explain code
+       - Refactor code
+
+5. **File System**
+   - Use real Replit filesystem OR
+   - Use a virtual JSON-based FS
+   - Support:
+       - Create file
+       - Delete file
+       - Rename file
+       - Save file
+
+6. **Deliverables**
+   - Full frontend code
+   - Full backend code
+   - Instructions for running inside Replit
+   - All dependencies
+   - All scripts
+   - Clear folder structure
+
+### STYLE
+- Clean, modular code
+- No placeholders
+- Fully working system
+- Production-ready structure
+
+### OUTPUT FORMAT
+Respond with:
+1. Folder structure
+2. Full frontend code
+3. Full backend code
+4. Setup instructions
+5. Run instructions
+6. Optional improvements
