@@ -1,0 +1,177 @@
+You are now adding a full automation layer to the platform, including background jobs, scheduled tasks, event-driven cloud logic, AI-triggered workflows, and system-wide automation pipelines.
+
+### GOAL
+Transform the platform into an autonomous cloud automation engine with:
+- Background jobs
+- Scheduled tasks (cron-like)
+- Event-driven triggers
+- AI-triggered workflows
+- System hooks
+- Webhooks
+- Queue system
+- Worker nodes
+- Automation pipelines
+- Auto-remediation logic
+
+### NEW FEATURES TO ADD
+
+1. **Background Job System**
+   - Add a job queue with:
+       - enqueue
+       - dequeue
+       - retry
+       - dead-letter queue
+   - Jobs can run:
+       - immediately
+       - delayed
+       - scheduled
+   - Endpoints:
+       - /jobs/enqueue
+       - /jobs/status
+       - /jobs/cancel
+
+2. **Worker Nodes**
+   - Add worker processes that:
+       - pull jobs from queue
+       - execute tasks
+       - report results
+   - Worker types:
+       - compute worker
+       - AI worker
+       - deployment worker
+       - analytics worker
+
+3. **Scheduled Tasks (Cron Engine)**
+   - Add cron-like scheduling:
+       - every X minutes
+       - daily
+       - weekly
+       - custom cron expressions
+   - Endpoints:
+       - /schedule/create
+       - /schedule/list
+       - /schedule/delete
+
+4. **Event-Driven Cloud Logic**
+   - Add event triggers for:
+       - file saved
+       - deployment finished
+       - build failed
+       - AI usage spike
+       - user signup
+       - plugin installed
+       - agent installed
+   - Add:
+       - /events/subscribe
+       - /events/trigger
+
+5. **Automation Pipelines**
+   - Users can create pipelines:
+       - on event → run job → run AI → deploy → notify
+   - Pipeline definition:
+       - pipeline.json
+   - Add:
+       - /pipelines/run
+       - /pipelines/validate
+
+6. **AI-Triggered Automation**
+   - AI can:
+       - detect anomalies
+       - trigger jobs
+       - scale deployments
+       - restart services
+       - notify users
+       - generate fixes
+   - Endpoints:
+       - /automation/ai/trigger
+       - /automation/ai/suggestions
+
+7. **System Hooks**
+   - Add hooks for:
+       - before deploy
+       - after deploy
+       - before build
+       - after build
+       - before AI call
+       - after AI call
+   - Hooks can run:
+       - scripts
+       - AI agents
+       - cloud functions
+
+8. **Webhooks**
+   - Allow external systems to:
+       - trigger events
+       - receive notifications
+   - Add:
+       - /webhooks/create
+       - /webhooks/send
+
+9. **Auto‑Remediation Engine**
+   - Detect:
+       - failing deployments
+       - unhealthy nodes
+       - high error rates
+       - slow responses
+   - Automatically:
+       - restart services
+       - scale up
+       - rollback
+       - notify admin
+       - generate fix PR
+
+10. **Automation Dashboard**
+   - Show:
+       - running jobs
+       - scheduled tasks
+       - pipelines
+       - event triggers
+       - AI automation suggestions
+       - worker health
+   - Add:
+       - job logs
+       - pipeline visualizer
+       - event graph
+
+11. **Deliverables**
+   - Backend:
+       - job queue
+       - worker system
+       - cron engine
+       - event triggers
+       - pipelines
+       - AI automation
+       - hooks
+       - webhooks
+       - auto-remediation
+   - Frontend:
+       - automation dashboard
+       - pipeline builder UI
+       - event trigger UI
+       - job viewer
+   - Example workflows:
+       - auto-restart failing deployment
+       - daily cleanup job
+       - event-triggered AI code fix
+       - pipeline: commit → build → test → deploy → notify
+       - webhook-triggered automation
+
+### STYLE
+- Clean, modular, production-ready
+- No placeholders
+- Fully working code
+
+### OUTPUT FORMAT
+Respond with:
+1. Updated data models
+2. Job queue code
+3. Worker system code
+4. Cron engine code
+5. Event trigger code
+6. Pipeline engine code
+7. AI automation code
+8. Hooks & webhooks code
+9. Auto-remediation code
+10. Automation dashboard UI
+11. Integration instructions
+12. Example automation workflows

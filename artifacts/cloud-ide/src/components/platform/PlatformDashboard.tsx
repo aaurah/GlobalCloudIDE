@@ -19,17 +19,18 @@ import { MarketplaceHub } from "./MarketplaceHub";
 import { CreatorDashboard } from "./CreatorDashboard";
 import { PlansPanel } from "./PlansPanel";
 import { Button } from "../ui/button";
+import { GitHubPanel } from "./GitHubPanel";
 import {
   X, CreditCard, Users, Puzzle, BrainCircuit, Server, Container,
   Activity, Zap, Sparkles, Globe, ShieldCheck, Network, ShieldAlert, Gift,
-  Store, PaintbrushIcon, Layers,
+  Store, PaintbrushIcon, Layers, Github,
 } from "lucide-react";
 
 type Tab =
   | "billing" | "teams" | "plugins" | "agents" | "nodes" | "containers"
   | "orchestrator" | "functions" | "observability" | "infragen"
   | "scheduler" | "healing" | "routing" | "admin" | "growth"
-  | "marketplace" | "creator" | "plans";
+  | "marketplace" | "creator" | "plans" | "github";
 
 interface TabDef { id: Tab; label: string; icon: React.ReactNode; group: "platform" | "cloud-os" }
 
@@ -44,6 +45,7 @@ const TABS: TabDef[] = [
   { id: "agents",        label: "Agents",      icon: <BrainCircuit size={12} />,    group: "platform" },
   { id: "nodes",         label: "Nodes",       icon: <Server size={12} />,          group: "platform" },
   { id: "containers",    label: "Container",   icon: <Container size={12} />,       group: "platform" },
+  { id: "github",        label: "GitHub",      icon: <Github size={12} />,          group: "platform" },
   { id: "growth",        label: "Growth",      icon: <Gift size={12} />,            group: "platform" },
   { id: "admin",         label: "Admin",       icon: <ShieldAlert size={12} />,     group: "platform" },
   // Cloud OS group
@@ -148,6 +150,7 @@ export function PlatformDashboard({ open, onClose, initialTab = "billing" }: Pla
           {activeTab === "functions"     && <CloudFunctionsEditor />}
           {activeTab === "observability" && <ObservabilityPanel />}
           {activeTab === "infragen"      && <InfraGenerator />}
+          {activeTab === "github"        && <GitHubPanel />}
           {activeTab === "growth"        && <GrowthPanel />}
           {activeTab === "marketplace"   && <MarketplaceHub />}
           {activeTab === "creator"       && <CreatorDashboard />}

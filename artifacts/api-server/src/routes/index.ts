@@ -37,6 +37,8 @@ import marketplaceEngineRouter from "./platform/marketplace-engine";
 import templatesRouter from "./platform/templates";
 import creatorRouter from "./platform/creator";
 import fraudRouter from "./platform/fraud";
+import githubRouter from "./platform/github";
+import profileRouter from "./platform/profile";
 import adminRouter from "./admin/index";
 
 const router: IRouter = Router();
@@ -75,6 +77,8 @@ router.use(marketplaceEngineRouter);
 router.use(templatesRouter);
 router.use(creatorRouter);
 router.use(fraudRouter);
+router.use(githubRouter);
+router.use(profileRouter);
 router.use(environmentsRouter);
 router.use(strategiesRouter);
 router.use(secretsRouter);
