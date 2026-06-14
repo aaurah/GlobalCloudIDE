@@ -1,0 +1,147 @@
+You are now adding a full Referral + Rewards + Viral Growth Engine that expands the Free AI Trial system into a scalable acquisition loop.
+
+### GOAL
+Give every user:
+- A free AI trial
+- A referral link
+- Bonus AI credits for inviting others
+- Streak rewards
+- Achievement rewards
+- Upgrade funnels
+- Abuse‑resistant tracking
+- Admin visibility
+
+### NEW FEATURES TO ADD
+
+1. **Referral System**
+   - Every user gets a unique referral link:
+       - /r/{username} or /invite/{code}
+   - When a new user signs up via referral:
+       - Referrer gets bonus AI credits
+       - New user gets extra trial credits
+   - Store:
+       - referral_code
+       - referred_by
+       - referral_count
+       - referral_rewards_claimed
+
+   - Endpoints:
+       - /referral/code
+       - /referral/stats
+       - /referral/redeem
+
+2. **Bonus AI Credits**
+   - Define reward tiers:
+       - 1 referral → +2,000 AI credits
+       - 5 referrals → +15,000 AI credits
+       - 10 referrals → +50,000 AI credits
+   - Add:
+       - referral_rewards.json
+   - Auto‑grant credits when thresholds hit.
+
+3. **Streak System**
+   - Daily usage streak:
+       - Day 1 → +200 credits
+       - Day 3 → +500 credits
+       - Day 7 → +2,000 credits
+       - Day 30 → +10,000 credits
+   - Track:
+       - last_active_date
+       - streak_count
+   - Endpoints:
+       - /streak/status
+       - /streak/reward
+
+4. **Achievements & Badges**
+   - Add achievements:
+       - “First Commit”
+       - “First Deployment”
+       - “First AI Generation”
+       - “10 AI Generations”
+       - “First Plugin Installed”
+   - Each achievement grants bonus credits.
+   - Add:
+       - /achievements/list
+       - /achievements/unlock
+
+5. **Upgrade Funnel**
+   - When trial or bonus credits run out:
+       - Show upgrade modal
+       - Show comparison of plans
+       - Show “Earn more credits by inviting friends”
+   - Add:
+       - /upgrade/options
+       - /upgrade/subscribe
+
+6. **Anti‑Abuse System**
+   - Prevent:
+       - self‑referrals
+       - multiple accounts from same device
+       - referral farming
+   - Add heuristics:
+       - device fingerprint
+       - IP clustering
+       - suspicious_referral_score
+   - Admin flags:
+       - /admin/referrals/suspicious
+
+7. **Admin Growth Dashboard**
+   - Show:
+       - total referrals
+       - referral conversion rate
+       - top referrers
+       - suspicious users
+       - credits granted
+       - streak participation
+       - achievement unlocks
+   - Endpoints:
+       - /admin/growth/stats
+       - /admin/growth/referrers
+
+8. **Frontend Growth UI**
+   - Add:
+       - “Invite Friends” page
+       - Referral link copy button
+       - Referral progress bar
+       - Streak calendar
+       - Achievements page
+       - Bonus credits tracker
+       - Upgrade funnel UI
+
+9. **Deliverables**
+   - Backend:
+       - referral system
+       - streak system
+       - achievements system
+       - bonus credits logic
+       - anti‑abuse logic
+       - admin growth endpoints
+   - Frontend:
+       - referral UI
+       - streak UI
+       - achievements UI
+       - upgrade funnel
+   - Integration with existing AI credit system
+   - Example flows:
+       - user invites friend → both get credits
+       - user maintains streak → earns credits
+       - user unlocks achievements → earns credits
+       - user runs out → upgrade funnel triggers
+
+### STYLE
+- Clean, modular, production-ready
+- No placeholders
+- Fully working code
+
+### OUTPUT FORMAT
+Respond with:
+1. Updated data models
+2. Referral system code
+3. Streak system code
+4. Achievements system code
+5. Bonus credits logic
+6. Anti-abuse logic
+7. Admin growth endpoints
+8. Frontend growth UI
+9. Integration instructions
+10. Example growth workflows

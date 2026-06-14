@@ -1,0 +1,163 @@
+You are now adding a full AI‑native personalization engine that adapts the entire platform to each user’s behavior, skill level, preferences, and goals.
+
+### GOAL
+Build a personalization layer that:
+- Learns how each user works
+- Adapts the UI and UX dynamically
+- Personalizes AI behavior
+- Tracks user skill level
+- Recommends tools, plugins, agents
+- Adjusts difficulty and complexity
+- Creates a unique experience for every user
+
+### NEW FEATURES TO ADD
+
+1. **User Profile Intelligence**
+   - Track:
+       - coding skill level
+       - preferred languages
+       - preferred frameworks
+       - usage patterns
+       - active times
+       - AI usage style (short prompts, long prompts, etc.)
+   - Store:
+       - profile.json per user
+   - Endpoints:
+       - /profile/get
+       - /profile/update
+
+2. **Adaptive UX Engine**
+   - Dynamically adjust:
+       - editor layout
+       - sidebar density
+       - button sizes
+       - AI suggestions frequency
+       - terminal size
+       - mobile vs desktop modes
+   - Modes:
+       - Beginner Mode
+       - Intermediate Mode
+       - Expert Mode
+
+3. **AI‑Personalized Suggestions**
+   - Suggest:
+       - plugins
+       - agents
+       - templates
+       - deployment presets
+       - coding patterns
+       - best practices
+   - Add:
+       - /personalization/suggestions
+       - /personalization/recommend
+
+4. **Skill‑Adaptive AI**
+   - For beginners:
+       - more explanations
+       - simpler code
+       - step‑by‑step guidance
+   - For experts:
+       - concise responses
+       - advanced patterns
+       - performance optimizations
+   - Add:
+       - /ai/adaptive
+
+5. **Behavior Tracking**
+   - Track:
+       - files edited
+       - languages used
+       - errors encountered
+       - deployments made
+       - AI prompts used
+   - Use this to improve personalization.
+
+6. **Goal‑Based Personalization**
+   - Users can set goals:
+       - “Learn Python”
+       - “Build a SaaS”
+       - “Deploy my first app”
+       - “Master React”
+   - AI adapts:
+       - suggestions
+       - templates
+       - learning paths
+       - code style
+   - Endpoints:
+       - /goals/set
+       - /goals/progress
+
+7. **Adaptive Learning Paths**
+   - Auto‑generate:
+       - tutorials
+       - tasks
+       - challenges
+       - guided steps
+   - Based on:
+       - user skill
+       - user goals
+       - user behavior
+
+8. **Personalized Notifications**
+   - Notify users about:
+       - streaks
+       - achievements
+       - recommended plugins
+       - deployment issues
+       - AI usage tips
+   - Add:
+       - /notifications/send
+       - /notifications/preferences
+
+9. **AI‑Generated User Dashboard**
+   - Personalized dashboard showing:
+       - progress
+       - recent activity
+       - recommended actions
+       - suggested agents
+       - suggested templates
+       - learning path
+
+10. **Privacy & Control**
+   - Users can:
+       - view collected data
+       - disable personalization
+       - reset profile
+   - Add:
+       - /profile/reset
+       - /profile/privacy
+
+11. **Deliverables**
+   - Backend:
+       - profile intelligence
+       - adaptive UX engine
+       - personalization endpoints
+       - goal system
+       - behavior tracking
+   - Frontend:
+       - adaptive UI components
+       - personalized dashboard
+       - suggestions panel
+       - goal setting UI
+   - Example flows:
+       - beginner → guided learning
+       - expert → advanced tools
+       - user sets goal → AI adapts
+       - user installs plugin → recommendations update
+
+### STYLE
+- Clean, modular, production-ready
+- No placeholders
+- Fully working code
+
+### OUTPUT FORMAT
+Respond with:
+1. Updated data models
+2. Profile intelligence code
+3. Adaptive UX engine code
+4. Personalization endpoints
+5. Goal system code
+6. Behavior tracking code
+7. Personalized dashboard UI
+8. Integration instructions
+9. Example personalization workflows
