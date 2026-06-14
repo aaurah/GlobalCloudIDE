@@ -7,13 +7,15 @@ import { MonacoEditor } from "./components/editor/MonacoEditor";
 import { BottomPanel } from "./components/panel/BottomPanel";
 import { AiPanel } from "./components/panel/AiPanel";
 import { CommandPalette } from "./components/palette/CommandPalette";
+import { PlatformDashboard } from "./components/platform/PlatformDashboard";
 import { ResizableHandle, ResizablePanel, ResizablePanelGroup } from "./components/ui/resizable";
 import { IdeProvider, useIde } from "./hooks/use-ide";
-import { PlatformProvider } from "./hooks/use-platform";
+import { PlatformProvider, usePlatform } from "./hooks/use-platform";
 
 function IdeLayout() {
   const [aiPanelVisible, setAiPanelVisible] = useState(false);
   const { isPaletteOpen, openPalette } = useIde();
+  const { isPlatformDashboardOpen, closePlatformDashboard } = usePlatform();
 
   useEffect(() => {
     const handleKeyDown = (e: KeyboardEvent) => {
@@ -57,6 +59,11 @@ function IdeLayout() {
       <StatusBar />
       
       <CommandPalette onOpenAiPanel={() => setAiPanelVisible(true)} />
+
+      <PlatformDashboard
+        open={isPlatformDashboardOpen}
+        onClose={closePlatformDashboard}
+      />
     </div>
   );
 }

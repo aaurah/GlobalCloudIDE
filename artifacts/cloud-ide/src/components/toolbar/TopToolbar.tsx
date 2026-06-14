@@ -4,8 +4,9 @@ import { usePlatform } from "../../hooks/use-platform";
 import { Button } from "../ui/button";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "../ui/select";
 import { 
-  Terminal, Play, Square, Loader2, PanelRight, 
-  LogIn, LogOut, FolderOpen, Cloud, ChevronDown, User
+  Terminal, Play, Square, PanelRight, 
+  LogIn, LogOut, FolderOpen, ChevronDown, User, LayoutDashboard,
+  Search
 } from "lucide-react";
 import { AuthModal } from "../platform/AuthModal";
 import { ProjectManager } from "../platform/ProjectManager";
@@ -16,7 +17,7 @@ import {
 
 export function TopToolbar({ onToggleAiPanel }: { onToggleAiPanel: () => void }) {
   const { isRunning, setIsRunning, activeTabPath, tabs, addOutputLine, clearOutput } = useIde();
-  const { user, logout, currentProject, openProjectManager } = usePlatform();
+  const { user, logout, currentProject, openProjectManager, openPlatformDashboard } = usePlatform();
   const activeTab = tabs.find(t => t.path === activeTabPath);
   const [selectedLanguage, setSelectedLanguage] = useState(activeTab?.language || "node");
   const [authModalOpen, setAuthModalOpen] = useState(false);
@@ -139,34 +140,51 @@ export function TopToolbar({ onToggleAiPanel }: { onToggleAiPanel: () => void })
           )}
 
           {user ? (
-            <DropdownMenu>
-              <DropdownMenuTrigger asChild>
-                <Button variant="ghost" size="sm" className="h-7 px-2 text-xs gap-1.5">
-                  <div className="w-5 h-5 rounded-full bg-primary/20 flex items-center justify-center">
-                    <User className="h-3 w-3 text-primary" />
+            <>
+              {/* Platform Dashboard button */}
+              <Button
+                variant="ghost"
+                size="sm"
+                className="h-7 px-2 text-xs text-muted-foreground hover:text-foreground"
+                onClick={openPlatformDashboard}
+                title="Platform Dashboard"
+              >
+                <LayoutDashboard className="h-3.5 w-3.5" />
+              </Button>
+
+              <DropdownMenu>
+                <DropdownMenuTrigger asChild>
+                  <Button variant="ghost" size="sm" className="h-7 px-2 text-xs gap-1.5">
+                    <div className="w-5 h-5 rounded-full bg-primary/20 flex items-center justify-center">
+                      <User className="h-3 w-3 text-primary" />
+                    </div>
+                    <span className="hidden sm:inline text-muted-foreground max-w-[80px] truncate">
+                      {user.username}
+                    </span>
+                  </Button>
+                </DropdownMenuTrigger>
+                <DropdownMenuContent align="end" className="w-48">
+                  <div className="px-2 py-1.5">
+                    <p className="text-xs font-semibold">{user.username}</p>
+                    <p className="text-[10px] text-muted-foreground truncate">{user.email}</p>
                   </div>
-                  <span className="hidden sm:inline text-muted-foreground max-w-[80px] truncate">
-                    {user.username}
-                  </span>
-                </Button>
-              </DropdownMenuTrigger>
-              <DropdownMenuContent align="end" className="w-44">
-                <div className="px-2 py-1.5">
-                  <p className="text-xs font-semibold">{user.username}</p>
-                  <p className="text-[10px] text-muted-foreground truncate">{user.email}</p>
-                </div>
-                <DropdownMenuSeparator />
-                <DropdownMenuItem onClick={() => setProjectManagerOpen(true)}>
-                  <FolderOpen className="mr-2 h-3.5 w-3.5" />
-                  Projects
-                </DropdownMenuItem>
-                <DropdownMenuSeparator />
-                <DropdownMenuItem onClick={logout} className="text-red-400 focus:text-red-400">
-                  <LogOut className="mr-2 h-3.5 w-3.5" />
-                  Sign Out
-                </DropdownMenuItem>
-              </DropdownMenuContent>
-            </DropdownMenu>
+                  <DropdownMenuSeparator />
+                  <DropdownMenuItem onClick={() => setProjectManagerOpen(true)}>
+                    <FolderOpen className="mr-2 h-3.5 w-3.5" />
+                    Projects
+                  </DropdownMenuItem>
+                  <DropdownMenuItem onClick={openPlatformDashboard}>
+                    <LayoutDashboard className="mr-2 h-3.5 w-3.5" />
+                    Platform Dashboard
+                  </DropdownMenuItem>
+                  <DropdownMenuSeparator />
+                  <DropdownMenuItem onClick={logout} className="text-red-400 focus:text-red-400">
+                    <LogOut className="mr-2 h-3.5 w-3.5" />
+                    Sign Out
+                  </DropdownMenuItem>
+                </DropdownMenuContent>
+              </DropdownMenu>
+            </>
           ) : (
             <Button
               variant="outline"

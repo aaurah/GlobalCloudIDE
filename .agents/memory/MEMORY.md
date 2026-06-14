@@ -1,2 +1,3 @@
 - [Orval schemas conflict](orval-schemas-conflict.md) — removing `schemas` from the zod orval config fixes TS2308 duplicate export errors; barrel is auto-generated
 - [Express 5 wildcard routes](express5-wildcards.md) — use `/*splat` not `/*`; path-to-regexp 8 requires named captures in wildcard segments
+- [OpenAI tool_call type casting](openai-tool-call-cast.md) — cast rawCall as `{ id: string; function: { name: string; arguments: string } }` to bypass discriminated union TS errors when iterating tool_calls.

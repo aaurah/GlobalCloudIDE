@@ -23,6 +23,7 @@ interface PlatformState {
   token: string | null;
   currentProject: Project | null;
   isProjectManagerOpen: boolean;
+  isPlatformDashboardOpen: boolean;
 }
 
 interface PlatformActions {
@@ -32,6 +33,8 @@ interface PlatformActions {
   setCurrentProject: (project: Project | null) => void;
   openProjectManager: () => void;
   closeProjectManager: () => void;
+  openPlatformDashboard: () => void;
+  closePlatformDashboard: () => void;
 }
 
 const PlatformContext = createContext<(PlatformState & PlatformActions) | null>(null);
@@ -44,6 +47,7 @@ export function PlatformProvider({ children }: { children: React.ReactNode }) {
   const [isAuthLoading, setIsAuthLoading] = useState(false);
   const [currentProject, setCurrentProjectState] = useState<Project | null>(null);
   const [isProjectManagerOpen, setIsProjectManagerOpen] = useState(false);
+  const [isPlatformDashboardOpen, setIsPlatformDashboardOpen] = useState(false);
 
   useEffect(() => {
     if (!token) return;
@@ -120,6 +124,8 @@ export function PlatformProvider({ children }: { children: React.ReactNode }) {
 
   const openProjectManager = useCallback(() => setIsProjectManagerOpen(true), []);
   const closeProjectManager = useCallback(() => setIsProjectManagerOpen(false), []);
+  const openPlatformDashboard = useCallback(() => setIsPlatformDashboardOpen(true), []);
+  const closePlatformDashboard = useCallback(() => setIsPlatformDashboardOpen(false), []);
 
   return (
     <PlatformContext.Provider
@@ -129,12 +135,15 @@ export function PlatformProvider({ children }: { children: React.ReactNode }) {
         token,
         currentProject,
         isProjectManagerOpen,
+        isPlatformDashboardOpen,
         login,
         register,
         logout,
         setCurrentProject,
         openProjectManager,
         closeProjectManager,
+        openPlatformDashboard,
+        closePlatformDashboard,
       }}
     >
       {children}

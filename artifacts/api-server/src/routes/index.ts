@@ -10,6 +10,13 @@ import authRouter from "./platform/auth";
 import projectsRouter from "./platform/projects";
 import deployRouter from "./platform/deploy";
 import devopsRouter from "./platform/devops";
+import containersRouter from "./platform/containers";
+import nodesRouter from "./platform/nodes";
+import billingRouter from "./platform/billing";
+import teamsRouter from "./platform/teams";
+import pluginsRouter from "./platform/plugins";
+import marketplaceRouter from "./platform/marketplace";
+import searchRouter from "./platform/search";
 
 const router: IRouter = Router();
 
@@ -24,5 +31,12 @@ router.use(authRouter);
 router.use(projectsRouter);
 router.use(deployRouter);
 router.use(devopsRouter);
+router.use(containersRouter);
+router.use(nodesRouter);
+router.use(billingRouter);
+router.use(teamsRouter);
+router.use(pluginsRouter);
+router.use(marketplaceRouter);
+router.use(searchRouter);
 
 export default router;
