@@ -24,6 +24,11 @@ import healingRouter from "./platform/healing";
 import routingRouter from "./platform/routing";
 import observabilityRouter from "./platform/observability";
 import infragenRouter from "./platform/infragen";
+import environmentsRouter from "./platform/environments";
+import strategiesRouter from "./platform/strategies";
+import secretsRouter from "./platform/secrets";
+import pipelinesRouter from "./platform/pipelines";
+import releaseAiRouter from "./platform/release-ai";
 
 const router: IRouter = Router();
 
@@ -52,5 +57,10 @@ router.use(healingRouter);
 router.use(routingRouter);
 router.use(observabilityRouter);
 router.use(infragenRouter);
+router.use(releaseAiRouter);
+router.use(environmentsRouter);
+router.use(strategiesRouter);
+router.use(secretsRouter);
+router.use(pipelinesRouter);
 
 export default router;

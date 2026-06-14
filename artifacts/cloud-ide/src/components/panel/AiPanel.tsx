@@ -11,7 +11,7 @@ import {
   FileText, Rocket
 } from "lucide-react";
 import { MemoryPanel } from "./MemoryPanel";
-import { DeployPanel } from "../platform/DeployPanel";
+import { DeployConsole } from "../platform/DeployConsole";
 import { getListFilesQueryKey } from "@workspace/api-client-react";
 import { useQueryClient } from "@tanstack/react-query";
 
@@ -292,7 +292,7 @@ export function AiPanel({ isVisible }: { isVisible: boolean }) {
       </div>
 
       {aiPanelTab === "memory" && <MemoryPanel />}
-      {aiPanelTab === "deploy" && <DeployPanel />}
+      {aiPanelTab === "deploy" && <DeployConsole />}
 
       {aiPanelTab === "assistant" && (
         <>
