@@ -1,0 +1,19 @@
+[
+  {
+    "id": "local-0",
+    "name": "local-primary",
+    "url": null,
+    "status": "online",
+    "cpuPercent": 5.418244551890286,
+    "memoryMb": 34,
+    "memoryLimitMb": 2048,
+    "deployments": [],
+    "registeredAt": "2026-06-14T15:42:59.836Z",
+    "lastHeartbeat": "2026-06-14T15:42:59.839Z",
+    "region": "local",
+    "tags": [
+      "primary",
+      "local"
+    ]
+  }
+]

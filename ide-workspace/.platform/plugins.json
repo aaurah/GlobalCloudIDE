@@ -1,0 +1,36 @@
+[
+  {
+    "id": "markdown-preview",
+    "installedBy": []
+  },
+  {
+    "id": "git-integration",
+    "installedBy": [
+      "57509edf-29aa-4494-8a1f-817aba0be759"
+    ]
+  },
+  {
+    "id": "eslint-linter",
+    "installedBy": []
+  },
+  {
+    "id": "prettier-formatter",
+    "installedBy": []
+  },
+  {
+    "id": "code-snippets",
+    "installedBy": []
+  },
+  {
+    "id": "docker-compose",
+    "installedBy": []
+  },
+  {
+    "id": "rest-client",
+    "installedBy": []
+  },
+  {
+    "id": "database-explorer",
+    "installedBy": []
+  }
+]
