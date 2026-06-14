@@ -12,5 +12,12 @@
     "email": "test@example.com",
     "passwordHash": "$2b$10$cpir0iBhssVg65.DH4Ae6OmKUt1GmCWyKVXZgYQnbPgnmq1WtX5Eq",
     "createdAt": "2026-06-14T16:41:10.404Z"
+  },
+  {
+    "id": "215ec13d-f035-498c-befe-b6c517c6ece4",
+    "username": "trialtest_1781455590",
+    "email": "trial_1781455590@test.com",
+    "passwordHash": "$2b$10$ullao/Hp12384U0Nbdj7lusJn.N.NEZtQEJNlThRjytn/zQ/ZYFKC",
+    "createdAt": "2026-06-14T16:46:30.666Z"
   }
 ]

@@ -8,6 +8,7 @@ import { BottomPanel } from "./components/panel/BottomPanel";
 import { AiPanel } from "./components/panel/AiPanel";
 import { CommandPalette } from "./components/palette/CommandPalette";
 import { PlatformDashboard } from "./components/platform/PlatformDashboard";
+import { TrialBanner } from "./components/platform/TrialBanner";
 
 // Mobile components
 import { MobileBottomNav, type MobileView } from "./components/mobile/MobileBottomNav";
@@ -117,6 +118,7 @@ function IdeLayout() {
       <div className="flex flex-col h-[100dvh] w-full overflow-hidden bg-background text-foreground">
         {/* Offline banner — above everything */}
         <OfflineBanner pendingCount={pendingCount} isSyncing={isSyncing} />
+        <TrialBanner />
 
         {/* Compact toolbar */}
         <TopToolbar
@@ -193,6 +195,7 @@ function IdeLayout() {
   // ── Desktop layout ─────────────────────────────────────────────
   return (
     <div className="flex flex-col h-[100dvh] w-full overflow-hidden bg-background text-foreground selection:bg-primary/30">
+      <TrialBanner />
       <TopToolbar onToggleAiPanel={() => setAiPanelVisible(!aiPanelVisible)} />
       
       <div className="flex-1 flex flex-row min-h-0 overflow-hidden">

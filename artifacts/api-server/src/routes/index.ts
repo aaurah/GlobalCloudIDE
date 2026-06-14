@@ -29,6 +29,7 @@ import strategiesRouter from "./platform/strategies";
 import secretsRouter from "./platform/secrets";
 import pipelinesRouter from "./platform/pipelines";
 import releaseAiRouter from "./platform/release-ai";
+import trialRouter from "./platform/trial";
 import adminRouter from "./admin/index";
 
 const router: IRouter = Router();
@@ -59,6 +60,7 @@ router.use(routingRouter);
 router.use(observabilityRouter);
 router.use(infragenRouter);
 router.use(releaseAiRouter);
+router.use(trialRouter);
 router.use(environmentsRouter);
 router.use(strategiesRouter);
 router.use(secretsRouter);

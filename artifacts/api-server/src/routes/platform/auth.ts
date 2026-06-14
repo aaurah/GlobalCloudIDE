@@ -146,6 +146,12 @@ router.post("/auth/register", async (req, res) => {
     users.push(user);
     await writeUsers(users);
 
+    // Initialize free AI trial for every new user
+    try {
+      const { initializeUserTrial } = await import("./trial");
+      await initializeUserTrial(user.id);
+    } catch {}
+
     const token = signToken(user.id);
     res.status(201).json({
       token,

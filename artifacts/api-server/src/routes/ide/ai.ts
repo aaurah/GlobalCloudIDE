@@ -1,6 +1,8 @@
 import { Router } from "express";
 import OpenAI from "openai";
 import { AiAssistBody } from "@workspace/api-zod";
+import { getAuthUser } from "../platform/auth";
+import { checkAndDeductAiCredits } from "../platform/trial";
 
 const router = Router();
 
@@ -57,6 +59,21 @@ router.post("/ai", async (req, res) => {
   }
 
   const { action, code, prompt, language, filename } = parsed.data;
+
+  // Trial / quota enforcement — authenticated users only
+  const userId = getAuthUser(req.headers.authorization);
+  if (userId) {
+    const check = await checkAndDeductAiCredits(userId, "ide-ai", `IDE AI: ${action}`);
+    if (!check.allowed) {
+      res.status(402).json({
+        error: check.message ?? "AI quota exhausted.",
+        code: check.code ?? "TRIAL_EXHAUSTED",
+        remaining: check.remaining,
+        upgradeUrl: "/api/trial/upgrade-info",
+      });
+      return;
+    }
+  }
 
   res.setHeader("Content-Type", "text/event-stream");
   res.setHeader("Cache-Control", "no-cache");
