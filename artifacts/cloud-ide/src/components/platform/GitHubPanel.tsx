@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useCallback } from "react";
-import { useAuth } from "../../hooks/use-auth";
+import { usePlatform } from "../../hooks/use-platform";
 import {
   Github, RefreshCw, GitBranch, GitCommit, GitPullRequest,
   Upload, Download, Link, Unlink, Search, Star, Lock,
@@ -85,7 +85,7 @@ function RelTime({ iso }: { iso: string }) {
 // ── Main component ────────────────────────────────────────────────────────────
 
 export function GitHubPanel() {
-  const { token } = useAuth();
+  const { token } = usePlatform();
 
   const [panel, setPanel] = useState<Panel>("connect");
   const [loading, setLoading] = useState(false);
